@@ -1,0 +1,77 @@
+﻿@page "/"
+@page "/home"
+
+
+<div class="bg-light text-dark py-4">
+
+    <div class="container">
+        <h3 class="mb-3">Find the perfect room</h3>
+
+        <div class="border border-dark p-4">
+
+            <form>
+
+                <div class="form-group row">
+                    <label for="inlineFormCustomSelect" class="col-sm-2 col-form-label">Room category:</label>
+                    <select class="form-control col-sm-10" id="inlineFormCustomSelect">
+                        <option selected>Choose category</option>
+                        <option value="1">Single</option>
+                        <option value="2">Double</option>
+                        <option value="3">Triple</option>
+                        <option value="4">Queen</option>
+                        <option value="5">King</option>
+                        <option value="6">King</option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="checkInDate" class="col-sm-2 col-form-label">Check-in:</label>
+                    <input type="date" min="2021-05-20" value="2021-05-20" class="form-control col-sm-10" id="checkInDate">
+                </div>
+
+                <div class="form-group row">
+                    <label for="checkOutDate" class="col-sm-2 col-form-label">Check-out:</label>
+                    <input type="date" min="2021-05-20" value="2021-05-23" class="form-control col-sm-10" id="checkOutDate">
+                </div>
+
+                <div class="form-group row">
+                    <label for="personsNumber" class="col-sm-2 col-form-label">Persons number:</label>
+                    <input type="number" min="1" max="10" value="1" class="form-control col-sm-10" id="personsNumber">
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-dark">Search</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <h3 class="my-3">Rooms clients love</h3>
+
+    <div class="row">
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <a href="#" class="col-md-3 shadow-sm p-3 my-3 bg-white rounded text-dark" style="text-decoration: none;">
+                <div class="card my-3">
+                    <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src="images/109169996.jpg" alt="Room name">
+                    <div class="p-2">
+                        <p class="font-weight-bold text-primary mb-2">Room name</p>
+                        <p class="my-1">Starting from 120 lei</p>
+                        <p class="my-1">Rating: 9.3</p>
+                    </div>
+                </div>
+            </a>
+        }
+
+    </div>
+
+</div>
+
+@code {
+
+}

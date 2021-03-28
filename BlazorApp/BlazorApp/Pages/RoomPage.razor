@@ -1,0 +1,13 @@
+﻿@page "/room/{Id:int}"
+
+
+<div class="container">
+    <h3>RoomPage with id: @Id</h3>
+
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+}
