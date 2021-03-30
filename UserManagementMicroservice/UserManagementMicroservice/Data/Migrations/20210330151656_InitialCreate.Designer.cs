@@ -8,7 +8,7 @@ using UserManagementMicroservice.Data;
 namespace UserManagementMicroservice.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210329171047_InitialCreate")]
+    [Migration("20210330151656_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,11 +19,12 @@ namespace UserManagementMicroservice.Data.Migrations
 
             modelBuilder.Entity("UserManagementMicroservice.Entities.User", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
@@ -31,7 +32,7 @@ namespace UserManagementMicroservice.Data.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Email");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

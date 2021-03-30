@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-
 using UserManagementMicroservice.Entities;
 
 namespace UserManagementMicroservice.Data
@@ -15,5 +14,11 @@ namespace UserManagementMicroservice.Data
         public DbSet<User> Users { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                        .Property(user => user.Id)
+                        .ValueGeneratedOnAdd();
+        }
     }
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace UserManagementMicroservice.Utils
+﻿namespace UserManagementMicroservice.Utils
 {
     public class Error
     {
-        public Error(string _error_info)
+        public Error(string errorMessage)
         {
-            error_info = _error_info;
+            this.ErrorMessage = errorMessage;
         }
-        public string error_info { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

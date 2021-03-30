@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using UserManagementMicroservice.Data;
 using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
@@ -20,16 +20,19 @@ namespace UserManagementMicroservice.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> Get() => _repository.GetAll().ToList();
+        public async Task<IEnumerable<User>> GetAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
 
         [HttpGet("{id}", Name = "GetById")]
-        public ActionResult<User> GetById(int id) => _repository.GetById(id);
+        public async Task<User> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         [Route("register")]
         [HttpPost]
-        public IActionResult Register(string username, string email, string password)
+        public async Task<IActionResult> RegisterAsync(string username, string email, string password)
         {
-            int result = _repository.Register(username, email, password);
+            var result = await _repository.RegisterAsync(username, email, password);
             if(result == -2)    
             {
                 return Conflict(new Error("Email already exists"));
@@ -43,9 +46,9 @@ namespace UserManagementMicroservice.Controllers
 
         [Route("login")]
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public async Task<IActionResult> LoginAsync(string email, string password)
         {
-            if(_repository.Login(email, password))
+            if(await _repository.LoginAsync(email, password))
             {
                 return Ok();
             }
@@ -54,25 +57,25 @@ namespace UserManagementMicroservice.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(User user)
+        public async Task<IActionResult> UpdateAsync(User user)
         {
-            int result = _repository.Update(user);
-            if(result == -1)
+            bool isUpdated = await _repository.UpdateAsync(user);
+            if(!isUpdated)
             {
                 return NotFound(new Error("User doesn't exist"));
             }
             return NoContent();
         }
         [HttpDelete]
-        public IActionResult Delete(string email)
-        {
-            int result = _repository.DeleteById(email);
-            if(result == -1)
+        public async Task DeleteAsync(int id) => await _repository.DeleteByIdAsync(id);
+        /*{
+            bool isDeleted = await _repository.DeleteByEmailAsync(id);
+            if(!isDeleted)
             {
                 return NotFound(new Error("User doesn't exist"));
             }
             return NoContent();
 
-        }
+        }*/
     }
 }

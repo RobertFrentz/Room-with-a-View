@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserManagementMicroservice.Entities;
 
@@ -11,12 +7,11 @@ namespace UserManagementMicroservice.Data
 
     public interface IUsersRepository
     {
-        int Register(string username, string email, string password);
-        bool Login(string email, string password);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
-        void Remove(User user);
-        int Update(User user);
-        int DeleteById(string id);
+        Task<int> RegisterAsync(string username, string email, string password);
+        Task<bool> LoginAsync(string email, string password);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User> GetByIdAsync(int id);
+        Task<bool> UpdateAsync(User user);
+        Task DeleteByIdAsync(int id);
     }
 }

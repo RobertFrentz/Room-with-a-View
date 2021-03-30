@@ -1,8 +1,4 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
-
-namespace UserManagementMicroservice.Entities
+﻿namespace UserManagementMicroservice.Entities
 {
     public class User
     {
@@ -17,7 +13,6 @@ namespace UserManagementMicroservice.Entities
 
         public int Id { get; set; }
         public string Username { get; set; }
-        [Key]
         public string Email { get; set; }
         public string Password { get; set; }
     }
