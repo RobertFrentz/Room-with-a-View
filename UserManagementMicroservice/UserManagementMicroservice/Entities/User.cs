@@ -2,7 +2,10 @@
 {
     public class User
     {
+        public User()
+        {
 
+        }
         public User(int Id, string username, string email, string password)
         {
             this.Id = Id;

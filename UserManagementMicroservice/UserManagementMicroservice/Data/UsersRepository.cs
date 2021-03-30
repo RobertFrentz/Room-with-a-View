@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagementMicroservice.Entities;
+using UserManagementMicroservice.Utils;
 
 namespace UserManagementMicroservice.Data
 {
@@ -21,31 +22,42 @@ namespace UserManagementMicroservice.Data
             {
                 return -1;
             }
-            if(this.context.Users.Any(user => user.Email == email))
+            if(this.context.Users.Any(user => user.Email == Cryptography.HashString(email)))
             {
                 return -2;
             }
-            this.context.Add(new User(0, username, email, password));
+            User registerUser= new User(0, username, email, password);
+            this.context.Add(Cryptography.HashUserData(registerUser));
             await this.context.SaveChangesAsync();
             return 1;
         }
 
-        public async Task<bool> LoginAsync(string email, string password)
+        public async Task<string> LoginAsync(string email, string password)
         {
-            var user = await this.context.Users.Where(user => user.Email == email && user.Password == password).FirstOrDefaultAsync();
+            var user = await this.context.Users.Where(user => user.Email == Cryptography.HashString(email) 
+                                          && user.Password == Cryptography.HashString(password)).FirstOrDefaultAsync();
             if (user == null)
             {
-                return false;
+                return "false";
             }
-            return true;
+            return Jwt.CreateJWT(user.Id,1);
 
         }
 
-        public async Task<bool> UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(User user,string authentification_Token)
         {
-            if(!this.context.Users.Any(userDatabase => userDatabase.Email == user.Email))
+            string decodeAuth = Jwt.CheckJWT(authentification_Token);
+            if(decodeAuth.Equals("Token has expired") || decodeAuth.Equals("Token has invalid signature"))
             {
                 return false;
+            }
+            else
+            {
+                int userId = Jwt.ExtractUserId(decodeAuth);
+                if (this.context.Users.Find(userId)==null)
+                {
+                    return false;
+                }
             }
             this.context.Update(user);
             await this.context.SaveChangesAsync();
