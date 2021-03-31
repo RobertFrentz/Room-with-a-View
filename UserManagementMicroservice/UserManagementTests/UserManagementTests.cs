@@ -12,7 +12,7 @@ using System;
 using Xunit;
 using UserManagementMicroservice.Controllers;
 using Assert = Xunit.Assert;
-
+using System.Linq;
 
 namespace UserManagementTests
 {
@@ -43,7 +43,7 @@ namespace UserManagementTests
             }
         }
         [Fact]
-        public async Task GetExistingUsers_ReturnAIEnurambleOfRegisteredUsersAsync()
+        public async Task GetAllExistingUsers_ReturnAIEnurambleOfRegisteredUsersAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "GetUsersDataBase")
@@ -55,16 +55,12 @@ namespace UserManagementTests
             UsersController usersController = new UsersController(new UsersRepository(context));
 
             var result = await usersController.GetAsync();
-            int i = 1;
-            foreach(var item in result)
-            {
-                Assert.Equal(GetTestUser(i).Id, item.Id);
-                i = 2;
-            }
+            Assert.Equal(GetTestUser(1).Id, result.ElementAt(0).Id);
+            Assert.Equal(GetTestUser(2).Id, result.ElementAt(1).Id);
         }
 
         [Fact]
-        public async Task GetExistingUser_ReturnASpecifiedUserByIdAsync()
+        public async Task GetExistingUserById_ReturnASpecifiedUserByIdAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "GetUserSpecifiedDataBase")
@@ -81,17 +77,11 @@ namespace UserManagementTests
 
             Assert.Equal(GetTestUser(1).Id,user1.Id);
             Assert.Equal(GetTestUser(2).Id,user2.Id);
-            /*Assert.Equal("Test One", user1.Username);
-            Assert.Equal(Cryptography.HashString("123"), user1.Password);
-            Assert.Equal(Cryptography.HashString("has@gmail.com"), user1.Email);*/
-            /*Assert.Equal("Test Two", user2.Username);
-            Assert.Equal(Cryptography.HashString("123"), user2.Password);
-            Assert.Equal(Cryptography.HashString("mist@gmail.com"), user2.Email);*/
         }
 
 
         [Fact]
-        public async Task UpdatingAnExistingUser_JWTInvalid_ReturnNotFoundObjectResult()
+        public async Task UpdatingNonExistingUser_ReturnNotFoundObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "PutUserSpecifiedDataBase")
@@ -113,7 +103,7 @@ namespace UserManagementTests
         }
 
         [Fact]
-        public async Task DeleteExistingUser_GetThatUserById_ReturnNull()
+        public async Task DeleteExistingUser_GetThatUserById_ReturnNullAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "DeleteUsersDataBase")
@@ -136,7 +126,7 @@ namespace UserManagementTests
         }
 
         [Fact]
-        public async Task RegisterNotExistingUser_WithValidCredentials_ReturnOkResult()
+        public async Task RegisterNotExistingUser_WithValidCredentials_ReturnOkResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "PostUsersDataBase")
@@ -154,13 +144,12 @@ namespace UserManagementTests
         }
 
         [Fact]
-        public async Task LoginExistingUser_WithCorrectCredentials_ReturnOkObjectResult()
+        public async Task LoginExistingUser_WithCorrectCredentials_ReturnOkObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "LoginUsersDataBase")
                               .Options;
             var context = new DataContext(options);
-
             UsersController usersController = new UsersController(new UsersRepository(context));
 
             context.Add(new User()
@@ -179,7 +168,7 @@ namespace UserManagementTests
         }
 
         [Fact]
-        public async Task LoginNonExistingUser_ReturnNotFoundObjectResult()
+        public async Task LoginNonExistingUser_ReturnNotFoundObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "LoginUsersDataBase")
@@ -195,12 +184,12 @@ namespace UserManagementTests
                 Password = Cryptography.HashString("123")
             });
             context.SaveChanges();
-            var result2 = await usersController.LoginAsync(new UserCredentials()
+            var result = await usersController.LoginAsync(new UserCredentials()
             {
                 Email = "notdexter@gmail.com",
                 Password = "otherpassword"
             });
-            Assert.IsType<NotFoundObjectResult>(result2);
+            Assert.IsType<NotFoundObjectResult>(result);
         }
     }
 }
