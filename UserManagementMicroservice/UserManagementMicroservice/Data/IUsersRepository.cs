@@ -7,8 +7,8 @@ namespace UserManagementMicroservice.Data
 
     public interface IUsersRepository
     {
-        Task<int> RegisterAsync(string username, string email, string password);
-        Task<string> LoginAsync(string email, string password);
+        Task<int> RegisterAsync(UserRegister userRegister);
+        Task<string> LoginAsync(UserCredentials userCredentials);
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
         Task<bool> UpdateAsync(User user,string authentification_Token);

@@ -33,9 +33,9 @@ namespace UserManagementMicroservice.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync(string username, string email, string password)
+        public async Task<IActionResult> RegisterAsync([FromBody] UserRegister userRegister)
         {
-            var result = await _repository.RegisterAsync(username, email, password);
+            var result = await _repository.RegisterAsync(userRegister);
             if(result==-2)    
             {
                 return Conflict(new Error("Email already exists"));
@@ -49,9 +49,9 @@ namespace UserManagementMicroservice.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(string email, string password)
+        public async Task<IActionResult> LoginAsync([FromBody] UserCredentials userCredentials)
         {
-            var result = await _repository.LoginAsync(email, password);
+            var result = await _repository.LoginAsync(userCredentials);
             if (!result.Equals("false"))
             {
                 return Ok(result);
