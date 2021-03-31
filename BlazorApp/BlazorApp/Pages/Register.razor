@@ -1,6 +1,6 @@
 ﻿@page "/register"
 @inject NavigationManager NavigationManager
-
+@inject HttpClient Http
 
 <div class="container">
 
@@ -11,37 +11,37 @@
         </div>
 
         <div class="card-body bg-dark" style="min-height: 320px">
-            <form class="needs-validation">
+            <form class="needs-validation" onsubmit="return false">
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input type="Email" class="form-control" placeholder="Email" required>
+                    <input type="Email" class="form-control" placeholder="Email" required @bind="email">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" required>
+                    <input type="text" class="form-control" placeholder="Username" required @bind="username">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password" required>
+                    <input type="password" class="form-control" placeholder="Password" required @bind="password">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
-                <div class="input-group form-group">
+                <!--<div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-check"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password confirmation" required>
+                    <input type="password" class="form-control" placeholder="Password confirmation" required @bind="confirmPassword">
                     <div class="invalid-feedback">Please fill out this field!</div>
-                </div>
+                </div>-->
                 <div class="form-group d-flex justify-content-end">
-                    <input type="submit" value="Sign Up" class="btn btn-light">
+                    <input type="submit" value="Sign Up" class="btn btn-light" @onclick='(() => AddUser())'>
                 </div>
             </form>
         </div>
@@ -57,5 +57,61 @@
 </div>
 
 @code {
+    private string email;
+    private string password;
+    private string confirmPassword;
+    private string username;
+    bool registerError;
+    string registerErrorMessage;
+    bool isUserLoggedIn;
 
+    public string LoginMesssage { get; set; }
+    private bool loading;
+
+    private async Task AddUser()
+    {
+        string apiUrl = "http://localhost:60094/api/v1/users/register";
+        Console.WriteLine(username);
+        Console.WriteLine(password);
+        Console.WriteLine(email);
+
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
+string.IsNullOrWhiteSpace(password))
+        {
+            return;
+        }
+
+        User addUser = new User { Username = username, Email = email, Password = password };
+
+        var httpResponse = await Http.PostAsJsonAsync(apiUrl, addUser);
+
+        Console.WriteLine("Sunt aici");
+
+
+        RegisterError registerErrorObj;
+        if ((int)httpResponse.StatusCode != 200)
+        {
+            Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
+            registerErrorObj = await httpResponse.Content.ReadFromJsonAsync<RegisterError>();
+            registerError = true;
+            registerErrorMessage = registerErrorObj.error_info;
+            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {registerErrorObj.error_info}");
+            return;
+        }
+
+
+        NavigationManager.NavigateTo("/login", true);
+    }
+
+    private class User
+    {
+        public string Email { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class RegisterError
+    {
+        public string error_info { get; set; }
+    }
 }
