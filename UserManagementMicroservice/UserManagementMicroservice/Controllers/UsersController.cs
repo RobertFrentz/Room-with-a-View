@@ -72,14 +72,5 @@ namespace UserManagementMicroservice.Controllers
         }
         [HttpDelete]
         public async Task DeleteAsync(int id) => await _repository.DeleteByIdAsync(id);
-        /*{
-            bool isDeleted = await _repository.DeleteByEmailAsync(id);
-            if(!isDeleted)
-            {
-                return NotFound(new Error("User doesn't exist"));
-            }
-            return NoContent();
-
-        }*/
     }
 }

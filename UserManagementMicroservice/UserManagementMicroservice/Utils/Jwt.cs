@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace UserManagementMicroservice.Utils
 {
-    public class Jwt
+    public static class Jwt
     {
         public static string CreateJWT(int userId, int time)
         {
