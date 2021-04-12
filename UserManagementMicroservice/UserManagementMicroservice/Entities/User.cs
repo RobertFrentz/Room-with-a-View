@@ -6,6 +6,13 @@
         {
 
         }
+        public User(string username, string email, string password)
+        {
+            Username = username;
+            Email = email;
+            Password = password;
+        }
+
         public User(int Id, string username, string email, string password)
         {
             this.Id = Id;

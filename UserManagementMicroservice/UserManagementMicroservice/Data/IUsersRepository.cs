@@ -8,10 +8,10 @@ namespace UserManagementMicroservice.Data
     public interface IUsersRepository
     {
         Task<int> RegisterAsync(UserRegister userRegister);
-        Task<string> LoginAsync(UserCredentials userCredentials);
+        Task<int> LoginAsync(UserCredentials userCredentials);
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
-        Task<bool> UpdateAsync(User user,string authentification_Token);
+        Task<bool> UpdateAsync(UserRegister user, int userId);
         Task DeleteByIdAsync(int id);
     }
 }

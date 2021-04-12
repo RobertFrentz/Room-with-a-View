@@ -45,6 +45,15 @@ namespace UserManagementMicroservice.Utils
             return json;
         }
 
+        public static bool IsValidJWT(string jwt)
+        {
+            if(jwt == "Token has expired" || jwt == "Token has invalid signature")
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static int ExtractUserId(string jwt)
         {
             string claims = jwt.Split(',').ToList()[1].Split(':').ToList()[1];

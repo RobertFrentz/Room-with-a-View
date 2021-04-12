@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using UserManagementMicroservice.Data;
 using UserManagementMicroservice.Entities;
@@ -9,7 +9,7 @@ using UserManagementMicroservice.Utils;
 namespace UserManagementMicroservice.Controllers
 {
 
-    //test purpose eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjU3NzEzMTUsInVzZXJJZCI6MTZ9.RTfIz_1iMCIXswwXVaw9lCV8Y-hfk_gGsaDMGyENXrs
+    //user with id = 16 and JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjU3NzEzMTUsInVzZXJJZCI6MTZ9.RTfIz_1iMCIXswwXVaw9lCV8Y-hfk_gGsaDMGyENXrs
 
     [Route("api/v1/users")]
     [ApiController]
@@ -23,54 +23,104 @@ namespace UserManagementMicroservice.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<User>> GetAsync()
+        public async Task<IActionResult> GetAllAsync([FromHeader] string authorizationToken)
         {
-            return await _repository.GetAllAsync();
+            var result = Jwt.CheckJWT(authorizationToken);
+            if (Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            var response = await _repository.GetAllAsync();
+            return Ok(response);
         }
 
-        [HttpGet("{id}", Name = "GetById")]
-        public async Task<User> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);
+        [Route("user")]
+        [HttpGet]
+        public async Task<IActionResult> GetAsync([FromHeader] string authorizationToken)
+        {
+            var result = Jwt.CheckJWT(authorizationToken);
+            if (Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            var response = await _repository.GetByIdAsync(Jwt.ExtractUserId(result));
+            return Ok(response);
+        }
+
+        [Route("username")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsernameAsync([FromHeader] string authorizationToken)
+        {
+            var result = Jwt.CheckJWT(authorizationToken);
+            if(Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            var user = await _repository.GetByIdAsync(Jwt.ExtractUserId(result));
+            if(user == null)
+            {
+                return NotFound(new Error("User doesnt't exist"));
+            }
+            return Ok(JsonConvert.SerializeObject(new { username = user.Username }));
+        }
 
         [Route("register")]
         [HttpPost]
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegister userRegister)
         {
             var result = await _repository.RegisterAsync(userRegister);
-            if(result==-2)    
+            if(result == -2)    
             {
                 return Conflict(new Error("Email already exists"));
             }
-            if(result==-1)   
+            if(result == -1)   
             {
                 return Conflict(new Error("Username already exists"));
             }
-            return Ok();
+            return CreatedAtAction("register", userRegister);
         }
 
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> LoginAsync([FromBody] UserCredentials userCredentials)
         {
-            var result = await _repository.LoginAsync(userCredentials);
-            if (!result.Equals("false"))
+            var userId = await _repository.LoginAsync(userCredentials);
+            if (userId == -1)
             {
-                return Ok(result);
+                return BadRequest(new Error("Email or password invalid"));
             }
-            return NotFound(new Error("Email or password invalid"));
+            return Ok(JsonConvert.SerializeObject(new { jwt = Jwt.CreateJWT(userId, 1) }));
+            
             
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] User user,[FromHeader] string authentification_Token)
+        public async Task<IActionResult> UpdateAsync([FromBody] UserRegister user,[FromHeader] string authenticationToken)
         {
-            bool isUpdated = await _repository.UpdateAsync(user, authentification_Token);
+            var result = Jwt.CheckJWT(authenticationToken);
+            if (Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            bool isUpdated = await _repository.UpdateAsync(user, Jwt.ExtractUserId(result));
             if(!isUpdated)
             {
                 return NotFound(new Error("User doesn't exist"));
             }
             return NoContent();
         }
+
         [HttpDelete]
-        public async Task DeleteAsync(int id) => await _repository.DeleteByIdAsync(id);
+        public async Task<IActionResult> DeleteAsync([FromHeader] string authenticationToken) 
+        {
+            var result = Jwt.CheckJWT(authenticationToken);
+            if (Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            await _repository.DeleteByIdAsync(Jwt.ExtractUserId(result));
+            return NoContent();
+            
+        } 
     }
 }

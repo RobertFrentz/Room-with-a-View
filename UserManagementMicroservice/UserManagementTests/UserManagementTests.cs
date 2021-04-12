@@ -1,14 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UserManagementMicroservice.Data;
 using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
 using System.Threading.Tasks;
-using UserManagementMicroservice;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using Xunit;
 using UserManagementMicroservice.Controllers;
 using Assert = Xunit.Assert;

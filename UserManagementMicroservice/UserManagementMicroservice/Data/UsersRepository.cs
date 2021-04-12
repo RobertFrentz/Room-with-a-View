@@ -27,43 +27,36 @@ namespace UserManagementMicroservice.Data
             {
                 return -2;
             }
-            User registerUser= new User(0, userRegister.Username, userRegister.Email, userRegister.Password);
+            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password);
             this.context.Add(Cryptography.HashUserData(registerUser));
             await this.context.SaveChangesAsync();
             return 1;
         }
 
-        public async Task<string> LoginAsync(UserCredentials userCredentials)
+        public async Task<int> LoginAsync(UserCredentials userCredentials)
         {
             var user = await this.context.Users.Where(user => user.Email == Cryptography.HashString(userCredentials.Email) 
                                           && user.Password == Cryptography.HashString(userCredentials.Password)).FirstOrDefaultAsync();
             if (user == null)
             {
-                return "false";
+                return -1;
             }
-            var token = JsonConvert.SerializeObject(new{jwt=Jwt.CreateJWT(user.Id, 1) });
-            return token;
+            return user.Id;
 
         }
 
-        public async Task<bool> UpdateAsync(User user,string authentification_Token)
+        public async Task<bool> UpdateAsync(UserRegister user, int userId)
         {
-            string decodeAuth = Jwt.CheckJWT(authentification_Token);
-            if(decodeAuth.Equals("Token has expired") || decodeAuth.Equals("Token has invalid signature"))
-            {
-                return false;
-            }
-            else
-            {
-                int userId = Jwt.ExtractUserId(decodeAuth);
-                if (this.context.Users.Find(userId)==null)
-                {
-                    return false;
-                }
-            }
-            this.context.Update(user);
-            await this.context.SaveChangesAsync();
-            return true;
+          var result = this.context.Users.Find(userId);
+          if (result == null)
+          {
+             return false;
+          }
+          result.Username = user.Username ?? result.Username;
+          result.Email = Cryptography.HashString(user.Email) ?? result.Email;
+          result.Password = Cryptography.HashString(user.Password) ?? result.Password;
+          await this.context.SaveChangesAsync();
+          return true;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
