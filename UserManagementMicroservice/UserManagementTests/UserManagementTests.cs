@@ -8,6 +8,7 @@ using Xunit;
 using UserManagementMicroservice.Controllers;
 using Assert = Xunit.Assert;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace UserManagementTests
 {
@@ -44,14 +45,16 @@ namespace UserManagementTests
                               .UseInMemoryDatabase(databaseName: "GetUsersDataBase")
                               .Options;
             var context = new DataContext(options);
+            var jwt = Jwt.CreateJWT(GetTestUser(1).Id, 1);
             context.Add(GetTestUser(1));
             context.Add(GetTestUser(2));
             context.SaveChanges();
             UsersController usersController = new UsersController(new UsersRepository(context));
 
-            var result = await usersController.GetAsync();
-            Assert.Equal(GetTestUser(1).Id, result.ElementAt(0).Id);
-            Assert.Equal(GetTestUser(2).Id, result.ElementAt(1).Id);
+            var result = await usersController.GetAllAsync(jwt) as OkObjectResult;
+            var users = result.Value as IEnumerable<User>;
+            Assert.Equal(GetTestUser(1).Id, users.ElementAt(0).Id);
+            Assert.Equal(GetTestUser(2).Id, users.ElementAt(1).Id);
         }
 
         [Fact]
@@ -61,22 +64,21 @@ namespace UserManagementTests
                               .UseInMemoryDatabase(databaseName: "GetUserSpecifiedDataBase")
                               .Options;
             var context = new DataContext(options);
+            var jwt = Jwt.CreateJWT(GetTestUser(1).Id, 1);
             context.Add(GetTestUser(1));
-            context.Add(GetTestUser(2));
             context.SaveChanges();
 
             UsersController usersController = new UsersController(new UsersRepository(context));
 
-            var user1 = await usersController.GetByIdAsync(1);
-            var user2 = await usersController.GetByIdAsync(2);
+            var result = await usersController.GetAsync(jwt) as OkObjectResult;
+            var user1 = result.Value as User;
 
             Assert.Equal(GetTestUser(1).Id,user1.Id);
-            Assert.Equal(GetTestUser(2).Id,user2.Id);
         }
 
 
         [Fact]
-        public async Task UpdatingNonExistingUser_ReturnNotFoundObjectResultAsync()
+        public async Task UpdatingExistingUser_ReturnNoContentResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "PutUserSpecifiedDataBase")
@@ -84,16 +86,12 @@ namespace UserManagementTests
             var context = new DataContext(options);
 
             UsersController usersController = new UsersController(new UsersRepository(context));
-            context.Add(new User()
-            {
-                Username = "Mirel",
-                Password = Cryptography.HashString("123"),
-                Email = Cryptography.HashString("has@gmail.com")
-            });
+            var jwt = Jwt.CreateJWT(GetTestUser(1).Id, 1);
+            context.Add(GetTestUser(1));
             context.SaveChanges();
-            User user1 = new() { Username = "Dorel", Password = "123", Email = "has@gmail.com" };
-            var requestForUser1 = await usersController.UpdateAsync(user1, AdminJWT);
-            Assert.IsType<NotFoundObjectResult>(requestForUser1);
+            UserRegister user1 = new() { Username = "Dorel", Password = "123", Email = "has@gmail.com" };
+            var requestForUser1 = await usersController.UpdateAsync(user1, jwt);
+            Assert.IsType<NoContentResult>(requestForUser1);
 
         }
 
@@ -106,22 +104,16 @@ namespace UserManagementTests
             var context = new DataContext(options);
 
             UsersController usersController = new UsersController(new UsersRepository(context));
-
-            context.Add(new User()
-            {
-                Id = 1,
-                Username = "Mitica",
-                Email = Cryptography.HashString("mitica@gmail.com"),
-                Password = Cryptography.HashString("123")
-            });
+            var jwt = Jwt.CreateJWT(GetTestUser(1).Id, 1);
+            context.Add(GetTestUser(1));
             context.SaveChanges();
-            await usersController.DeleteAsync(1);
-            var user = await usersController.GetByIdAsync(1);
-            Assert.Null(user);
+            await usersController.DeleteAsync(jwt);
+            var user = await usersController.GetAsync(jwt);
+            Assert.IsType<OkObjectResult>(user);
         }
 
         [Fact]
-        public async Task RegisterNotExistingUser_WithValidCredentials_ReturnOkResultAsync()
+        public async Task RegisterNotExistingUser_WithValidCredentials_ReturnCreatedAtActionResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "PostUsersDataBase")
@@ -135,56 +127,48 @@ namespace UserManagementTests
                 Email = "andrei1@gmail.com",
                 Password = "1234"
             });
-            Assert.IsType<OkResult>(result);
+            Assert.IsType<CreatedAtActionResult>(result);
         }
 
         [Fact]
         public async Task LoginExistingUser_WithCorrectCredentials_ReturnOkObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
-                              .UseInMemoryDatabase(databaseName: "LoginUsersDataBase")
+                              .UseInMemoryDatabase(databaseName: "LoginUsersDataBase1")
                               .Options;
             var context = new DataContext(options);
             UsersController usersController = new UsersController(new UsersRepository(context));
 
-            context.Add(new User()
-            {
-                Username = "Dexter",
-                Email = Cryptography.HashString("dexter@gmail.com"),
-                Password = Cryptography.HashString("123")
-            });
+            context.Add(GetTestUser(1));
             context.SaveChanges();
+
             var result1 = await usersController.LoginAsync(new UserCredentials()
             {
-                Email= "dexter@gmail.com",
+                Email= "has@gmail.com",
                 Password =  "123"
             });
             Assert.IsType<OkObjectResult>(result1);
         }
 
         [Fact]
-        public async Task LoginNonExistingUser_ReturnNotFoundObjectResultAsync()
+        public async Task LoginNonExistingUser_ReturnBadRequestObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
-                              .UseInMemoryDatabase(databaseName: "LoginUsersDataBase")
+                              .UseInMemoryDatabase(databaseName: "LoginUsersDataBase2")
                               .Options;
             var context = new DataContext(options);
 
             UsersController usersController = new UsersController(new UsersRepository(context));
 
-            context.Add(new User()
-            {
-                Username = "Dexter",
-                Email = Cryptography.HashString("dexter@gmail.com"),
-                Password = Cryptography.HashString("123")
-            });
+            context.Add(GetTestUser(1));
             context.SaveChanges();
+
             var result = await usersController.LoginAsync(new UserCredentials()
             {
                 Email = "notdexter@gmail.com",
                 Password = "otherpassword"
             });
-            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }
