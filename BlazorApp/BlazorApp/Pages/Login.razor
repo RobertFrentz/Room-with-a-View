@@ -82,12 +82,10 @@
             Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {loginErrorObj.error_info}");
             return;
         }
+        UserToken userToken = await httpResponse.Content.ReadFromJsonAsync<UserToken>();
+        Console.WriteLine(userToken.jwt);
 
-        string temp = await httpResponse.Content.ReadAsStringAsync();
-        Console.WriteLine(temp);
-
-        //TODO: json parsing
-        //await sessionStorage.SetItemAsync("jwt", temp);
+        await sessionStorage.SetItemAsync("jwt", userToken.jwt);
         NavigationManager.NavigateTo("/home", true);
     }
 
@@ -114,6 +112,11 @@
     public class LoginError
     {
         public string error_info { get; set; }
+    }
+
+    public class UserToken
+    {
+        public string jwt { get; set; }
     }
 
 }

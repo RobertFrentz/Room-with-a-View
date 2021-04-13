@@ -89,7 +89,7 @@ string.IsNullOrWhiteSpace(password))
 
 
         RegisterError registerErrorObj;
-        if ((int)httpResponse.StatusCode != 200)
+        if ((int)httpResponse.StatusCode != 201)
         {
             Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
             registerErrorObj = await httpResponse.Content.ReadFromJsonAsync<RegisterError>();

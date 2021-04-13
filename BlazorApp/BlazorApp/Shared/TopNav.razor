@@ -1,28 +1,31 @@
-﻿
+﻿@inject HttpClient Http
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
 
     <div class="container">
 
-        <a class="navbar-brand" href="/home"><h2>Hotel Name</h2></a>
+        <a class="navbar-brand" href="/home"><h2>Iasi Royal Residence</h2></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown ml-2">
-                    <a class="dropdown-toggle btn btn-outline-light bg-light text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Username
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">My bookings</a>
-                        <a class="dropdown-item" href="#">My profile?</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
-                    </div>
-                </li>
+                @if (isUserLoggedIn)
+                {
+                    <li class="nav-item dropdown ml-2">
+                        <a class="dropdown-toggle btn btn-outline-light bg-light text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hi, @username
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">My bookings</a>
+                            <a class="dropdown-item" href="#">My profile?</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+                }
                 <li class="nav-item ml-2">
                     <a class="btn btn-outline-light bg-light text-dark" href="register">Register</a>
                 </li>
@@ -38,5 +41,37 @@
 </nav>
 
 @code {
+    private string username;
+    private string token;
+    bool isUserLoggedIn;
 
+    protected override async Task OnInitializedAsync()
+    {
+        isUserLoggedIn = await IsLoggedIn();
+        if (isUserLoggedIn)
+        {
+            username = await GetUsername();
+        }
+    }
+
+    public async Task<bool> IsLoggedIn()
+    {
+        token = await sessionStorage.GetItemAsync<string>("jwt");
+        return !string.IsNullOrWhiteSpace(token);
+    }
+
+    public async Task<string> GetUsername()
+    {
+        string getUsernameApiUrl = "http://localhost:60094/api/v1/users/username";
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, getUsernameApiUrl);
+        getRequest.Headers.Add("authorizationToken", token);
+        using var httpResponse = await Http.SendAsync(getRequest);
+        UsernameDeserialize usernameDeserialize = await httpResponse.Content.ReadFromJsonAsync<UsernameDeserialize>();
+        return usernameDeserialize.Username;
+    }
+
+    public class UsernameDeserialize
+    {
+        public string Username { get; set; }
+    }
 }
