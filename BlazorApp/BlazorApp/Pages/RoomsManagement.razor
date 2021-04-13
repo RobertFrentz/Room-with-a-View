@@ -1,0 +1,47 @@
+﻿@page "/management/rooms"
+
+
+<div class="bg-light py-4">
+
+    <div class="container">
+        <h3 class="mb-3">Rooms overview</h3>
+
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
+                <div class="col-sm-5 p-3">
+                    <img class="d-block w-100 h-auto" src="images/109169993.jpg" style="max-height: 270px; object-fit:cover;">
+                </div>
+
+                <div class="col-sm-7 p-3">
+                    <table class="table table-striped mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Number:</th>
+                                <td>104</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Status:</th>
+                                <td>Booked from 16 May 2021 to 17 May 2021</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Client Id:</th>
+                                <td>1kjda7awm</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Price:</th>
+                                <td>170.6 Lei</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+@code {
+
+}
