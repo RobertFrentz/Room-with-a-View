@@ -1,5 +1,4 @@
-﻿using RoomManagementMicroservice.Utils;
-using System;
+﻿using System;
 
 namespace RoomManagementMicroservice.Entities
 {

@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RoomManagementMicroservice.Data;
+using RoomManagementMicroservice.DTOs;
 using RoomManagementMicroservice.Utils;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Controllers
@@ -17,28 +21,51 @@ namespace RoomManagementMicroservice.Controllers
             _repository = repository;
         }
 
-        [HttpPost]
-
-        public async Task<IActionResult> GetRoomsAvailableAsync([FromBody] RoomSearch roomSearch)
+        [Route("available")]
+        [HttpGet]
+        public async Task<IActionResult> GetRoomsAvailableAsync([FromQuery] RoomSearch roomSearch)
         {
-            IEnumerable<RoomSearch> result = await _repository.GetRoomsAvailableAsync(roomSearch);
+            IEnumerable<RoomResultSearch> result = await _repository.GetRoomsAvailableAsync(roomSearch);
+            Console.WriteLine(result.ElementAt(0));
             if(result==null)
             {
                 return NotFound();
             }
-            return Ok(result);
+            return Ok(JsonConvert.SerializeObject(new
+            {
+                roomsAvailable = result
+            }));
         }
 
         [HttpGet]
 
         public async Task<IActionResult> GetRoomsAsync()
         {
-            IEnumerable<RoomDescription> result = await _repository.GetRoomsAsync();
-            if(result==null)
+            IEnumerable<RoomResultSearch> result = await _repository.GetRoomsAsync();
+            if (result == null)
             {
                 return NotFound();
             }
-            return Ok(result);
+            return Ok(JsonConvert.SerializeObject(new
+            {
+                rooms = result
+            }));
+        }
+
+
+        [HttpGet("{id}")]
+
+        public async Task<IActionResult> GetRoomByIdAsync(int id)
+        {
+            RoomDescription result = await _repository.GetRoomByIdAsync(id);
+            if( result ==null)
+            {
+                return NotFound();
+            }
+            return Ok(JsonConvert.SerializeObject(new
+            {
+                room = result
+            }));
         }
     }
 }

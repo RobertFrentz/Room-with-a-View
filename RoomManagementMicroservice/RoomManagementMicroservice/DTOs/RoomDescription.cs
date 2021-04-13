@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RoomManagementMicroservice.Utils
+﻿namespace RoomManagementMicroservice.Utils
 {
     public class RoomDescription
     {
@@ -11,5 +6,7 @@ namespace RoomManagementMicroservice.Utils
         public string Description { get; set; }
         public int Price { get; set; }
         public string Facilities { get; set; }
+
+        public int PersonsNumber { get; set; }
     }
 }
