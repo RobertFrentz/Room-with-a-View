@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Data
 {
@@ -19,37 +16,56 @@ namespace RoomManagementMicroservice.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Room>().Property("Id").ValueGeneratedOnAdd();
             modelBuilder.Entity<Room>()
                         .HasData(new Room
                         {
                             Id = 1,
-                            UserId = 1,
-                            CheckIn = DateTime.Now,
-                            CheckOut = DateTime.Now,
-                            PersonsNumber = 0,
                             RoomCategory = "Standard",
+                            CheckIn = null,
+                            CheckOut = null,
+                            PersonsNumber = 2,
+                            Price = 100,
+                            Description="blabla",
+                            Facilities ="Wi-Fi,Apa calda,Aer" ,
                             State = "Available"
                         },
                         new Room
                          {
                             Id = 2,
-                            UserId = 3,
-                            CheckIn = DateTime.Now,
-                            CheckOut = DateTime.Now,
-                            PersonsNumber = 3,
                             RoomCategory = "Standard",
-                            State = "Booked"
-                            },
+                            CheckIn = new DateTime(2021,4,10),
+                            CheckOut = new DateTime(2021, 4, 13),
+                            PersonsNumber = 3,
+                            Price = 170,
+                            Description = "blabla",
+                            Facilities = "Wi-Fi,Apa calda,Aer",
+                            State = "Booked",
+                        },
                         new Room
                         {
                             Id=3,
-                            UserId = 3,
-                            CheckIn = DateTime.Now,
-                            CheckOut = DateTime.Now,
-                            PersonsNumber = 3,
                             RoomCategory = "Standard",
+                            CheckIn = new DateTime(2021, 4, 14),
+                            CheckOut = new DateTime(2021, 4, 16),
+                            PersonsNumber = 3,
+                            Price = 130,
+                            Description = "blabla",
+                            Facilities = "Wi-Fi,Apa calda,Aer",
                             State = "Booked"
-                        });
+                        },
+            new Room
+            {
+                Id = 4,
+                RoomCategory = "Standard",
+                CheckIn = new DateTime(2021, 4, 6),
+                CheckOut = new DateTime(2021, 4, 9),
+                PersonsNumber = 2,
+                Price = 150,
+                Description = "blabla",
+                Facilities = "Wi-Fi,Apa calda,Aer",
+                State = "Booked",
+            });
         }
     }
 }
