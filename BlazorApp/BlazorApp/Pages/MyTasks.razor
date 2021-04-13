@@ -1,0 +1,44 @@
+﻿@page "/tasks"
+
+
+<div class="bg-light py-4">
+
+    <div class="container">
+
+        <h3 class="mb-3">My tasks</h3>
+
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="bg-white border border-secondary my-4 p-4" style="margin-left: 0px; margin-right:0px">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Room number:</th>
+                            <td>203</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Task:</th>
+                            <td>Clean</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Task added:</th>
+                            <td>13 April 2021</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <button type="button" class="btn btn-primary float-right">Mark as done</button>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>
+
+
+@code {
+
+}
