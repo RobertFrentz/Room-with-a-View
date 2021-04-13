@@ -1,0 +1,94 @@
+﻿@page "/management/staff"
+
+
+<div class="bg-light py-4">
+
+    <div class="container">
+        <h3 class="mb-3">Staff management</h3>
+
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
+                <div class="col-sm-2 p-3">
+                    <img class="d-block w-100 h-auto" src="images/user_icon.jpg" style="object-fit:cover;">
+                </div>
+
+                <div class="col-sm-10 p-3">
+                    <table class="table table-striped mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Name:</th>
+                                <td>Abcdef Ghijkl</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tasks:</th>
+                                <td>
+                                    <ul class="pl-4">
+                                        <li>Room 102: Clean</li>
+                                        <li>Room 203: Clean</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Current Task:</th>
+                                <td>Room 203: Clean</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Prioritize task:</th>
+                                <td>
+                                    <select class="form-control">
+                                        <option selected>Choose</option>
+                                        <option value="1">Room 102: Clean</option>
+                                        <option value="2">Room 203: Clean</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Add task:</th>
+                                <td>
+                                    <div class="form-row mb-3">
+                                        <div class="col">
+                                            <select class="form-control">
+                                                <option selected>Choose room</option>
+                                                <option value="101">Room 101</option>
+                                                <option value="102">Room 102</option>
+                                                <option value="103">Room 103</option>
+                                                <option value="201">Room 201</option>
+                                                <option value="202">Room 202</option>
+                                                <option value="203">Room 203</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select class="form-control">
+                                                <option selected>Choose task</option>
+                                                <option value="0">Clean</option>
+                                                <option value="1">Maintenance</option>
+                                                <option value="2">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <textarea class="form-control" placeholder="..observations" rows="1"></textarea>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary">Add</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+@code {
+
+}
