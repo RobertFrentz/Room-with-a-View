@@ -11,6 +11,7 @@ namespace RoomManagementMicroservice
 {
     public class Startup
     {
+        readonly string MyAllowedSpecificOrigins = "_AllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +28,17 @@ namespace RoomManagementMicroservice
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowedSpecificOrigins, builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
+
             services.AddTransient<IRoomsRepository, RoomsRepository>();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +55,8 @@ namespace RoomManagementMicroservice
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RoomManagementMicroservice v1"));
             }
+
+            app.UseCors(MyAllowedSpecificOrigins);
 
             app.UseRouting();
 

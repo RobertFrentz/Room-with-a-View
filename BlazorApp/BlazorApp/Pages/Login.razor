@@ -82,10 +82,9 @@
             Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {loginErrorObj.error_info}");
             return;
         }
-        UserToken userToken = await httpResponse.Content.ReadFromJsonAsync<UserToken>();
-        Console.WriteLine(userToken.jwt);
+        UserTokenDeserializer userTokenDeserializer = await httpResponse.Content.ReadFromJsonAsync<UserTokenDeserializer>();
 
-        await sessionStorage.SetItemAsync("jwt", userToken.jwt);
+        await sessionStorage.SetItemAsync("jwt", userTokenDeserializer.jwt);
         NavigationManager.NavigateTo("/home", true);
     }
 
@@ -114,7 +113,7 @@
         public string error_info { get; set; }
     }
 
-    public class UserToken
+    public class UserTokenDeserializer
     {
         public string jwt { get; set; }
     }
