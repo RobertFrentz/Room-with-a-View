@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.218
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomManagementMicroservice", "RoomManagementMicroservice\RoomManagementMicroservice.csproj", "{A24E610D-911A-4A55-90AB-D5F0BF52D3AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomManagementMicroservice", "RoomManagementMicroservice\RoomManagementMicroservice.csproj", "{A24E610D-911A-4A55-90AB-D5F0BF52D3AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomManagementTests", "RoomManagementTests\RoomManagementTests.csproj", "{80CC3EB3-B55F-478D-825E-B84EECB4248E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A24E610D-911A-4A55-90AB-D5F0BF52D3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A24E610D-911A-4A55-90AB-D5F0BF52D3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A24E610D-911A-4A55-90AB-D5F0BF52D3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80CC3EB3-B55F-478D-825E-B84EECB4248E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80CC3EB3-B55F-478D-825E-B84EECB4248E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80CC3EB3-B55F-478D-825E-B84EECB4248E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80CC3EB3-B55F-478D-825E-B84EECB4248E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace RoomManagementMicroservice.Utils
+﻿namespace RoomManagementMicroservice.DTOs
 {
     public class RoomDescription
     {

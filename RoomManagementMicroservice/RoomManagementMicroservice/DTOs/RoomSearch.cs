@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RoomManagementMicroservice.Utils
+namespace RoomManagementMicroservice.DTOs
 {
     public class RoomSearch
     {
