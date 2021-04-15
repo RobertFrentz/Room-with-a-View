@@ -47,6 +47,10 @@ namespace RoomManagementMicroservice.Data
         public async Task<RoomDescription> GetRoomByIdAsync(int id)
         {
             var room = await context.Rooms.FindAsync(id);
+            if (room==null)
+            {
+                return null;
+            }    
             RoomDescription roomDescription = new RoomDescription()
             {
                 RoomCategory = room.RoomCategory,

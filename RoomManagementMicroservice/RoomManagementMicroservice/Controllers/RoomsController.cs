@@ -2,8 +2,10 @@
 using Newtonsoft.Json;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,10 +27,10 @@ namespace RoomManagementMicroservice.Controllers
         public async Task<IActionResult> GetRoomsAvailableAsync([FromQuery] RoomSearch roomSearch)
         {
             IEnumerable<RoomResultSearch> result = await _repository.GetRoomsAvailableAsync(roomSearch);
-            Console.WriteLine(result.ElementAt(0));
-            if(result==null)
+
+            if(result.Count()==0)
             {
-                return NotFound();
+                return NotFound(new Error("There isn't any room with these properties."));
             }
             return Ok(JsonConvert.SerializeObject(new
             {
@@ -59,7 +61,7 @@ namespace RoomManagementMicroservice.Controllers
             RoomDescription result = await _repository.GetRoomByIdAsync(id);
             if( result ==null)
             {
-                return NotFound();
+                return NotFound(new Error("The room wtih that id does not exist."));
             }
             return Ok(JsonConvert.SerializeObject(new
             {
