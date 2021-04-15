@@ -14,10 +14,9 @@ namespace RoomManagementTests
         public void GetRoomsById_TheRoomWithGivenIdExists_ReturnOkObjectResult()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
-                              .UseInMemoryDatabase(databaseName: "roomapp")
+                              .UseInMemoryDatabase(databaseName: "RoomsDatabase")
                               .Options;
             var context = new DataContext(options);
-            context.Database.EnsureCreatedAsync();
             RoomsController roomsController = new RoomsController(new RoomsRepository(context));
             var result = roomsController.GetRoomByIdAsync(1).Result;
             Assert.IsType<OkObjectResult>(result);
