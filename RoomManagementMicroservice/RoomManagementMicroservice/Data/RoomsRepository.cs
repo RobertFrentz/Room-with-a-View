@@ -21,7 +21,7 @@ namespace RoomManagementMicroservice.Data
             var rooms = await context.Rooms.Where(room => room.RoomCategory == roomSearch.RoomCategory && (room.CheckIn == null
               || (room.CheckIn < roomSearch.CheckIn && room.CheckOut< roomSearch.CheckIn) 
               || (room.CheckIn > roomSearch.CheckOut && room.CheckOut> roomSearch.CheckOut))
-              && room.PersonsNumber==roomSearch.PersonsNumber).Select(room=>
+              && (roomSearch.CheckIn<roomSearch.CheckOut) && room.PersonsNumber==roomSearch.PersonsNumber).Select(room=>
               new RoomResultSearch()
               {
                   RoomCategory=room.RoomCategory,
