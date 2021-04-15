@@ -93,16 +93,17 @@
     public DateTime checkInDate;
     public DateTime checkOutDate;
     public int numberOfPersons;
-    public bool searchMade = false;
     public List<string> roomTypes = new List<string> { "Standard", "Double", "Triple", "Queen", "King" };
     public List<Room> roomsToDisplay;
 
     public async Task RequestRooms()
     {
-        searchMade = true;
-        string roomType = roomTypes[roomIndex - 1];
         string checkInDateString = checkInDate.ToString("yyyy-MM-dd HH:mm:ss");
         string checkOutDateString = checkOutDate.ToString("yyyy-MM-dd HH:mm:ss");
+        if (roomIndex == 0 || checkInDateString == "0001-01-01 00:00:00" || checkOutDateString == "0001-01-01 00:00:00" || numberOfPersons == 0)
+            return;
+
+        string roomType = roomTypes[roomIndex - 1];
         string getRoomsApiUrl = $"http://localhost:19008/api/v1/rooms/available?RoomCategory={roomType}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={numberOfPersons}";
         var getRequest = new HttpRequestMessage(HttpMethod.Get, getRoomsApiUrl);
         using var httpResponse = await Http.SendAsync(getRequest);

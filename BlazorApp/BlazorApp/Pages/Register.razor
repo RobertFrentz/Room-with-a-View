@@ -46,11 +46,20 @@
             </form>
         </div>
 
+
         <div class="card-footer bg-secondary">
             <div class="d-flex justify-content-center text-light">
                 <span>Already have an account? <a class="text-info" href="login">Login</a></span>
             </div>
         </div>
+
+        @if (registerError == true)
+        {
+            <div class="alert alert-danger alert-dismissible mt-4">
+                @*<button type="button" class="close" data-dismiss="alert">&times;</button>*@
+                <strong>Attention!</strong> @registerErrorMessage.
+            </div>
+        }
 
     </div>
 
@@ -71,9 +80,13 @@
     private async Task AddUser()
     {
         string apiUrl = "http://localhost:60094/api/v1/users/register";
-        Console.WriteLine(username);
-        Console.WriteLine(password);
-        Console.WriteLine(email);
+        if (password != confirmPassword)
+        {
+            registerError = true;
+            registerErrorMessage = "Passwords don't match";
+            return;
+        }
+
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
 string.IsNullOrWhiteSpace(password))
@@ -85,17 +98,14 @@ string.IsNullOrWhiteSpace(password))
 
         var httpResponse = await Http.PostAsJsonAsync(apiUrl, addUser);
 
-        Console.WriteLine("Sunt aici");
-
-
         RegisterError registerErrorObj;
         if ((int)httpResponse.StatusCode != 201)
         {
             Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
             registerErrorObj = await httpResponse.Content.ReadFromJsonAsync<RegisterError>();
             registerError = true;
-            registerErrorMessage = registerErrorObj.error_info;
-            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {registerErrorObj.error_info}");
+            registerErrorMessage = registerErrorObj.errorMessage;
+            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {registerErrorObj.errorMessage}");
             return;
         }
 
@@ -112,6 +122,6 @@ string.IsNullOrWhiteSpace(password))
 
     public class RegisterError
     {
-        public string error_info { get; set; }
+        public string errorMessage { get; set; }
     }
 }

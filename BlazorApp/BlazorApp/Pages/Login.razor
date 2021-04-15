@@ -43,7 +43,13 @@
             </div>
         </div>
 
-
+        @if (loginError == true)
+        {
+            <div class="alert alert-danger alert-dismissible mt-4">
+                @*<button type="button" class="close" data-dismiss="alert">&times;</button>*@
+                <strong>Attention!</strong> @loginErrorMessage.
+            </div>
+        }
 
     </div>
 
@@ -56,6 +62,7 @@
     private string username;
     bool loginError = false;
     bool isUserLoggedIn;
+    string loginErrorMessage;
 
     private bool loading;
 
@@ -79,7 +86,8 @@
             Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
             loginErrorObj = await httpResponse.Content.ReadFromJsonAsync<LoginError>();
             loginError = true;
-            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {loginErrorObj.error_info}");
+            loginErrorMessage = loginErrorObj.errorMessage;
+            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {loginErrorObj.errorMessage}");
             return;
         }
         UserTokenDeserializer userTokenDeserializer = await httpResponse.Content.ReadFromJsonAsync<UserTokenDeserializer>();
@@ -110,7 +118,7 @@
 
     public class LoginError
     {
-        public string error_info { get; set; }
+        public string errorMessage { get; set; }
     }
 
     public class UserTokenDeserializer
