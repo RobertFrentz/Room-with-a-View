@@ -1,0 +1,383 @@
+
+
+// ---------------------------------------------------------------------------------------------------------
+Register:
+
+POST  ~/register
+
+Exemplu BODY:
+
+{
+    "email" : "test@example.com",
+    "username" : "Name Surname",
+    "password" : "123456"
+}
+
+Exemplu RESPONSE:
+
+201 CREATED
+
+{
+    "email" : "test@example.com",
+    "username" : "Name Surname",
+    "roles": ["user"],
+    "jwt": "a9danwdaow...."
+}
+
+409 CONFLICT
+
+{
+    "message": "Email already registered"
+}
+
+400 BAD REQUEST
+
+{
+    "message": "Password too short / Invalid Email / Whatever"
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Login:
+
+POST  ~/login
+
+Exemplu body:
+
+{
+    "email" : "test@example.com",
+    "password" : "123456"
+}
+
+Exemplu response:
+
+200 OK
+
+{
+    "email" : "test@example.com",
+    "username" : "Name Surname",
+    "roles": ["user", "manager", "staff"]
+    "jwt": "a9danwdaow...."
+}
+
+400 BAD REQUEST
+
+{
+    "message": "Invalid email or password / Email is not registered / Whatever"
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Verificare token valid:
+
+GET  ~/.../verify-token
+
+Exemplu header:
+    "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZ...."
+
+Exemplu body:
+
+{
+}
+
+Exemplu response:
+
+200 OK
+
+{
+}
+
+401 Unauthorized
+
+{
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------
+Home Page Default Rooms:
+
+GET  ~/.../rooms sau home sau recommended 
+
+Exemplu response:
+
+200 OK
+
+[
+    {
+        "id": "123123912u3891",
+        "roomNumber": "201"
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "pricePerNight": "120.6"
+    },
+    {
+        "id": "123123912u3892",
+        "roomNumber": "203"
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "pricePerNight": "110.6"
+    }
+]
+
+// ---------------------------------------------------------------------------------------------------------
+Home Page Search for rooms:
+
+GET  ~/.../rooms/search?room_category=standard&check_in=2021-04-01&check_out=2021-04-01&persons_number=2      // trebuie de urmarit url encoding pentru date, eventual nr milisecunde din 1.1.1970 UTC
+
+Exemplu response:
+
+200 OK
+
+[
+    {
+        "id": "123123912u3891",
+        "roomNumber": "201"
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "pricePerNight": "120.6"
+    },
+    {
+        "id": "123123912u3892",
+        "roomNumber": "203"
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "pricePerNight": "110.6"
+    }
+]
+
+400 BAD REQUEST
+
+{
+    "message": "Check out date can't be after check in / Whatever"
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Individual Room page:
+
+GET  ~/.../rooms/id
+
+200 OK
+
+{
+    "id": "123123912u3891",
+    "roomNumber": "201",
+    "roomCategory": "standard",
+    "roomImages": [
+        ".../60795108de0bda1cb4012811.png",
+        ".../60795108de0bda1cb4012812.png",
+        ".../60795108de0bda1cb4012813.png",
+    ]
+    "pricePerNight": "120.6",
+    "roomDescription": "Offering a sun terrace and views of the garden...",
+    "facilities": {
+        freeParking: true / false,
+        freeWifi: true / false,
+        familyRoom: true / false,
+        airConditioning: true / false,
+        freeBreakfast: true / false,
+        // altele..?
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Individual Room check availability:
+
+GET  ~/.../rooms/id?check_in=2021-04-01&check_out=2021-04-01
+
+200 OK
+
+{
+    "availability": true / false
+    // eventual alte info precum un interval valid sau de ce nu
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Staff Management - Staff overview:
+
+GET  ~/.../staff
+
+200 OK
+
+[
+    {
+        "id": "12312312312312",
+        "name": "Abcdef Ghijkl",
+        "tasks": [
+            {
+                "id": "128319238121",
+                "roomNumber": "102",
+                "taskType": "Clean",
+                "observations": "some special indications"
+            },
+            {
+                "id": "128319238122",
+                "roomNumber": "203",
+                "taskType": "Clean",
+                "observations": ""
+            }
+        ]
+        "currentTask": {
+            "id": "128319238121",
+            "roomNumber": "102",
+            "taskType": "Clean",
+            "observations": "some special indications"
+        }
+    },
+    {
+        // alt staff member
+    }
+]
+
+// ---------------------------------------------------------------------------------------------------------
+Staff Management - Prioritize staff worker new task:
+
+PATCH ~/.../staff/id_worker
+
+Exemplu body:
+
+{
+    "currentTask": {
+        "id": "128319238121"
+    }
+}
+
+Exemplu response:
+
+200 OK
+
+{
+    "id": "12312312312312",
+    "name": "Abcdef Ghijkl",
+    "tasks": [
+        {
+            "id": "128319238121",
+            "roomNumber": "102",
+            "taskType": "Clean",
+            "observations": "some special indications"
+        },
+        {
+            "id": "128319238122",
+            "roomNumber": "203",
+            "taskType": "Clean",
+            "observations": ""
+        }
+    ]
+    "currentTask": {
+        "id": "128319238121",
+        "roomNumber": "102",
+        "taskType": "Clean",
+        "observations": "some special indications"
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Staff Management - Add staff worker new task:
+
+POST ~/.../staff/id_worker/tasks
+
+Exemplu body:
+
+{
+    "roomNumber": "102",
+    "taskType": "Clean / Maintenance / Other",
+    "observations": "some special indications"
+}
+
+Exemplu response:
+
+201 CREATED
+
+{
+    "id": "128319238123",
+    "roomNumber": "102",
+    "taskType": "Clean / Maintenance / Other",
+    "observations": "some special indications"
+}
+
+// ---------------------------------------------------------------------------------------------------------
+Rooms Overview for manager:
+
+GET  ~/.../management/rooms
+
+200 OK
+
+[
+    {
+        "id": "123123912u3891",
+        "roomNumber": "104",
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "roomStatus": {
+            "booked": true / false,
+            "bookings": [
+                "from": .... pt date poate folosim nr milisecunde din 1-1-1970 UTC ?
+                "to": ....
+                "clientId": "1kjda7awm",
+            ]
+        },
+        "pricePerNight": 170.6
+    },
+    {
+        // alt room
+    }
+]
+
+// ---------------------------------------------------------------------------------------------------------
+Get tasks for current staf worker:
+
+GET  ~/.../tasks
+
+200 OK
+
+[
+    {
+        "id": "128319238121",
+        "roomNumber": "102",
+        "taskType": "Clean",
+        "observations": "some special indications",
+        "dateAdded / dateCreated": ...
+    },
+    {
+        //...
+    }
+]
+
+// ---------------------------------------------------------------------------------------------------------
+Mark task as done:
+
+PATCH  ~/.../tasks/id_task
+
+200 OK
+
+{
+    "id": "128319238121",
+    "roomNumber": "102",
+    "taskType": "Clean",
+    "observations": "some special indications",
+    "statusDone": true
+}
+
+sau 
+
+204 NO CONTENT si ii face delete
+
+
+// ---------------------------------------------------------------------------------------------------------
+Get bookings for current user:
+
+GET  ~/.../bookings
+
+200 OK
+
+[
+    {
+        "roomNumber": "104",
+        "roomCategory": "standard",
+        "roomImage": ".../60795108de0bda1cb4012811.png",
+        "bookedFrom": ....
+        "bookedTo": ....
+        "price": 341.2
+    },
+    {
+        // alt booking
+    }
+]
