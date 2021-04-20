@@ -6,10 +6,10 @@ namespace RoomManagementMicroservice.Data
 {
     public interface IRoomsRepository
     {
-        Task<IEnumerable<RoomResultSearch>> GetRoomsAvailableAsync(RoomSearch roomSearch);
+        // Task<IEnumerable<RoomResultSearch>> GetRoomsAvailableAsync(RoomSearch roomSearch);
 
-        Task<IEnumerable<RoomResultSearch>> GetRoomsAsync();
+        Task<IEnumerable<RoomDescription>> GetRoomsAsync();
 
-        Task<RoomDescription> GetRoomByIdAsync(int id);
+        Task<RoomDescription> GetRoomByNumberAsync(int roomNumber);
     }
 }

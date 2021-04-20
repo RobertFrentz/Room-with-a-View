@@ -3,10 +3,7 @@ using Newtonsoft.Json;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
 using RoomManagementMicroservice.Utils;
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Controllers
@@ -22,7 +19,7 @@ namespace RoomManagementMicroservice.Controllers
             _repository = repository;
         }
 
-        [Route("available")]
+        /*[Route("available")]
         [HttpGet]
         public async Task<IActionResult> GetRoomsAvailableAsync([FromQuery] RoomSearch roomSearch)
         {
@@ -36,16 +33,16 @@ namespace RoomManagementMicroservice.Controllers
             {
                 roomsAvailable = result
             }));
-        }
+        }*/
 
         [HttpGet]
 
         public async Task<IActionResult> GetRoomsAsync()
         {
-            IEnumerable<RoomResultSearch> result = await _repository.GetRoomsAsync();
+            IEnumerable<RoomDescription> result = await _repository.GetRoomsAsync();
             if (result == null)
             {
-                return NotFound();
+                return NotFound(new Error("No rooms"));
             }
             return Ok(JsonConvert.SerializeObject(new
             {
@@ -54,14 +51,16 @@ namespace RoomManagementMicroservice.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        //formula generare room number (nr.camerere / 10) + 1 * 100 + nr.camere % 10
 
-        public async Task<IActionResult> GetRoomByIdAsync(int id)
+        [HttpGet("{roomNumber}")]
+
+        public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber)
         {
-            RoomDescription result = await _repository.GetRoomByIdAsync(id);
-            if( result ==null)
+            RoomDescription result = await _repository.GetRoomByNumberAsync(roomNumber);
+            if( result == null)
             {
-                return NotFound(new Error("The room wtih that id does not exist."));
+                return NotFound(new Error("The room with that number does not exist."));
             }
             return Ok(JsonConvert.SerializeObject(new
             {

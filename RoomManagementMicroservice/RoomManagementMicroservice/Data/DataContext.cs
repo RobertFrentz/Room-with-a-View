@@ -22,48 +22,44 @@ namespace RoomManagementMicroservice.Data
                         {
                             Id = 1,
                             RoomCategory = "Standard",
-                            CheckIn = null,
-                            CheckOut = null,
+                            RoomNumber = 100,
                             PersonsNumber = 2,
                             Price = 100,
                             Description="blabla",
-                            Facilities ="Wi-Fi,Apa calda,Aer" ,
+                            Facilities = "Free Wi-Fi",
                             State = "Available"
                         },
                         new Room
                          {
                             Id = 2,
                             RoomCategory = "Standard",
-                            CheckIn = new DateTime(2021,4,10),
-                            CheckOut = new DateTime(2021, 4, 13),
+                            RoomNumber = 101,
                             PersonsNumber = 3,
                             Price = 170,
                             Description = "blabla",
-                            Facilities = "Wi-Fi,Apa calda,Aer",
+                            Facilities = "Free Wi-Fi",
                             State = "Booked",
                         },
                         new Room
                         {
                             Id=3,
                             RoomCategory = "Standard",
-                            CheckIn = new DateTime(2021, 4, 14),
-                            CheckOut = new DateTime(2021, 4, 16),
+                            RoomNumber = 102,
                             PersonsNumber = 3,
                             Price = 130,
                             Description = "blabla",
-                            Facilities = "Wi-Fi,Apa calda,Aer",
+                            Facilities = "Free Wi-Fi",
                             State = "Booked"
                         },
             new Room
             {
                 Id = 4,
                 RoomCategory = "Standard",
-                CheckIn = new DateTime(2021, 4, 6),
-                CheckOut = new DateTime(2021, 4, 9),
+                RoomNumber = 103,
                 PersonsNumber = 2,
                 Price = 150,
                 Description = "blabla",
-                Facilities = "Wi-Fi,Apa calda,Aer",
+                Facilities = "Free Wi-Fi",
                 State = "Booked",
             });
         }

@@ -11,14 +11,14 @@ namespace RoomManagementTests
     public class UnitTests
     {
         [Fact]
-        public void GetRoomsById_TheRoomWithGivenIdExists_ReturnOkObjectResult()
+        public async void GetRoomsById_TheRoomWithGivenIdExists_ReturnOkObjectResultAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "RoomsDatabase")
                               .Options;
             var context = new DataContext(options);
             RoomsController roomsController = new RoomsController(new RoomsRepository(context));
-            var result = roomsController.GetRoomByIdAsync(1).Result;
+            var result = await roomsController.GetRoomByNumberAsync(100);
             Assert.IsType<OkObjectResult>(result);
         }
     }
