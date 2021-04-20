@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RoomManagementMicroservice.DTOs
+namespace BookingMicroservice.DTOs
 {
-    public class RoomSearch
+    public class RoomSearchDTO
     {
         public string RoomCategory { get; set; }
 
