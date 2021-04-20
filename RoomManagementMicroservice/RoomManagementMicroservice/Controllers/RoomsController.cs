@@ -39,15 +39,16 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomsAsync()
         {
-            IEnumerable<RoomDescription> result = await _repository.GetRoomsAsync();
+            IEnumerable<RoomDescriptionDTO> result = await _repository.GetRoomsAsync();
             if (result == null)
             {
                 return NotFound(new Error("No rooms"));
             }
-            return Ok(JsonConvert.SerializeObject(new
+            /*return Ok(JsonConvert.SerializeObject(new
             {
                 rooms = result
-            }));
+            }));*/
+            return Ok(result);
         }
 
 
@@ -57,7 +58,7 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber)
         {
-            RoomDescription result = await _repository.GetRoomByNumberAsync(roomNumber);
+            RoomDescriptionDTO result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {
                 return NotFound(new Error("The room with that number does not exist."));

@@ -31,11 +31,11 @@ namespace RoomManagementMicroservice.Data
             return rooms;
         }
 */
-        public async Task<IEnumerable<RoomDescription>> GetRoomsAsync()
+        public async Task<IEnumerable<RoomDescriptionDTO>> GetRoomsAsync()
         {
             var rnd = (new Random()).Next(100);
             var rooms = await context.Rooms.Select(room =>
-            new RoomDescription()
+            new RoomDescriptionDTO()
             {
                 RoomCategory = room.RoomCategory,
                 RoomNumber = room.RoomNumber,
@@ -47,14 +47,14 @@ namespace RoomManagementMicroservice.Data
             return rooms;
         }
 
-        public async Task<RoomDescription> GetRoomByNumberAsync(int roomNumber)
+        public async Task<RoomDescriptionDTO> GetRoomByNumberAsync(int roomNumber)
         {
             var room = await context.Rooms.Where(room => room.RoomNumber == roomNumber).FirstOrDefaultAsync();
             if (room == null)
             {
                 return null;
             }
-            RoomDescription roomDescription = new RoomDescription()
+            RoomDescriptionDTO roomDescription = new RoomDescriptionDTO()
             {
                 RoomCategory = room.RoomCategory,
                 RoomNumber = room.RoomNumber,

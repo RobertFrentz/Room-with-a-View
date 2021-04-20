@@ -5,7 +5,6 @@ namespace RoomManagementMicroservice.Entities
     public class Room
     { 
         public int Id { get; set; }
-
         public int RoomNumber { get; set; }
         public string RoomCategory { get; set; }
         public int PersonsNumber { get; set; }

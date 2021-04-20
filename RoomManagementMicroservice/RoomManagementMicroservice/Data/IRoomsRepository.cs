@@ -8,8 +8,8 @@ namespace RoomManagementMicroservice.Data
     {
         // Task<IEnumerable<RoomResultSearch>> GetRoomsAvailableAsync(RoomSearch roomSearch);
 
-        Task<IEnumerable<RoomDescription>> GetRoomsAsync();
+        Task<IEnumerable<RoomDescriptionDTO>> GetRoomsAsync();
 
-        Task<RoomDescription> GetRoomByNumberAsync(int roomNumber);
+        Task<RoomDescriptionDTO> GetRoomByNumberAsync(int roomNumber);
     }
 }
