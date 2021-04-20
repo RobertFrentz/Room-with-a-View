@@ -27,7 +27,7 @@ namespace UserManagementMicroservice.Data
             {
                 return -2;
             }
-            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password);
+            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password,0);
             this.context.Add(Cryptography.HashUserData(registerUser));
             await this.context.SaveChangesAsync();
             return 1;
@@ -48,10 +48,6 @@ namespace UserManagementMicroservice.Data
         public async Task<bool> UpdateAsync(UserRegister user, int userId)
         {
           var result = this.context.Users.Find(userId);
-          if (result == null)
-          {
-             return false;
-          }
           result.Username = user.Username ?? result.Username;
           result.Email = Cryptography.HashString(user.Email) ?? result.Email;
           result.Password = Cryptography.HashString(user.Password) ?? result.Password;
@@ -59,21 +55,28 @@ namespace UserManagementMicroservice.Data
           return true;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IEnumerable<User>> GetAllAsync(int userId)
         {
+            var result = this.context.Users.Find(userId);
+            if(result==null || result.Role!=1)
+            {
+                return null;
+            }
             return await this.context.Users.ToListAsync();
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int userId)
         {
-            return await this.context.Users.FindAsync(id);
+            
+            return await this.context.Users.FindAsync(userId);
         }
 
-        public async Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int userId)
         {
-            var user = await this.context.Users.FindAsync(id);
+            var user = await this.context.Users.FindAsync(userId);
             this.context.Remove(user);
             await this.context.SaveChangesAsync();
+  
         }
     }
 }

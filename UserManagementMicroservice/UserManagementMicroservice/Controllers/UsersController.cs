@@ -9,8 +9,8 @@ using UserManagementMicroservice.Utils;
 namespace UserManagementMicroservice.Controllers
 {
 
-    //user with id = 16 and JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjU3NzEzMTUsInVzZXJJZCI6MTZ9.RTfIz_1iMCIXswwXVaw9lCV8Y-hfk_gGsaDMGyENXrs
-
+    //admin user with id = 2 and JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTkyOTYyNDMsInVzZXJJZCI6Mn0.iDhjcbhbd0V-BxJjgr6rxRd9mhrQBz2XZH2kOK3ohJU
+    //role-->0 pt guest, 1 pt admin, 2 pt staff
     [Route("api/v1/users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,7 +30,11 @@ namespace UserManagementMicroservice.Controllers
             {
                 return Unauthorized(new Error(result));
             }
-            var response = await _repository.GetAllAsync();
+            var response = await _repository.GetAllAsync(Jwt.ExtractUserId(result));
+            if(response==null)
+            {
+                return Unauthorized(new Error("You are not an admin."));
+            }
             return Ok(response);
         }
 

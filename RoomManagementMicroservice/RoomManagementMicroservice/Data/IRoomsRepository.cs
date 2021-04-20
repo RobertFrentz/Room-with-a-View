@@ -1,4 +1,5 @@
 ﻿using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,10 @@ namespace RoomManagementMicroservice.Data
 
         Task<IEnumerable<RoomDescriptionDTO>> GetRoomsAsync();
 
-        Task<RoomDescriptionDTO> GetRoomByNumberAsync(int roomNumber);
+        Task<RoomDescription> GetRoomByNumberAsync(int roomNumber);
+
+        Task<int> AddRoomAsync(RoomToAdd roomToAdd);
+
+        //Task<Room> ModifyRoomAttributesAsync(RoomDescription room, List<RoomDescription> patchDto);
     }
 }

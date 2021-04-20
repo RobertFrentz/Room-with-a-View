@@ -6,11 +6,12 @@
         {
 
         }
-        public User(string username, string email, string password)
+        public User(string username, string email, string password,int role)
         {
             Username = username;
             Email = email;
             Password = password;
+            Role = role;
         }
 
         public User(int Id, string username, string email, string password)
@@ -25,5 +26,7 @@
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public int Role { get; set; }
     }
 }
