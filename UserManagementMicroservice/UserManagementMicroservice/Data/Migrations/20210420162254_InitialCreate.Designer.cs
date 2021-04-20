@@ -8,7 +8,7 @@ using UserManagementMicroservice.Data;
 namespace UserManagementMicroservice.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210330151656_InitialCreate")]
+    [Migration("20210420162254_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace UserManagementMicroservice.Data.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");

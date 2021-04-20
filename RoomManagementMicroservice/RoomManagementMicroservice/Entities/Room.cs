@@ -14,5 +14,18 @@ namespace RoomManagementMicroservice.Entities
         public string Facilities { get; set; }
         public string State { get; set; }
 
+        public Room(string roomCategory, int personsNumber, string description, int price, string facilities)
+        {
+            RoomCategory = roomCategory;
+            PersonsNumber = personsNumber;
+            Description = description;
+            Price = price;
+            Facilities = facilities;
+        }
+        public Room()
+        {
+
+        }
+
     }
 }

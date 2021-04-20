@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,5 +66,23 @@ namespace RoomManagementMicroservice.Data
             };
             return roomDescription;
         }
+        //formula generare room number (nr.camerere / 10) + 1 * 100 + nr.camere % 10
+        public async Task<int> AddRoomAsync(RoomToAdd roomToAdd)
+        {
+            Room room = new Room(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
+            int numberOfRooms = context.Rooms.Count();
+            room.RoomNumber = (numberOfRooms / 10 + 1) * 100 + numberOfRooms % 10;
+            room.State = "Available";
+
+            this.context.Add(room);
+            await this.context.SaveChangesAsync();
+            return 1;
+        }
+
+       /* public async Task<Room> ModifyRoomAttributesAsync(int roomNumber, RoomToAdd roomToAdd)
+        {
+            var result = await context.Rooms.FirstOrDefaultAsync(room => room.RoomNumber == roomNumber);
+            return result;
+        }*/
     }
 }

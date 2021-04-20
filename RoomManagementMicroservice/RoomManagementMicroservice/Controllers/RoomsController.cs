@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Entities;
 using RoomManagementMicroservice.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,7 +53,7 @@ namespace RoomManagementMicroservice.Controllers
         }
 
 
-        //formula generare room number (nr.camerere / 10) + 1 * 100 + nr.camere % 10
+        
 
         [HttpGet("{roomNumber}")]
 
@@ -67,5 +69,28 @@ namespace RoomManagementMicroservice.Controllers
                 room = result
             }));
         }
+        [Route("addRoom")]
+        [HttpPost]
+
+        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAdd roomToAdd)
+        {
+            var result = await _repository.AddRoomAsync(roomToAdd);
+            return CreatedAtAction("addRoom", roomToAdd);
+        }
+
+        /*[HttpPatch("{roomNumber}")]
+        public async Task<IActionResult> ModifyRoomAttributesAsync(int roomNumber, [FromBody] List<RoomDescription> patchDto)
+        {
+            var room = await _repository.GetRoomByNumberAsync(roomNumber);
+
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            await _repository.ModifyRoomAttributesAsync(room, patchDto);
+
+            return NoContent();
+        }*/
     }
 }
