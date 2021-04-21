@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using UserManagementMicroservice.Data;
 using UserManagementMicroservice.Entities;
@@ -36,6 +37,18 @@ namespace UserManagementMicroservice.Controllers
                 return Unauthorized(new Error("You are not an admin."));
             }
             return Ok(response);
+        }
+        [Route("authorization")]
+        [HttpGet]
+
+        public  IActionResult CheckAuth([FromHeader] string authorizationToken)
+        {
+            var result =Jwt.CheckJWT(authorizationToken);
+            if (Jwt.IsValidJWT(result) == false)
+            {
+                return Unauthorized(new Error(result));
+            }
+            return Ok(result);
         }
 
         [Route("user")]

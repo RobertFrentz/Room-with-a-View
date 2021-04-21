@@ -24,7 +24,8 @@ namespace UserManagementTests
                     Id = 1,
                     Username = "Test One",
                     Password = Cryptography.HashString("123"),
-                    Email = Cryptography.HashString("has@gmail.com")
+                    Email = Cryptography.HashString("has@gmail.com"),
+                    Role = 1
                 };
             }
             else
@@ -35,6 +36,7 @@ namespace UserManagementTests
                     Username = "Test Two",
                     Password = Cryptography.HashString("123"),
                     Email = Cryptography.HashString("mist@gmail.com"),
+                    Role=1
                 };
             }
         }
