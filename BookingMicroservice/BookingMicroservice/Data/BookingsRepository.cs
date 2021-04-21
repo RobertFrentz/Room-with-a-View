@@ -20,6 +20,10 @@ namespace BookingMicroservice.Data
         {
             return await _context.Bookings.ToListAsync();
         }
+        public async Task<IEnumerable<Booking>> GetBookingsByUserId(int userId)
+        {
+            return await _context.Bookings.Where(booking => booking.UserId==userId).ToListAsync();
+        }
         public async Task<GetBookingDTO> GetBookingByIdAsync(int id)
         {
             var result = await _context.Bookings.Where(booking => booking.Id == id).FirstOrDefaultAsync();

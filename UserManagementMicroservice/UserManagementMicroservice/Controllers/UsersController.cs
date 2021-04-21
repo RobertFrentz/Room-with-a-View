@@ -38,6 +38,7 @@ namespace UserManagementMicroservice.Controllers
             }
             return Ok(response);
         }
+
         [Route("authorization")]
         [HttpGet]
 
