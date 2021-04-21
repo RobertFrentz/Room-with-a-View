@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RoomManagementMicroservice.DTOs
+﻿namespace RoomManagementMicroservice.DTOs
 {
-    public class RoomToAdd
+    public class RoomToAddDTO
     {
         public string RoomCategory { get; set; }
         public int PersonsNumber { get; set; }

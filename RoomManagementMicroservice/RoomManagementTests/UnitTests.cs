@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.Controllers;
 using RoomManagementMicroservice.Data;
-using System;
 using Xunit;
 
 namespace RoomManagementTests

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.Entities;
-using System;
 
 namespace RoomManagementMicroservice.Data
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RoomManagementMicroservice.Entities
+﻿namespace RoomManagementMicroservice.Entities
 {
     public class Room
     { 

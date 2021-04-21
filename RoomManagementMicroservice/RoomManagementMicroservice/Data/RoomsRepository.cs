@@ -67,7 +67,7 @@ namespace RoomManagementMicroservice.Data
             return roomDescription;
         }
         //formula generare room number (nr.camerere / 10) + 1 * 100 + nr.camere % 10
-        public async Task<int> AddRoomAsync(RoomToAdd roomToAdd)
+        public async Task<int> AddRoomAsync(RoomToAddDTO roomToAdd)
         {
             Room room = new Room(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
             int numberOfRooms = context.Rooms.Count();

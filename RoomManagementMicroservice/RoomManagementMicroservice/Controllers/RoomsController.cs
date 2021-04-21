@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
-using RoomManagementMicroservice.Entities;
 using RoomManagementMicroservice.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -73,7 +71,7 @@ namespace RoomManagementMicroservice.Controllers
         [Route("addRoom")]
         [HttpPost]
 
-        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAdd roomToAdd)
+        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAddDTO roomToAdd)
         {
             var result = await _repository.AddRoomAsync(roomToAdd);
             return CreatedAtAction("addRoom", roomToAdd);
