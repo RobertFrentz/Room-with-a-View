@@ -11,6 +11,7 @@ namespace BookingMicroservice
 {
     public class Startup
     {
+        readonly string MyAllowedSpecificOrigins = "_AllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +30,17 @@ namespace BookingMicroservice
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowedSpecificOrigins, builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
+
             services.AddTransient<IBookingsRepository, BookingsRepository>();
             services.AddSwaggerGen(c =>
             {
@@ -45,6 +57,8 @@ namespace BookingMicroservice
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookingMicroservice v1"));
             }
+
+            app.UseCors(MyAllowedSpecificOrigins);
 
             app.UseRouting();
 

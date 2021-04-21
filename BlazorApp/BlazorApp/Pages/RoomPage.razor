@@ -1,11 +1,11 @@
-﻿@page "/room/{Id:int}"
+﻿@page "/room/{RoomNumber:int}"
 
 
 <div class="bg-light text-dark py-4">
 
     <div class="container">
 
-        <h3 class="mb-3">Room Category - Room id: @Id</h3>
+        <h3 class="mb-3">Room Category - Room Number: @RoomNumber</h3>
 
         <div class="row" style="margin: 0px">
 
@@ -119,5 +119,6 @@
 
 @code {
     [Parameter]
-    public int Id { get; set; }
+    public int RoomNumber { get; set; }
+
 }

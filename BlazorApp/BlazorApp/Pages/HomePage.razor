@@ -16,10 +16,8 @@
                     <select class="form-control col-sm-10" id="inlineFormCustomSelect" required @bind="roomIndex">
                         <option selected>Choose category</option>
                         <option value="1">Standard</option>
-                        <option value="2">Double</option>
-                        <option value="3">Triple</option>
-                        <option value="4">Queen</option>
-                        <option value="5">King</option>
+                        <option value="2">Deluxe</option>
+                        <option value="3">Suite</option>
                     </select>
                 </div>
 
@@ -50,11 +48,11 @@
             <div class="row">
                 @foreach (var room in roomsToDisplay)
                 {
-                    <a href="/room/@room.Id" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
+                    <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
                         <div class="card shadow-sm">
                             <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src="images/109169996.jpg" alt="Room name">
                             <div class="card-body">
-                                <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.Id</p>
+                                <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.RoomNumber</p>
                                 <p class="my-1">Starting from @room.Price lei</p>
                                 <p class="my-1">Rating: 9.3</p>
                             </div>
@@ -93,7 +91,7 @@
     public DateTime checkInDate;
     public DateTime checkOutDate;
     public int numberOfPersons;
-    public List<string> roomTypes = new List<string> { "Standard", "Double", "Triple", "Queen", "King" };
+    public List<string> roomTypes = new List<string> { "Standard", "Deluxe", "Suite"};
     public List<Room> roomsToDisplay;
 
     public async Task RequestRooms()
@@ -104,27 +102,33 @@
             return;
 
         string roomType = roomTypes[roomIndex - 1];
-        string getRoomsApiUrl = $"http://localhost:19008/api/v1/rooms/available?RoomCategory={roomType}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={numberOfPersons}";
+        string getRoomsApiUrl = $"http://localhost:5100/api/v1/bookings/search?RoomCategory={roomType}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={numberOfPersons}";
         var getRequest = new HttpRequestMessage(HttpMethod.Get, getRoomsApiUrl);
         using var httpResponse = await Http.SendAsync(getRequest);
         RoomListDeserializer roomListDeserializer = await httpResponse.Content.ReadFromJsonAsync<RoomListDeserializer>();
-        roomsToDisplay = roomListDeserializer.roomsAvailable;
+        roomsToDisplay = roomListDeserializer.rooms;
+        Console.WriteLine(roomsToDisplay[0].RoomNumber);
     }
 
     public class Room
     {
         public string RoomCategory { get; set; }
 
-        public int Id { get; set; }
+        public int RoomNumber { get; set; }
+
+        public string Description { get; set; }
 
         public int Price { get; set; }
 
+        public string Facilities { get; set; }
+
+        public int PersonsNumber { get; set; }
 
     }
 
     public class RoomListDeserializer
     {
-        public List<Room> roomsAvailable { get; set; }
+        public List<Room> rooms { get; set; }
     }
 
 }
