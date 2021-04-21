@@ -58,10 +58,11 @@ namespace BookingMicroservice.Controllers
             {
                 return NotFound(new Error("No rooms available"));
             }
+            //return Ok(result.Result);
             return Ok(JsonConvert.SerializeObject(new
             {
-                availableRoomsNumber = result.Result
-            })) ;
+                rooms = result.Result
+            }));
         }
 
         [HttpPost]

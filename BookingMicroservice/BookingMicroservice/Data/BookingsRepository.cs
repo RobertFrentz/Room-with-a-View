@@ -95,9 +95,9 @@ namespace BookingMicroservice.Data
 
         }
 
-        public async Task<IEnumerable<int>> SearchAvailableRoomsAsync(RoomSearchDTO roomSearchDTO, List<RoomDescriptionDTO> rooms)
+        public async Task<IEnumerable<RoomDescriptionDTO>> SearchAvailableRoomsAsync(RoomSearchDTO roomSearchDTO, List<RoomDescriptionDTO> rooms)
         {
-            List<int> availableRoomsNumber = new List<int>();
+            List<RoomDescriptionDTO> returnValue = new List<RoomDescriptionDTO>();
             foreach(var room in rooms)
             {
                 if(room.PersonsNumber != roomSearchDTO.PersonsNumber)
@@ -113,9 +113,9 @@ namespace BookingMicroservice.Data
                 {
                     continue;
                 }
-                availableRoomsNumber.Add(room.RoomNumber);
+                returnValue.Add(room);
             }
-            return availableRoomsNumber;
+            return returnValue;
         }
         
 
