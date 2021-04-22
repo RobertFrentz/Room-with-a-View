@@ -1,5 +1,5 @@
 ﻿@page "/room/{RoomNumber:int}"
-
+@inject HttpClient Http
 
 <div class="bg-light text-dark py-4">
 
@@ -83,29 +83,43 @@
             <div class="col-sm-8 bg-white border border-secondary p-3">
                 <h4>Room description</h4>
                 <hr />
-                <p>
-                    Offering a sun terrace and views of the garden, Terrace Apartments at City Park 1. Is set in Budapest in the Pest Region. Heroes' Square is 0.9 mi away.
-                    Free WiFi is available throughout the property and free private parking is available on site in the property's private car park (1 car/apartment).
-                    The accommodations is air conditioned and comes with a flat-screen TV with satellite channels. Some units have a terrace and/or balcony with city views.
-                    There is also a kitchen, fitted with a dishwasher and oven. A microwave and coffee machine are also provided. Every unit is equipped with a
-                    private bathroom with a hairdryer. Towels are offered.
-                </p>
+                @if (roomDetails.Description != null)
+                {
+                    <p>
+                        @roomDetails.Description
+                    </p>
+                }
             </div>
 
             <div class="col-sm-4">
                 <h6 class="text-muted">Popular facilities</h6>
                 <ul class="list-group">
-                    <li class="list-group-item"><i class="fas fa-parking mx-2"></i>Free parking</li>
-                    <li class="list-group-item"><i class="fas fa-wifi mx-2"></i>Free WiFi</li>
-                    <li class="list-group-item">
-                        <span class="fa-stack">
-                            <i class="fa fa-male fa-stack-1x" style="left: -4px;"></i>
-                            <i class="fa fa-male fa-stack-1x" style="font-size: .75em; left: 2px;top: 2px;"></i>
-                            <i class="fa fa-female fa-stack-1x" style="left: 8px;"></i>
-                        </span>Family room
-                    </li>
-                    <li class="list-group-item"><i class="fas fa-utensils mx-2"></i>Restaurant</li>
-                    <li class="list-group-item"><i class="fas fa-wine-glass mx-2"></i>Bar</li>
+                    @if (roomDetails.Facilities != null)
+                    {
+                        @if (roomDetails.Facilities.Contains("parking"))
+                        {
+                            <li class="list-group-item"><i class="fas fa-parking mx-2"></i>Free parking</li>
+                        }
+                        @if (roomDetails.Facilities.Contains("Wi-Fi"))
+                        {
+                            <li class="list-group-item"><i class="fas fa-wifi mx-2"></i>Free WiFi</li>
+                        }
+                        <li class="list-group-item">
+                            <span class="fa-stack">
+                                <i class="fa fa-male fa-stack-1x" style="left: -4px;"></i>
+                                <i class="fa fa-male fa-stack-1x" style="font-size: .75em; left: 2px;top: 2px;"></i>
+                                <i class="fa fa-female fa-stack-1x" style="left: 8px;"></i>
+                            </span>Family room
+                        </li>
+                        @if (roomDetails.Facilities.Contains("Restaurant"))
+                        {
+                            <li class="list-group-item"><i class="fas fa-utensils mx-2"></i>Restaurant</li>
+                        }
+                        @if (roomDetails.Facilities.Contains("Bar"))
+                        {
+                            <li class="list-group-item"><i class="fas fa-wine-glass mx-2"></i>Bar</li>
+                        }
+                    }
                 </ul>
             </div>
 
@@ -120,5 +134,41 @@
 @code {
     [Parameter]
     public int RoomNumber { get; set; }
+    public Room roomDetails = new Room();
 
+    protected override async Task OnInitializedAsync()
+    {
+        string roomInfoApiUrl = $"http://localhost:19008/api/v1/rooms/{RoomNumber}";
+        Console.WriteLine(roomInfoApiUrl);
+        var getRoomInfoRequest = new HttpRequestMessage(HttpMethod.Get, roomInfoApiUrl);
+        var httpResponse = await Http.SendAsync(getRoomInfoRequest);
+        RoomInfoDeserializer roomInfoDeserializer = await httpResponse.Content.ReadFromJsonAsync<RoomInfoDeserializer>();
+        roomDetails = roomInfoDeserializer.room;
+        Console.WriteLine(roomDetails.RoomCategory);
+        Console.WriteLine(roomDetails.RoomNumber);
+        Console.WriteLine(roomDetails.Description);
+        Console.WriteLine(roomDetails.Price);
+        Console.WriteLine(roomDetails.Facilities);
+        Console.WriteLine(roomDetails.PersonsNumber);
+    }
+
+    public class Room
+    {
+        public string RoomCategory { get; set; }
+
+        public int RoomNumber { get; set; }
+
+        public string Description { get; set; }
+
+        public int Price { get; set; }
+
+        public string Facilities { get; set; }
+
+        public int PersonsNumber { get; set; }
+    }
+
+    public class RoomInfoDeserializer
+    {
+        public Room room { get; set; }
+    }
 }
