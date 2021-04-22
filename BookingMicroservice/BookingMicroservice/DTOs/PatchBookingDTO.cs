@@ -3,7 +3,7 @@ using System;
 
 namespace BookingMicroservice.DTOs
 {
-    public class PatchBookingDTO
+    public class PatchBookingDto
     {
         public int Id { get; set; }
         public DateTime CheckIn { get; set; }

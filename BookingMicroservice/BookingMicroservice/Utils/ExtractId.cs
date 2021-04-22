@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookingMicroservice.Utils
 {
-    public class ExtractId
+    public static class ExtractId
     {
         public static int ExtractUserId(string jwt)
         {

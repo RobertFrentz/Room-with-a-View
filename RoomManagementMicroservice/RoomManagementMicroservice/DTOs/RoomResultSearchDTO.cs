@@ -1,6 +1,6 @@
 ﻿namespace RoomManagementMicroservice.DTOs
 {
-    public class RoomResultSearchDTO
+    public class RoomResultSearchDto
     {
         public string RoomCategory { get; set; }
         public int Id { get; set; }

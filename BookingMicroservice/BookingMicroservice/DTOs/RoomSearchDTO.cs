@@ -2,9 +2,9 @@
 
 namespace BookingMicroservice.DTOs
 {
-    public class RoomSearchDTO
+    public class RoomSearchDto
     {
-        public string RoomCategory { get; set; }
+        public string? RoomCategory { get; set; }
 
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }

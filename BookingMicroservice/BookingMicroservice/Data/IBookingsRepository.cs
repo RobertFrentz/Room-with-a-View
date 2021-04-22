@@ -10,9 +10,9 @@ namespace BookingMicroservice.Data
 
         Task<IEnumerable<Booking>> GetBookings();
         Task<IEnumerable<Booking>> GetBookingsByUserId(int userId);
-        Task<GetBookingDTO> GetBookingByIdAsync(int id);
-        Task<int> AddBookingAsync(PostBookingDTO postBooking);
-        Task<int> UpdateBookingAsync(PatchBookingDTO patchBooking);
-        Task<IEnumerable<RoomDescriptionDTO>> SearchAvailableRoomsAsync(RoomSearchDTO roomSearchDTO, List<RoomDescriptionDTO> rooms);
+        Task<GetBookingDto?> GetBookingByIdAsync(int id);
+        Task<int> AddBookingAsync(PostBookingDto postBooking);
+        Task<int> UpdateBookingAsync(PatchBookingDto patchBooking);
+        Task<IEnumerable<RoomDescriptionDto>> SearchAvailableRoomsAsync(RoomSearchDto roomSearchDTO, List<RoomDescriptionDto> rooms);
     }
 }

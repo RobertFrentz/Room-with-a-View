@@ -18,7 +18,8 @@ namespace BookingMicroservice.Controllers
     {
         private readonly IBookingsRepository _repository;
         private readonly HttpClient client;
-
+        private readonly string usersManagementMicroserviceUri = "http://localhost:60094/api/v1/users/";
+        private readonly string roomsManagementMicroserviceUri = "http://localhost:19008/api/v1/rooms";
         public BookingsController(IBookingsRepository repository)
         {
             _repository = repository;
@@ -30,7 +31,7 @@ namespace BookingMicroservice.Controllers
         public async Task<IActionResult> GetBookings([FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri+"authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
@@ -44,7 +45,7 @@ namespace BookingMicroservice.Controllers
         public async Task<IActionResult> GetBookingsByUserId([FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
@@ -62,7 +63,7 @@ namespace BookingMicroservice.Controllers
         public async Task<IActionResult> GetBookingByIdAsync(int id, [FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
@@ -84,33 +85,35 @@ namespace BookingMicroservice.Controllers
         }
         [Route("search")]
         [HttpGet]
-        public async Task<IActionResult> SearchAvailableRoomsAsync([FromQuery] RoomSearchDTO roomSearchDTO,[FromHeader] string authorizationToken)
+        public async Task<IActionResult> SearchAvailableRoomsAsync([FromQuery] RoomSearchDto roomSearchDTO)
         {
-            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
-            if(responseAuthorization.StatusCode==System.Net.HttpStatusCode.Unauthorized)
+            
+            var httpResultContent = await client.GetStringAsync(roomsManagementMicroserviceUri);
+            if(httpResultContent!=null)
             {
-                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+                List<RoomDescriptionDto>? rooms = JsonConvert.DeserializeObject<List<RoomDescriptionDto>>(httpResultContent);
+                if(rooms!=null)
+                {
+                    var result = _repository.SearchAvailableRoomsAsync(roomSearchDTO, rooms);
+                    if (result == null)
+                    {
+                        return NotFound(new Error("No rooms available"));
+                    }
+                    return Ok(JsonConvert.SerializeObject(new
+                    {
+                        rooms = result.Result
+                    }));
+                }
+               
             }
-            var httpResultContent = await client.GetStringAsync("http://localhost:19008/api/v1/rooms");
-            List<RoomDescriptionDTO> rooms = JsonConvert.DeserializeObject<List<RoomDescriptionDTO>>(httpResultContent);
-            var result = _repository.SearchAvailableRoomsAsync(roomSearchDTO, rooms);
-            if(result == null)
-            {
-                return NotFound(new Error("No rooms available"));
-            }
-            //return Ok(result.Result);
-            return Ok(JsonConvert.SerializeObject(new
-            {
-                rooms = result.Result
-            }));
+            return NotFound(new Error("No rooms found."));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBookingAsync([FromBody] PostBookingDTO postBooking, [FromHeader] string authorizationToken)
+        public async Task<IActionResult> AddBookingAsync([FromBody] PostBookingDto postBooking, [FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
@@ -128,10 +131,10 @@ namespace BookingMicroservice.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateBookingAsync([FromBody] PatchBookingDTO patchBooking, [FromHeader] string authorizationToken)
+        public async Task<IActionResult> UpdateBookingAsync([FromBody] PatchBookingDto patchBooking, [FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync("http://localhost:60094/api/v1/users/authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);

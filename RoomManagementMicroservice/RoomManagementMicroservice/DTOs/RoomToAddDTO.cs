@@ -1,6 +1,6 @@
 ﻿namespace RoomManagementMicroservice.DTOs
 {
-    public class RoomToAddDTO
+    public class RoomToAddDto
     {
         public string RoomCategory { get; set; }
         public int PersonsNumber { get; set; }

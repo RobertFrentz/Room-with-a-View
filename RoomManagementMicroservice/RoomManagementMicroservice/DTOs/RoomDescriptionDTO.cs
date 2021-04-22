@@ -2,7 +2,7 @@
 {
 
     
-    public class RoomDescriptionDTO
+    public class RoomDescriptionDto
     {
         public string RoomCategory { get; set; }
 

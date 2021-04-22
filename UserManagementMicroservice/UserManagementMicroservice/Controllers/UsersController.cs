@@ -27,7 +27,7 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> GetAllAsync([FromHeader] string authorizationToken)
         {
             var result = Jwt.CheckJWT(authorizationToken);
-            if (Jwt.IsValidJWT(result) == false)
+            if (!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }
@@ -45,7 +45,7 @@ namespace UserManagementMicroservice.Controllers
         public  IActionResult CheckAuth([FromHeader] string authorizationToken)
         {
             var result =Jwt.CheckJWT(authorizationToken);
-            if (Jwt.IsValidJWT(result) == false)
+            if (!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }
@@ -57,7 +57,7 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> GetAsync([FromHeader] string authorizationToken)
         {
             var result = Jwt.CheckJWT(authorizationToken);
-            if (Jwt.IsValidJWT(result) == false)
+            if (!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }
@@ -70,7 +70,7 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> GetUsernameAsync([FromHeader] string authorizationToken)
         {
             var result = Jwt.CheckJWT(authorizationToken);
-            if(Jwt.IsValidJWT(result) == false)
+            if(!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }
@@ -116,7 +116,7 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> UpdateAsync([FromBody] UserRegister user,[FromHeader] string authenticationToken)
         {
             var result = Jwt.CheckJWT(authenticationToken);
-            if (Jwt.IsValidJWT(result) == false)
+            if (!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }
@@ -132,7 +132,7 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> DeleteAsync([FromHeader] string authenticationToken) 
         {
             var result = Jwt.CheckJWT(authenticationToken);
-            if (Jwt.IsValidJWT(result) == false)
+            if (!Jwt.IsValidJWT(result))
             {
                 return Unauthorized(new Error(result));
             }

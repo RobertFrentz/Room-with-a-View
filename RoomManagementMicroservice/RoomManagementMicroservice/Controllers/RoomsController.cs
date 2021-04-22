@@ -19,35 +19,18 @@ namespace RoomManagementMicroservice.Controllers
             _repository = repository;
         }
 
-        /*[Route("available")]
-        [HttpGet]
-        public async Task<IActionResult> GetRoomsAvailableAsync([FromQuery] RoomSearch roomSearch)
-        {
-            IEnumerable<RoomResultSearch> result = await _repository.GetRoomsAvailableAsync(roomSearch);
-
-            if(result.Count()==0)
-            {
-                return NotFound(new Error("There isn't any room with these properties."));
-            }
-            return Ok(JsonConvert.SerializeObject(new
-            {
-                roomsAvailable = result
-            }));
-        }*/
+        
 
         [HttpGet]
 
         public async Task<IActionResult> GetRoomsAsync()
         {
-            IEnumerable<RoomDescriptionDTO> result = await _repository.GetRoomsAsync();
+            IEnumerable<RoomDescriptionDto> result = await _repository.GetRoomsAsync();
             if (result == null)
             {
                 return NotFound(new Error("No rooms"));
             }
-            /*return Ok(JsonConvert.SerializeObject(new
-            {
-                rooms = result
-            }));*/
+
             return Ok(result);
         }
 
@@ -58,7 +41,7 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber)
         {
-            RoomDescriptionDTO result = await _repository.GetRoomByNumberAsync(roomNumber);
+            RoomDescriptionDto result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {
                 return NotFound(new Error("The room with that number does not exist."));
@@ -71,9 +54,9 @@ namespace RoomManagementMicroservice.Controllers
         [Route("addRoom")]
         [HttpPost]
 
-        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAddDTO roomToAdd)
+        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAddDto roomToAdd)
         {
-            var result = await _repository.AddRoomAsync(roomToAdd);
+            await _repository.AddRoomAsync(roomToAdd);
             return CreatedAtAction("addRoom", roomToAdd);
         }
 

@@ -24,14 +24,14 @@ namespace BookingMicroservice.Data
         {
             return await _context.Bookings.Where(booking => booking.UserId==userId).ToListAsync();
         }
-        public async Task<GetBookingDTO> GetBookingByIdAsync(int id)
+        public async Task<GetBookingDto?> GetBookingByIdAsync(int id)
         {
             var result = await _context.Bookings.Where(booking => booking.Id == id).FirstOrDefaultAsync();
             if (result == null)
             {
                 return null;
             }
-            return new GetBookingDTO()
+            return new GetBookingDto()
             {
                 Id = result.Id,
                 RoomNumber = result.RoomNumber,
@@ -42,11 +42,11 @@ namespace BookingMicroservice.Data
             };
         }
 
-        public async Task<int> AddBookingAsync(PostBookingDTO postBooking)
+        public async Task<int> AddBookingAsync(PostBookingDto postBooking)
         {
             var result = await _context.Bookings.AnyAsync(booking => booking.RoomNumber == postBooking.RoomNumber && booking.CheckIn == postBooking.CheckIn
                                                           && booking.CheckOut == postBooking.CheckOut && booking.UserId == postBooking.UserId);
-            if(result == true)
+            if(result)
             {
                 return -2;
             }
@@ -55,7 +55,7 @@ namespace BookingMicroservice.Data
                                                       (booking.CheckIn < postBooking.CheckIn && booking.CheckOut < postBooking.CheckOut) ||
                                                       (booking.CheckIn > postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut) ||
                                                       (booking.CheckIn < postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut))));
-            if (isAddingPossible == true)
+            if (isAddingPossible)
             {
                 _context.Add(new Booking()
                 {
@@ -74,7 +74,7 @@ namespace BookingMicroservice.Data
             return -1;
         }
 
-        public async Task<int> UpdateBookingAsync(PatchBookingDTO patchBooking)
+        public async Task<int> UpdateBookingAsync(PatchBookingDto patchBooking)
         {
             var result = await _context.Bookings.Where(booking => booking.Id == patchBooking.Id).FirstOrDefaultAsync();
             if (result == null)
@@ -87,7 +87,7 @@ namespace BookingMicroservice.Data
                                                       (booking.CheckIn < patchBooking.CheckIn && booking.CheckOut < patchBooking.CheckOut) ||
                                                       (booking.CheckIn > patchBooking.CheckIn && booking.CheckOut > patchBooking.CheckOut) ||
                                                       (booking.CheckIn < patchBooking.CheckIn && booking.CheckOut > patchBooking.CheckOut))));
-            if(isUpdatePossible == false)
+            if(!isUpdatePossible)
             {
                 return -1;
             }
@@ -99,9 +99,9 @@ namespace BookingMicroservice.Data
 
         }
 
-        public async Task<IEnumerable<RoomDescriptionDTO>> SearchAvailableRoomsAsync(RoomSearchDTO roomSearchDTO, List<RoomDescriptionDTO> rooms)
+        public async Task<IEnumerable<RoomDescriptionDto>> SearchAvailableRoomsAsync(RoomSearchDto roomSearchDTO, List<RoomDescriptionDto> rooms)
         {
-            List<RoomDescriptionDTO> returnValue = new List<RoomDescriptionDTO>();
+            List<RoomDescriptionDto> returnValue = new List<RoomDescriptionDto>();
             foreach(var room in rooms)
             {
                 if(room.PersonsNumber != roomSearchDTO.PersonsNumber)
@@ -113,7 +113,7 @@ namespace BookingMicroservice.Data
                                                       (booking.CheckIn < roomSearchDTO.CheckIn && booking.CheckOut < roomSearchDTO.CheckOut) ||
                                                       (booking.CheckIn > roomSearchDTO.CheckIn && booking.CheckOut > roomSearchDTO.CheckOut) ||
                                                       (booking.CheckIn < roomSearchDTO.CheckIn && booking.CheckOut > roomSearchDTO.CheckOut))));
-                if(isAvailable == false)
+                if(!isAvailable)
                 {
                     continue;
                 }

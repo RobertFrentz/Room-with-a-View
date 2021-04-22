@@ -10,7 +10,8 @@ namespace BookingMicroservice.Entities
         public DateTime CheckOut { get; set; }   
         public int UserId { get; set; }
         public int TotalPay { get; set; }
-        public string Status { get; set; }
+       
+        public string? Status { get; set; }
 
     }
 }

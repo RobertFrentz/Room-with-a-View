@@ -4,6 +4,7 @@ using RoomManagementMicroservice.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Data
@@ -17,26 +18,11 @@ namespace RoomManagementMicroservice.Data
             this.context = context;
         }
 
-       /* public async Task<IEnumerable<RoomResultSearch>> GetRoomsAvailableAsync(RoomSearch roomSearch)
+        public async Task<IEnumerable<RoomDescriptionDto>> GetRoomsAsync()
         {
-            var rooms = await context.Rooms.Where(room => room.RoomCategory == roomSearch.RoomCategory && (room.CheckIn == null
-              || (room.CheckIn < roomSearch.CheckIn && room.CheckOut< roomSearch.CheckIn) 
-              || (room.CheckIn > roomSearch.CheckOut && room.CheckOut> roomSearch.CheckOut))
-              && (roomSearch.CheckIn<roomSearch.CheckOut) && room.PersonsNumber==roomSearch.PersonsNumber).Select(room=>
-              new RoomResultSearch()
-              {
-                  RoomCategory=room.RoomCategory,
-                  Id=room.Id,
-                  Price=room.Price
-              }).ToListAsync();
-            return rooms;
-        }
-*/
-        public async Task<IEnumerable<RoomDescriptionDTO>> GetRoomsAsync()
-        {
-            var rnd = (new Random()).Next(100);
+
             var rooms = await context.Rooms.Select(room =>
-            new RoomDescriptionDTO()
+            new RoomDescriptionDto()
             {
                 RoomCategory = room.RoomCategory,
                 RoomNumber = room.RoomNumber,
@@ -44,18 +30,18 @@ namespace RoomManagementMicroservice.Data
                 Facilities = room.Facilities,
                 PersonsNumber = room.PersonsNumber,
                 Price = room.Price
-            }).OrderBy(room => room.Price * rnd).Take(10).ToListAsync();
+            }).OrderBy(room => room.Price).Take(10).ToListAsync();
             return rooms;
         }
 
-        public async Task<RoomDescriptionDTO> GetRoomByNumberAsync(int roomNumber)
+        public async Task<RoomDescriptionDto> GetRoomByNumberAsync(int roomNumber)
         {
             var room = await context.Rooms.Where(room => room.RoomNumber == roomNumber).FirstOrDefaultAsync();
             if (room == null)
             {
                 return null;
             }
-            RoomDescriptionDTO roomDescription = new RoomDescriptionDTO()
+            RoomDescriptionDto roomDescription = new RoomDescriptionDto()
             {
                 RoomCategory = room.RoomCategory,
                 RoomNumber = room.RoomNumber,
@@ -66,8 +52,7 @@ namespace RoomManagementMicroservice.Data
             };
             return roomDescription;
         }
-        //formula generare room number (nr.camerere / 10) + 1 * 100 + nr.camere % 10
-        public async Task<int> AddRoomAsync(RoomToAddDTO roomToAdd)
+        public async Task<int> AddRoomAsync(RoomToAddDto roomToAdd)
         {
             Room room = new Room(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
             int numberOfRooms = context.Rooms.Count();
@@ -86,3 +71,4 @@ namespace RoomManagementMicroservice.Data
         }*/
     }
 }
+

@@ -2,7 +2,7 @@
 
 namespace BookingMicroservice.DTOs
 {
-    public class PostBookingDTO
+    public class PostBookingDto
     {
         public int RoomNumber { get; set; }
         public DateTime CheckIn { get; set; }

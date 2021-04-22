@@ -5,14 +5,14 @@ using System;
 namespace BookingMicroservice.DTOs
 {
 
-    public class GetBookingDTO
+    public class GetBookingDto
     {
-        public GetBookingDTO()
+        public GetBookingDto()
         {
 
         }
 
-        public GetBookingDTO(int id, int roomNumber, DateTime checkIn, DateTime checkOut, int totalPay, string status)
+        public GetBookingDto(int id, int roomNumber, DateTime checkIn, DateTime checkOut, int totalPay, string status)
         {
             Id = id;
             RoomNumber = roomNumber;
@@ -27,6 +27,6 @@ namespace BookingMicroservice.DTOs
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public int TotalPay { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }

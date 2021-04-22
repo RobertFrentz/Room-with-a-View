@@ -1,4 +1,4 @@
-¸Ä
+»ä
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Controllers\BookingsController.cs
 	namespace 	
 BookingMicroservice
@@ -34,1003 +34,1097 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 
 HttpClient #
 client$ *
-;* +
-public 
-BookingsController !
-(! "
-IBookingsRepository" 5
+;* +
+private 
+readonly 
+string *
+usersManagementMicroserviceUri  >
+=? @
+$strA g
+;g h
+private 
+readonly 
+string *
+roomsManagementMicroserviceUri  >
+=? @
+$strA f
+;f g
+public 
+BookingsController !
+(! "
+IBookingsRepository" 5
 
-repository6 @
-)@ A
-{ 	
-_repository 
-= 
+repository6 @
+)@ A
+{ 	
+_repository 
+= 
 
-repository $
-;$ %
-client 
-= 
-new 
+repository $
+;$ %
+client 
+= 
+new 
 
-HttpClient #
-(# $
-)$ %
-;% &
-} 	
-[ 	
-Route	 
-( 
-$str 
-) 
-] 
-[ 	
-HttpGet	 
-] 
-public 
-async 
-Task 
-< 
-IActionResult '
->' (
-GetBookings) 4
-(4 5
-[5 6
+HttpClient #
+(# $
+)$ %
+;% &
+} 	
+[ 	
+Route	 
+( 
+$str 
+) 
+] 
+[ 	
+HttpGet	 
+] 
+public 
+async 
+Task 
+< 
+IActionResult '
+>' (
+GetBookings) 4
+(4 5
+[5 6
 
-FromHeader6 @
-]@ A
-stringB H
-authorizationTokenI [
-)[ \
-{ 	
-client   
-.   !
-DefaultRequestHeaders   (
-.  ( )
-Add  ) ,
-(  , -
-$str  - A
-,  A B
-authorizationToken  C U
-)  U V
-;  V W
-var!! !
-responseAuthorization!! %
-=!!& '
-await!!( -
-client!!. 4
-.!!4 5
-GetAsync!!5 =
-(!!= >
-$str!!> q
-)!!q r
-;!!r s
-if"" 
-("" !
+FromHeader6 @
+]@ A
+stringB H
+authorizationTokenI [
+)[ \
+{   	
+client!! 
+.!! !
+DefaultRequestHeaders!! (
+.!!( )
+Add!!) ,
+(!!, -
+$str!!- A
+,!!A B
+authorizationToken!!C U
+)!!U V
+;!!V W
+var"" !
 responseAuthorization"" %
-.""% &
+=""& '
+await""( -
+client"". 4
+.""4 5
+GetAsync""5 =
+(""= >*
+usersManagementMicroserviceUri""> \
++""\ ]
+$str""] l
+)""l m
+;""m n
+if## 
+(## !
+responseAuthorization## %
+.##% &
 
-StatusCode""& 0
-==""1 3
-System""4 :
-."": ;
-Net""; >
-.""> ?
-HttpStatusCode""? M
-.""M N
-Unauthorized""N Z
-)""Z [
-{## 
-return$$ 
-Unauthorized$$ #
-($$# $!
-responseAuthorization$$$ 9
-.$$9 :
-Content$$: A
-.$$A B
-ReadAsStringAsync$$B S
-($$S T
-)$$T U
-.$$U V
-Result$$V \
-)$$\ ]
-;$$] ^
-}%% 
-var&& 
-bookings&& 
-=&& 
-await&&  
-_repository&&! ,
-.&&, -
-GetBookings&&- 8
-(&&8 9
-)&&9 :
-;&&: ;
-return'' 
-Ok'' 
-('' 
-bookings'' 
-)'' 
-;''  
-}(( 	
-[++ 	
-HttpGet++	 
-]++ 
-public,, 
-async,, 
-Task,, 
-<,, 
-IActionResult,, '
->,,' (
-GetBookingsByUserId,,) <
-(,,< =
-[,,= >
+StatusCode##& 0
+==##1 3
+System##4 :
+.##: ;
+Net##; >
+.##> ?
+HttpStatusCode##? M
+.##M N
+Unauthorized##N Z
+)##Z [
+{$$ 
+return%% 
+Unauthorized%% #
+(%%# $!
+responseAuthorization%%$ 9
+.%%9 :
+Content%%: A
+.%%A B
+ReadAsStringAsync%%B S
+(%%S T
+)%%T U
+.%%U V
+Result%%V \
+)%%\ ]
+;%%] ^
+}&& 
+var'' 
+bookings'' 
+='' 
+await''  
+_repository''! ,
+.'', -
+GetBookings''- 8
+(''8 9
+)''9 :
+;'': ;
+return(( 
+Ok(( 
+((( 
+bookings(( 
+)(( 
+;((  
+})) 	
+[,, 	
+HttpGet,,	 
+],, 
+public-- 
+async-- 
+Task-- 
+<-- 
+IActionResult-- '
+>--' (
+GetBookingsByUserId--) <
+(--< =
+[--= >
 
-FromHeader,,> H
-],,H I
-string,,J P
-authorizationToken,,Q c
-),,c d
-{-- 	
-client.. 
-... !
-DefaultRequestHeaders.. (
-...( )
-Add..) ,
-(.., -
-$str..- A
-,..A B
-authorizationToken..C U
-)..U V
-;..V W
-var// !
-responseAuthorization// %
-=//& '
-await//( -
-client//. 4
-.//4 5
-GetAsync//5 =
-(//= >
-$str//> q
-)//q r
-;//r s
-if00 
-(00 !
+FromHeader--> H
+]--H I
+string--J P
+authorizationToken--Q c
+)--c d
+{.. 	
+client// 
+.// !
+DefaultRequestHeaders// (
+.//( )
+Add//) ,
+(//, -
+$str//- A
+,//A B
+authorizationToken//C U
+)//U V
+;//V W
+var00 !
 responseAuthorization00 %
-.00% &
+=00& '
+await00( -
+client00. 4
+.004 5
+GetAsync005 =
+(00= >*
+usersManagementMicroserviceUri00> \
++00] ^
+$str00_ n
+)00n o
+;00o p
+if11 
+(11 !
+responseAuthorization11 %
+.11% &
 
-StatusCode00& 0
-==001 3
-System004 :
-.00: ;
-Net00; >
-.00> ?
-HttpStatusCode00? M
-.00M N
-Unauthorized00N Z
-)00Z [
-{11 
-return22 
-Unauthorized22 #
-(22# $!
-responseAuthorization22$ 9
-.229 :
-Content22: A
-.22A B
-ReadAsStringAsync22B S
-(22S T
-)22T U
-.22U V
-Result22V \
-)22\ ]
-;22] ^
-}33 
-var44 
-userId44 
-=44 
-	ExtractId44 "
-.44" #
-ExtractUserId44# 0
-(440 1!
-responseAuthorization441 F
-.44F G
-Content44G N
-.44N O
-ReadAsStringAsync44O `
-(44` a
-)44a b
-.44b c
-Result44c i
-)44i j
-;44j k
-var55 
-bookings55 
-=55 
-await55  
-_repository55! ,
-.55, -
-GetBookingsByUserId55- @
-(55@ A
-userId55A G
-)55G H
-;55H I
-if66 
-(66 
-!66 
-bookings66 
-.66 
-Any66 
-(66 
-)66 
-)66  
-{77 
-return88 
-NotFound88 
-(88  
-new88  #
-Error88$ )
-(88) *
-$str88* A
-)88A B
-)88B C
-;88C D
-}99 
-return:: 
-Ok:: 
-(:: 
-bookings:: 
-):: 
-;::  
-};; 	
-[== 	
-HttpGet==	 
-(== 
-$str== 
-)== 
-]== 
-public>> 
-async>> 
-Task>> 
-<>> 
-IActionResult>> '
->>>' (
-GetBookingByIdAsync>>) <
-(>>< =
-int>>= @
-id>>A C
-,>>C D
-[>>E F
+StatusCode11& 0
+==111 3
+System114 :
+.11: ;
+Net11; >
+.11> ?
+HttpStatusCode11? M
+.11M N
+Unauthorized11N Z
+)11Z [
+{22 
+return33 
+Unauthorized33 #
+(33# $!
+responseAuthorization33$ 9
+.339 :
+Content33: A
+.33A B
+ReadAsStringAsync33B S
+(33S T
+)33T U
+.33U V
+Result33V \
+)33\ ]
+;33] ^
+}44 
+var55 
+userId55 
+=55 
+	ExtractId55 "
+.55" #
+ExtractUserId55# 0
+(550 1!
+responseAuthorization551 F
+.55F G
+Content55G N
+.55N O
+ReadAsStringAsync55O `
+(55` a
+)55a b
+.55b c
+Result55c i
+)55i j
+;55j k
+var66 
+bookings66 
+=66 
+await66  
+_repository66! ,
+.66, -
+GetBookingsByUserId66- @
+(66@ A
+userId66A G
+)66G H
+;66H I
+if77 
+(77 
+!77 
+bookings77 
+.77 
+Any77 
+(77 
+)77 
+)77  
+{88 
+return99 
+NotFound99 
+(99  
+new99  #
+Error99$ )
+(99) *
+$str99* A
+)99A B
+)99B C
+;99C D
+}:: 
+return;; 
+Ok;; 
+(;; 
+bookings;; 
+);; 
+;;;  
+}<< 	
+[>> 	
+HttpGet>>	 
+(>> 
+$str>> 
+)>> 
+]>> 
+public?? 
+async?? 
+Task?? 
+<?? 
+IActionResult?? '
+>??' (
+GetBookingByIdAsync??) <
+(??< =
+int??= @
+id??A C
+,??C D
+[??E F
 
-FromHeader>>F P
-]>>P Q
-string>>R X
-authorizationToken>>Y k
-)>>k l
-{?? 	
-client@@ 
-.@@ !
-DefaultRequestHeaders@@ (
-.@@( )
-Add@@) ,
-(@@, -
-$str@@- A
-,@@A B
-authorizationToken@@C U
-)@@U V
-;@@V W
-varAA !
-responseAuthorizationAA %
-=AA& '
-awaitAA( -
-clientAA. 4
-.AA4 5
-GetAsyncAA5 =
-(AA= >
-$strAA> q
-)AAq r
-;AAr s
-ifBB 
-(BB !
+FromHeader??F P
+]??P Q
+string??R X
+authorizationToken??Y k
+)??k l
+{@@ 	
+clientAA 
+.AA !
+DefaultRequestHeadersAA (
+.AA( )
+AddAA) ,
+(AA, -
+$strAA- A
+,AAA B
+authorizationTokenAAC U
+)AAU V
+;AAV W
+varBB !
 responseAuthorizationBB %
-.BB% &
+=BB& '
+awaitBB( -
+clientBB. 4
+.BB4 5
+GetAsyncBB5 =
+(BB= >*
+usersManagementMicroserviceUriBB> \
++BB] ^
+$strBB_ n
+)BBn o
+;BBo p
+ifCC 
+(CC !
+responseAuthorizationCC %
+.CC% &
 
-StatusCodeBB& 0
-==BB1 3
-SystemBB4 :
-.BB: ;
-NetBB; >
-.BB> ?
-HttpStatusCodeBB? M
-.BBM N
-UnauthorizedBBN Z
-)BBZ [
-{CC 
-returnDD 
-UnauthorizedDD #
-(DD# $!
-responseAuthorizationDD$ 9
-.DD9 :
-ContentDD: A
-.DDA B
-ReadAsStringAsyncDDB S
-(DDS T
-)DDT U
-.DDU V
-ResultDDV \
-)DD\ ]
-;DD] ^
-}EE 
-varFF 
-resultFF 
-=FF 
-awaitFF 
-_repositoryFF *
-.FF* +
-GetBookingByIdAsyncFF+ >
-(FF> ?
-idFF? A
-)FFA B
-;FFB C
-ifGG 
-(GG 
-resultGG 
-==GG 
-nullGG 
-)GG 
-{HH 
-returnII 
-NotFoundII 
-(II  
-newII  #
-ErrorII$ )
-(II) *
-$"II* ,
-Booking with id II, <
-{II< =
-idII= ?
-}II? @
- does not exist.II@ P
-"IIP Q
-)IIQ R
-)IIR S
-;IIS T
-}JJ 
-returnKK 
-OkKK 
-(KK 
-JsonConvertKK !
-.KK! "
-SerializeObjectKK" 1
-(KK1 2
-newKK2 5
-{LL 
-IdMM 
-=MM 
-resultMM 
-.MM 
-IdMM 
-,MM 
+StatusCodeCC& 0
+==CC1 3
+SystemCC4 :
+.CC: ;
+NetCC; >
+.CC> ?
+HttpStatusCodeCC? M
+.CCM N
+UnauthorizedCCN Z
+)CCZ [
+{DD 
+returnEE 
+UnauthorizedEE #
+(EE# $!
+responseAuthorizationEE$ 9
+.EE9 :
+ContentEE: A
+.EEA B
+ReadAsStringAsyncEEB S
+(EES T
+)EET U
+.EEU V
+ResultEEV \
+)EE\ ]
+;EE] ^
+}FF 
+varGG 
+resultGG 
+=GG 
+awaitGG 
+_repositoryGG *
+.GG* +
+GetBookingByIdAsyncGG+ >
+(GG> ?
+idGG? A
+)GGA B
+;GGB C
+ifHH 
+(HH 
+resultHH 
+==HH 
+nullHH 
+)HH 
+{II 
+returnJJ 
+NotFoundJJ 
+(JJ  
+newJJ  #
+ErrorJJ$ )
+(JJ) *
+$"JJ* ,
+Booking with id JJ, <
+{JJ< =
+idJJ= ?
+}JJ? @
+ does not exist.JJ@ P
+"JJP Q
+)JJQ R
+)JJR S
+;JJS T
+}KK 
+returnLL 
+OkLL 
+(LL 
+JsonConvertLL !
+.LL! "
+SerializeObjectLL" 1
+(LL1 2
+newLL2 5
+{MM 
+IdNN 
+=NN 
+resultNN 
+.NN 
+IdNN 
+,NN 
 
-RoomNumberNN 
-=NN 
-resultNN #
-.NN# $
+RoomNumberOO 
+=OO 
+resultOO #
+.OO# $
 
-RoomNumberNN$ .
-,NN. /
-CheckInOO 
-=OO 
-resultOO  
-.OO  !
-CheckInOO! (
-,OO( )
-CheckOutPP 
-=PP 
-resultPP !
-.PP! "
-CheckOutPP" *
-,PP* +
-TotalPayQQ 
+RoomNumberOO$ .
+,OO. /
+CheckInPP 
+=PP 
+resultPP  
+.PP  !
+CheckInPP! (
+,PP( )
+CheckOutQQ 
 =QQ 
 resultQQ !
 .QQ! "
-TotalPayQQ" *
-,QQ* +
-StatusRR 
-=RR 
-resultRR 
-.RR  
-StatusRR  &
-}SS 
-)SS 
-)SS 
-;SS 
-}TT 	
-[UU 	
-RouteUU	 
-(UU 
-$strUU 
-)UU 
-]UU 
-[VV 	
-HttpGetVV	 
-]VV 
-publicWW 
-asyncWW 
-TaskWW 
-<WW 
-IActionResultWW '
->WW' (%
-SearchAvailableRoomsAsyncWW) B
-(WWB C
-[WWC D
-	FromQueryWWD M
-]WWM N
-RoomSearchDTOWWO \
-roomSearchDTOWW] j
-,WWj k
-[WWk l
+CheckOutQQ" *
+,QQ* +
+TotalPayRR 
+=RR 
+resultRR !
+.RR! "
+TotalPayRR" *
+,RR* +
+StatusSS 
+=SS 
+resultSS 
+.SS  
+StatusSS  &
+}TT 
+)TT 
+)TT 
+;TT 
+}UU 	
+[VV 	
+RouteVV	 
+(VV 
+$strVV 
+)VV 
+]VV 
+[WW 	
+HttpGetWW	 
+]WW 
+publicXX 
+asyncXX 
+TaskXX 
+<XX 
+IActionResultXX '
+>XX' (%
+SearchAvailableRoomsAsyncXX) B
+(XXB C
+[XXC D
+	FromQueryXXD M
+]XXM N
+RoomSearchDtoXXO \
+roomSearchDTOXX] j
+,XXj k
+[XXk l
 
-FromHeaderWWl v
-]WWv w
-stringWWx ~
-authorizationToken	WW ë
+FromHeaderXXl v
+]XXv w
+stringXXx ~
+authorizationToken	XX ë
 )
-WWë í
-{XX 	
-clientYY 
-.YY !
-DefaultRequestHeadersYY (
-.YY( )
-AddYY) ,
-(YY, -
-$strYY- A
-,YYA B
-authorizationTokenYYC U
-)YYU V
-;YYV W
-varZZ !
-responseAuthorizationZZ %
-=ZZ& '
-awaitZZ( -
-clientZZ. 4
-.ZZ4 5
-GetAsyncZZ5 =
-(ZZ= >
-$strZZ> q
-)ZZq r
-;ZZr s
-if[[ 
-([[ !
-responseAuthorization[[ $
-.[[$ %
+XXë í
+{YY 	
+clientZZ 
+.ZZ !
+DefaultRequestHeadersZZ (
+.ZZ( )
+AddZZ) ,
+(ZZ, -
+$strZZ- A
+,ZZA B
+authorizationTokenZZC U
+)ZZU V
+;ZZV W
+var[[ !
+responseAuthorization[[ %
+=[[& '
+await[[( -
+client[[. 4
+.[[4 5
+GetAsync[[5 =
+([[= >*
+usersManagementMicroserviceUri[[> \
++[[] ^
+$str[[_ n
+)[[n o
+;[[o p
+if\\ 
+(\\ !
+responseAuthorization\\ $
+.\\$ %
 
-StatusCode[[% /
-==[[/ 1
-System[[1 7
-.[[7 8
-Net[[8 ;
-.[[; <
-HttpStatusCode[[< J
-.[[J K
-Unauthorized[[K W
-)[[W X
-{\\ 
-return]] 
-Unauthorized]] #
-(]]# $!
-responseAuthorization]]$ 9
-.]]9 :
-Content]]: A
-.]]A B
-ReadAsStringAsync]]B S
-(]]S T
-)]]T U
-.]]U V
-Result]]V \
-)]]\ ]
-;]]] ^
-}^^ 
-var__ 
-httpResultContent__ !
-=__" #
-await__$ )
-client__* 0
-.__0 1
-GetStringAsync__1 ?
-(__? @
-$str__@ e
-)__e f
-;__f g
-List`` 
-<`` 
-RoomDescriptionDTO`` #
->``# $
-rooms``% *
-=``+ ,
-JsonConvert``- 8
-.``8 9
-DeserializeObject``9 J
-<``J K
-List``K O
-<``O P
-RoomDescriptionDTO``P b
->``b c
->``c d
-(``d e
-httpResultContent``e v
-)``v w
-;``w x
-varaa 
-resultaa 
-=aa 
-_repositoryaa $
-.aa$ %%
-SearchAvailableRoomsAsyncaa% >
-(aa> ?
-roomSearchDTOaa? L
-,aaL M
-roomsaaN S
-)aaS T
-;aaT U
-ifbb 
-(bb 
-resultbb 
-==bb 
-nullbb 
-)bb 
-{cc 
-returndd 
-NotFounddd 
-(dd  
-newdd  #
-Errordd$ )
-(dd) *
-$strdd* >
-)dd> ?
-)dd? @
-;dd@ A
-}ee 
-returngg 
-Okgg 
-(gg 
-JsonConvertgg !
-.gg! "
-SerializeObjectgg" 1
-(gg1 2
-newgg2 5
-{hh 
-roomsii 
-=ii 
-resultii 
-.ii 
-Resultii %
-}jj 
-)jj 
-)jj 
-;jj 
-}kk 	
-[mm 	
-HttpPostmm	 
-]mm 
-publicnn 
-asyncnn 
-Tasknn 
-<nn 
-IActionResultnn '
->nn' (
-AddBookingAsyncnn) 8
-(nn8 9
-[nn9 :
-FromBodynn: B
-]nnB C
-PostBookingDTOnnD R
-postBookingnnS ^
-,nn^ _
-[nn` a
+StatusCode\\% /
+==\\/ 1
+System\\1 7
+.\\7 8
+Net\\8 ;
+.\\; <
+HttpStatusCode\\< J
+.\\J K
+Unauthorized\\K W
+)\\W X
+{]] 
+return^^ 
+Unauthorized^^ #
+(^^# $!
+responseAuthorization^^$ 9
+.^^9 :
+Content^^: A
+.^^A B
+ReadAsStringAsync^^B S
+(^^S T
+)^^T U
+.^^U V
+Result^^V \
+)^^\ ]
+;^^] ^
+}__ 
+var`` 
+httpResultContent`` !
+=``" #
+await``$ )
+client``* 0
+.``0 1
+GetStringAsync``1 ?
+(``? @*
+roomsManagementMicroserviceUri``@ ^
+)``^ _
+;``_ `
+ifaa 
+(aa 
+httpResultContentaa  
+!=aa  "
+nullaa" &
+)aa& '
+{bb 
+Listcc 
+<cc 
+RoomDescriptionDtocc '
+>cc' (
+?cc( )
+roomscc* /
+=cc0 1
+JsonConvertcc2 =
+.cc= >
+DeserializeObjectcc> O
+<ccO P
+ListccP T
+<ccT U
+RoomDescriptionDtoccU g
+>ccg h
+>cch i
+(cci j
+httpResultContentccj {
+)cc{ |
+;cc| }
+ifdd 
+(dd 
+roomsdd 
+!=dd 
+nulldd 
+)dd 
+{ee 
+varff 
+resultff 
+=ff  
+_repositoryff! ,
+.ff, -%
+SearchAvailableRoomsAsyncff- F
+(ffF G
+roomSearchDTOffG T
+,ffT U
+roomsffV [
+)ff[ \
+;ff\ ]
+ifgg 
+(gg 
+resultgg 
+==gg !
+nullgg" &
+)gg& '
+{hh 
+returnii 
+NotFoundii '
+(ii' (
+newii( +
+Errorii, 1
+(ii1 2
+$strii2 F
+)iiF G
+)iiG H
+;iiH I
+}jj 
+returnkk 
+Okkk 
+(kk 
+JsonConvertkk )
+.kk) *
+SerializeObjectkk* 9
+(kk9 :
+newkk: =
+{ll 
+roomsmm 
+=mm 
+resultmm  &
+.mm& '
+Resultmm' -
+}nn 
+)nn 
+)nn 
+;nn 
+}oo 
+}qq 
+returnrr 
+NotFoundrr 
+(rr 
+newrr 
+Errorrr  %
+(rr% &
+$strrr& 7
+)rr7 8
+)rr8 9
+;rr9 :
+}ss 	
+[uu 	
+HttpPostuu	 
+]uu 
+publicvv 
+asyncvv 
+Taskvv 
+<vv 
+IActionResultvv '
+>vv' (
+AddBookingAsyncvv) 8
+(vv8 9
+[vv9 :
+FromBodyvv: B
+]vvB C
+PostBookingDtovvD R
+postBookingvvS ^
+,vv^ _
+[vv` a
 
-FromHeadernna k
-]nnk l
-stringnnm s
-authorizationToken	nnt Ü
+FromHeadervva k
+]vvk l
+stringvvm s
+authorizationToken	vvt Ü
 )
-nnÜ á
-{oo 	
-clientpp 
-.pp !
-DefaultRequestHeaderspp (
-.pp( )
-Addpp) ,
-(pp, -
-$strpp- A
-,ppA B
-authorizationTokenppC U
-)ppU V
-;ppV W
-varqq !
-responseAuthorizationqq %
-=qq& '
-awaitqq( -
-clientqq. 4
-.qq4 5
-GetAsyncqq5 =
-(qq= >
-$strqq> q
-)qqq r
-;qqr s
-ifrr 
-(rr !
-responseAuthorizationrr %
-.rr% &
+vvÜ á
+{ww 	
+clientxx 
+.xx !
+DefaultRequestHeadersxx (
+.xx( )
+Addxx) ,
+(xx, -
+$strxx- A
+,xxA B
+authorizationTokenxxC U
+)xxU V
+;xxV W
+varyy !
+responseAuthorizationyy %
+=yy& '
+awaityy( -
+clientyy. 4
+.yy4 5
+GetAsyncyy5 =
+(yy= >*
+usersManagementMicroserviceUriyy> \
++yy] ^
+$stryy_ n
+)yyn o
+;yyo p
+ifzz 
+(zz !
+responseAuthorizationzz %
+.zz% &
 
-StatusCoderr& 0
-==rr1 3
-Systemrr4 :
-.rr: ;
-Netrr; >
-.rr> ?
-HttpStatusCoderr? M
-.rrM N
-UnauthorizedrrN Z
-)rrZ [
-{ss 
-returntt 
-Unauthorizedtt #
-(tt# $!
-responseAuthorizationtt$ 9
-.tt9 :
-Contenttt: A
-.ttA B
-ReadAsStringAsyncttB S
-(ttS T
-)ttT U
-.ttU V
-ResultttV \
-)tt\ ]
-;tt] ^
-}uu 
-varvv 
-resultvv 
-=vv 
-awaitvv 
-_repositoryvv *
-.vv* +
-AddBookingAsyncvv+ :
-(vv: ;
-postBookingvv; F
-)vvF G
-;vvG H
-ifww 
-(ww 
-resultww 
-==ww 
--ww 
-$numww 
-)ww 
-{xx 
-returnyy 
-
-BadRequestyy !
-(yy! "
-newyy" %
-Erroryy& +
-(yy+ ,
-$stryy, E
-)yyE F
-)yyF G
-;yyG H
-}zz 
-if{{ 
-({{ 
-result{{ 
-=={{ 
--{{ 
-$num{{ 
-){{ 
-{|| 
-return}} 
-
-BadRequest}} !
-(}}! "
-new}}" %
-Error}}& +
-(}}+ ,
-$str}}, i
-)}}i j
-)}}j k
-;}}k l
-}~~ 
-return 
-CreatedAtAction "
-(" #
-$str# /
-,/ 0
-postBooking1 <
-)< =
-;= >
-}
-ÄÄ 	
-[
-ÇÇ 	
-	HttpPatch
-ÇÇ	 
-]
-ÇÇ 
-public
-ÉÉ 
-async
-ÉÉ 
-Task
-ÉÉ 
-<
-ÉÉ 
-IActionResult
-ÉÉ '
->
-ÉÉ' ( 
-UpdateBookingAsync
-ÉÉ) ;
-(
-ÉÉ; <
-[
-ÉÉ< =
-FromBody
-ÉÉ= E
-]
-ÉÉE F
-PatchBookingDTO
-ÉÉG V
-patchBooking
-ÉÉW c
-,
-ÉÉc d
-[
-ÉÉe f
-
-FromHeader
-ÉÉf p
-]
-ÉÉp q
-string
-ÉÉr x!
-authorizationTokenÉÉy ã
-)ÉÉã å
+StatusCodezz& 0
+==zz1 3
+Systemzz4 :
+.zz: ;
+Netzz; >
+.zz> ?
+HttpStatusCodezz? M
+.zzM N
+UnauthorizedzzN Z
+)zzZ [
+{{{ 
+return|| 
+Unauthorized|| #
+(||# $!
+responseAuthorization||$ 9
+.||9 :
+Content||: A
+.||A B
+ReadAsStringAsync||B S
+(||S T
+)||T U
+.||U V
+Result||V \
+)||\ ]
+;||] ^
+}}} 
+var~~ 
+result~~ 
+=~~ 
+await~~ 
+_repository~~ *
+.~~* +
+AddBookingAsync~~+ :
+(~~: ;
+postBooking~~; F
+)~~F G
+;~~G H
+if 
+( 
+result 
+== 
+- 
+$num 
+) 
 {
-ÑÑ 	
-client
-ÖÖ 
-.
-ÖÖ #
-DefaultRequestHeaders
-ÖÖ (
-.
-ÖÖ( )
-Add
-ÖÖ) ,
-(
-ÖÖ, -
-$str
-ÖÖ- A
-,
-ÖÖA B 
-authorizationToken
-ÖÖC U
-)
-ÖÖU V
-;
-ÖÖV W
-var
-ÜÜ #
-responseAuthorization
-ÜÜ %
-=
-ÜÜ& '
-await
-ÜÜ( -
-client
-ÜÜ. 4
-.
-ÜÜ4 5
-GetAsync
-ÜÜ5 =
-(
-ÜÜ= >
-$str
-ÜÜ> q
-)
-ÜÜq r
-;
-ÜÜr s
-if
-áá 
-(
-áá #
-responseAuthorization
-áá %
-.
-áá% &
-
-StatusCode
-áá& 0
-==
-áá1 3
-System
-áá4 :
-.
-áá: ;
-Net
-áá; >
-.
-áá> ?
-HttpStatusCode
-áá? M
-.
-ááM N
-Unauthorized
-ááN Z
-)
-ááZ [
-{
-àà 
+ÄÄ 
 return
-ââ 
-Unauthorized
-ââ #
-(
-ââ# $#
-responseAuthorization
-ââ$ 9
-.
-ââ9 :
-Content
-ââ: A
-.
-ââA B
-ReadAsStringAsync
-ââB S
-(
-ââS T
-)
-ââT U
-.
-ââU V
-Result
-ââV \
-)
-ââ\ ]
-;
-ââ] ^
-}
-ää 
-var
-ãã 
-result
-ãã 
-=
-ãã 
-await
-ãã 
-_repository
-ãã *
-.
-ãã* + 
-UpdateBookingAsync
-ãã+ =
-(
-ãã= >
-patchBooking
-ãã> J
-)
-ããJ K
-;
-ããK L
-if
-åå 
-(
-åå 
-result
-åå 
-==
-åå 
--
-åå 
-$num
-åå 
-)
-åå 
-{
-çç 
-return
-éé 
-NotFound
-éé 
-(
-éé  
-new
-éé  #
-Error
-éé$ )
-(
-éé) *
-$"
-éé* ,
-Booking with id 
-éé, <
-{
-éé< =
-patchBooking
-éé= I
-.
-ééI J
-Id
-ééJ L
-}
-ééL M
- does not exist.
-ééM ]
-"
-éé] ^
-)
-éé^ _
-)
-éé_ `
-;
-éé` a
-}
-èè 
-if
-êê 
-(
-êê 
-result
-êê 
-==
-êê 
--
-êê 
-$num
-êê 
-)
-êê 
-{
-ëë 
-return
-íí 
+ÅÅ 
 
 BadRequest
-íí !
+ÅÅ !
 (
-íí! "
+ÅÅ! "
 new
-íí" %
+ÅÅ" %
 Error
-íí& +
+ÅÅ& +
 (
-íí+ ,
+ÅÅ+ ,
 $str
-íí, i
+ÅÅ, E
 )
-ííi j
+ÅÅE F
 )
-ííj k
+ÅÅF G
 ;
-íík l
+ÅÅG H
 }
-ìì 
-return
-îî 
-	NoContent
-îî 
+ÇÇ 
+if
+ÉÉ 
 (
-îî 
+ÉÉ 
+result
+ÉÉ 
+==
+ÉÉ 
+-
+ÉÉ 
+$num
+ÉÉ 
 )
-îî 
+ÉÉ 
+{
+ÑÑ 
+return
+ÖÖ 
+
+BadRequest
+ÖÖ !
+(
+ÖÖ! "
+new
+ÖÖ" %
+Error
+ÖÖ& +
+(
+ÖÖ+ ,
+$str
+ÖÖ, i
+)
+ÖÖi j
+)
+ÖÖj k
 ;
-îî 
+ÖÖk l
 }
-ïï 	
+ÜÜ 
+return
+áá 
+CreatedAtAction
+áá "
+(
+áá" #
+$str
+áá# /
+,
+áá/ 0
+postBooking
+áá1 <
+)
+áá< =
+;
+áá= >
 }
-ññ 
-}óó ús
+àà 	
+[
+ää 	
+	HttpPatch
+ää	 
+]
+ää 
+public
+ãã 
+async
+ãã 
+Task
+ãã 
+<
+ãã 
+IActionResult
+ãã '
+>
+ãã' ( 
+UpdateBookingAsync
+ãã) ;
+(
+ãã; <
+[
+ãã< =
+FromBody
+ãã= E
+]
+ããE F
+PatchBookingDto
+ããG V
+patchBooking
+ããW c
+,
+ããc d
+[
+ããe f
+
+FromHeader
+ããf p
+]
+ããp q
+string
+ããr x!
+authorizationTokenããy ã
+)ããã å
+{
+åå 	
+client
+çç 
+.
+çç #
+DefaultRequestHeaders
+çç (
+.
+çç( )
+Add
+çç) ,
+(
+çç, -
+$str
+çç- A
+,
+ççA B 
+authorizationToken
+ççC U
+)
+ççU V
+;
+ççV W
+var
+éé #
+responseAuthorization
+éé %
+=
+éé& '
+await
+éé( -
+client
+éé. 4
+.
+éé4 5
+GetAsync
+éé5 =
+(
+éé= >,
+usersManagementMicroserviceUri
+éé> \
++
+éé] ^
+$str
+éé_ n
+)
+één o
+;
+ééo p
+if
+èè 
+(
+èè #
+responseAuthorization
+èè %
+.
+èè% &
+
+StatusCode
+èè& 0
+==
+èè1 3
+System
+èè4 :
+.
+èè: ;
+Net
+èè; >
+.
+èè> ?
+HttpStatusCode
+èè? M
+.
+èèM N
+Unauthorized
+èèN Z
+)
+èèZ [
+{
+êê 
+return
+ëë 
+Unauthorized
+ëë #
+(
+ëë# $#
+responseAuthorization
+ëë$ 9
+.
+ëë9 :
+Content
+ëë: A
+.
+ëëA B
+ReadAsStringAsync
+ëëB S
+(
+ëëS T
+)
+ëëT U
+.
+ëëU V
+Result
+ëëV \
+)
+ëë\ ]
+;
+ëë] ^
+}
+íí 
+var
+ìì 
+result
+ìì 
+=
+ìì 
+await
+ìì 
+_repository
+ìì *
+.
+ìì* + 
+UpdateBookingAsync
+ìì+ =
+(
+ìì= >
+patchBooking
+ìì> J
+)
+ììJ K
+;
+ììK L
+if
+îî 
+(
+îî 
+result
+îî 
+==
+îî 
+-
+îî 
+$num
+îî 
+)
+îî 
+{
+ïï 
+return
+ññ 
+NotFound
+ññ 
+(
+ññ  
+new
+ññ  #
+Error
+ññ$ )
+(
+ññ) *
+$"
+ññ* ,
+Booking with id 
+ññ, <
+{
+ññ< =
+patchBooking
+ññ= I
+.
+ññI J
+Id
+ññJ L
+}
+ññL M
+ does not exist.
+ññM ]
+"
+ññ] ^
+)
+ññ^ _
+)
+ññ_ `
+;
+ññ` a
+}
+óó 
+if
+òò 
+(
+òò 
+result
+òò 
+==
+òò 
+-
+òò 
+$num
+òò 
+)
+òò 
+{
+ôô 
+return
+öö 
+
+BadRequest
+öö !
+(
+öö! "
+new
+öö" %
+Error
+öö& +
+(
+öö+ ,
+$str
+öö, i
+)
+ööi j
+)
+ööj k
+;
+öök l
+}
+õõ 
+return
+úú 
+	NoContent
+úú 
+(
+úú 
+)
+úú 
+;
+úú 
+}
+ùù 	
+}
+ûû 
+}üü ør
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\BookingsRepository.cs
 	namespace 	
 BookingMicroservice
@@ -1137,13 +1231,14 @@ sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 async 
 Task 
 < 
-GetBookingDTO '
->' (
-GetBookingByIdAsync) <
-(< =
-int= @
-idA C
-)C D
+GetBookingDto '
+?' (
+>( )
+GetBookingByIdAsync* =
+(= >
+int> A
+idB D
+)D E
 { 	
 var 
 result 
@@ -1181,7 +1276,7 @@ sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 }!! 
 return"" 
 new"" 
-GetBookingDTO"" $
+GetBookingDto"" $
 (""$ %
 )""% &
 {## 
@@ -1233,7 +1328,7 @@ RoomNumber%%$ .
 >-- 
 AddBookingAsync-- .
 (--. /
-PostBookingDTO--/ =
+PostBookingDto--/ =
 postBooking--> I
 )--I J
 {.. 	
@@ -1294,10 +1389,8 @@ RoomNumber//g q
 00é è
 if11 
 (11 
-result11 
-==11 
-true11 
-)11 
+result11 
+)11 
 {22 
 return33 
 -33 
@@ -1417,10 +1510,8 @@ RoomNumber55s }
 99ã å
 if:: 
 (:: 
-isAddingPossible::  
-==::! #
-true::$ (
-)::( )
+isAddingPossible::  
+)::  !
 {;; 
 _context<< 
 .<< 
@@ -1495,7 +1586,7 @@ RoomNumber??- 7
 >MM 
 UpdateBookingAsyncMM 1
 (MM1 2
-PatchBookingDTOMM2 A
+PatchBookingDtoMM2 A
 patchBookingMMB N
 )MMN O
 {NN 	
@@ -1676,11 +1767,10 @@ roomNumberUUg q
 ;
 YYç é
 ifZZ 
-(ZZ 
-isUpdatePossibleZZ 
-==ZZ  "
-falseZZ# (
-)ZZ( )
+(ZZ 
+!ZZ 
+isUpdatePossibleZZ  
+)ZZ  !
 {[[ 
 return\\ 
 -\\ 
@@ -1720,17 +1810,17 @@ roomNumberUUg q
 <ff 
 IEnumerableff %
 <ff% &
-RoomDescriptionDTOff& 8
+RoomDescriptionDtoff& 8
 >ff8 9
 >ff9 :%
 SearchAvailableRoomsAsyncff; T
 (ffT U
-RoomSearchDTOffU b
+RoomSearchDtoffU b
 roomSearchDTOffc p
 ,ffp q
 Listffr v
 <ffv w
-RoomDescriptionDTO	ffw â
+RoomDescriptionDto	ffw â
 >
 ffâ ä
 rooms
@@ -1740,14 +1830,14 @@ roomNumberUUg q
 {gg 	
 Listhh 
 <hh 
-RoomDescriptionDTOhh #
+RoomDescriptionDtohh #
 >hh# $
 returnValuehh% 0
 =hh1 2
 newhh3 6
 Listhh7 ;
 <hh; <
-RoomDescriptionDTOhh< N
+RoomDescriptionDtohh< N
 >hhN O
 (hhO P
 )hhP Q
@@ -1894,11 +1984,10 @@ RoomNumberook u
 ;
 ssè ê
 iftt 
-(tt 
-isAvailablett 
-==tt !
-falsett" '
-)tt' (
+(tt 
+!tt 
+isAvailablett 
+)tt  
 {uu 
 continuevv 
 ;vv 
@@ -1986,7 +2075,7 @@ lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ;O P
 } 	
 } 
-} …
+} ÿ
 tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\IBookingsRepository.cs
 	namespace 	
 BookingMicroservice
@@ -2025,21 +2114,22 @@ tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ;B C
 Task 
 < 
-GetBookingDTO 
-> 
-GetBookingByIdAsync /
-(/ 0
-int0 3
-id4 6
-)6 7
-;7 8
+GetBookingDto 
+? 
+> 
+GetBookingByIdAsync 0
+(0 1
+int1 4
+id5 7
+)7 8
+;8 9
 Task 
 < 
 int 
 > 
 AddBookingAsync !
 (! "
-PostBookingDTO" 0
+PostBookingDto" 0
 postBooking1 <
 )< =
 ;= >
@@ -2049,7 +2139,7 @@ tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 > 
 UpdateBookingAsync $
 ($ %
-PatchBookingDTO% 4
+PatchBookingDto% 4
 patchBooking5 A
 )A B
 ;B C
@@ -2057,17 +2147,17 @@ tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 < 
 IEnumerable 
 < 
-RoomDescriptionDTO +
+RoomDescriptionDto +
 >+ ,
 >, -%
 SearchAvailableRoomsAsync. G
 (G H
-RoomSearchDTOH U
+RoomSearchDtoH U
 roomSearchDTOV c
 ,c d
 Liste i
 <i j
-RoomDescriptionDTOj |
+RoomDescriptionDtoj |
 >| }
 rooms	~ É
 )
@@ -2304,8 +2394,8 @@ PrimaryKey $
 ;  ! "
 }!! 	
 }"" 
-}## ú
-nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\GetBookingDTO.cs
+}## ´
+nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\GetBookingDto.cs
 	namespace 	
 BookingMicroservice
  
@@ -2315,12 +2405,12 @@ nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 
 class 
-GetBookingDTO 
+GetBookingDto 
 {		 
 public
 
  
-GetBookingDTO
+GetBookingDto
 
  
 (
@@ -2332,7 +2422,7 @@ nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 { 	
 } 	
 public 
-GetBookingDTO 
+GetBookingDto 
 ( 
 int  
 id! #
@@ -2428,17 +2518,18 @@ RoomNumber 
 ;& '
 }( )
 public 
-string 
-Status 
-{ 
-get "
-;" #
-set$ '
-;' (
-}) *
+string 
+? 
+Status 
+{ 
+get  #
+;# $
+set% (
+;( )
+}* +
 } 
 }   ì
-pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PatchBookingDTO.cs
+pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PatchBookingDto.cs
 	namespace 	
 BookingMicroservice
  
@@ -2448,7 +2539,7 @@ pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 
 class 
-PatchBookingDTO  
+PatchBookingDto  
 { 
 public 
 int 
@@ -2497,7 +2588,7 @@ pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 - .
 } 
 } ∞
-oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PostBookingDTO.cs
+oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PostBookingDto.cs
 	namespace 	
 BookingMicroservice
  
@@ -2507,7 +2598,7 @@ oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 
 class 
-PostBookingDTO 
+PostBookingDto 
 { 
 public 
 int 
@@ -2565,8 +2656,9 @@ RoomNumber 
 
 & '
 } 
-} ˜	
-sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomDescriptionDTO.cs
+} §
+
+sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomDescriptionDto.cs
 	namespace 	
 BookingMicroservice
  
@@ -2576,17 +2668,18 @@ sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 
 class 
-RoomDescriptionDTO #
+RoomDescriptionDto #
 { 
 public 
-string 
-RoomCategory "
-{# $
-get% (
-;( )
-set* -
-;- .
-}/ 0
+string 
+? 
+RoomCategory #
+{$ %
+get& )
+;) *
+set+ .
+;. /
+}0 1
 public 
 int 
 
@@ -2598,14 +2691,15 @@ RoomNumber 
 ;( )
 }* +
 public		 
-string		 
-Description		 !
-{		" #
-get		$ '
-;		' (
-set		) ,
-;		, -
-}		. /
+string		 
+?		 
+Description		 "
+{		# $
+get		% (
+;		( )
+set		* -
+;		- .
+}		/ 0
 public
 
  
@@ -2634,15 +2728,16 @@ RoomNumber 
 
 % &
 public 
-string 
+string 
+? 
 
-Facilities  
-{! "
-get# &
-;& '
-set( +
-;+ ,
-}- .
+Facilities !
+{" #
+get$ '
+;' (
+set) ,
+;, -
+}. /
 public 
 int 
 PersonsNumber  
@@ -2653,8 +2748,8 @@ Facilities  
 ;+ ,
 }- .
 } 
-} ÿ
-nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomSearchDTO.cs
+} Á
+nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomSearchDto.cs
 	namespace 	
 BookingMicroservice
  
@@ -2664,17 +2759,18 @@ nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 
 class 
-RoomSearchDTO 
+RoomSearchDto 
 { 
 public 
-string 
-RoomCategory "
-{# $
-get% (
-;( )
-set* -
-;- .
-}/ 0
+string 
+? 
+RoomCategory #
+{$ %
+get& )
+;) *
+set+ .
+;. /
+}0 1
 public		 
 DateTime		 
 ?		 
@@ -2725,7 +2821,7 @@ nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ;+ ,
 }- .
 } 
-} 
+} ˇ
 
 lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Entities\Booking.cs
 	namespace 	
@@ -2813,16 +2909,17 @@ RoomNumber 
 ;& '
 }( )
 public 
-string 
-Status 
-{ 
-get "
-;" #
-set$ '
-;' (
-}) *
+string 
+? 
+Status 
+{ 
+get  #
+;# $
+set% (
+;( )
+}* +
 } 
-} ƒ
+} ÿ
 
 cC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Program.cs
 	namespace 	
@@ -2830,9 +2927,10 @@ cC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
  
 { 
 public 
-
-class 
-Program 
+
+static 
+class 
+Program 
 { 
 public 
 static 
@@ -3224,7 +3322,7 @@ gC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 }
 
  
-} ƒ
+} ÿ
 
 kC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Utils\ExtractId.cs
 	namespace 	
@@ -3234,9 +3332,10 @@ kC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 Utils #
 { 
 public 
-
-class 
-	ExtractId 
+
+static 
+class 
+	ExtractId !
 {		 
 public
 

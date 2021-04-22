@@ -2,5 +2,5 @@ projectKey=RoomManagementMicroservice
 serverUrl=http://localhost:9000
 serverVersion=8.7.1.42226
 dashboardUrl=http://localhost:9000/dashboard?id=RoomManagementMicroservice
-ceTaskId=AXjVkOxJs66SSyRPysr7
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXjVkOxJs66SSyRPysr7
+ceTaskId=AXj4osNBtRXDu__l17Tl
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXj4osNBtRXDu__l17Tl
