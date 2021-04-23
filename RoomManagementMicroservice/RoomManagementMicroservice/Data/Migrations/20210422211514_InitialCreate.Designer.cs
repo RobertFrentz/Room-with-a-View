@@ -8,7 +8,7 @@ using RoomManagementMicroservice.Data;
 namespace RoomManagementMicroservice.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210420135543_InitialCreate")]
+    [Migration("20210422211514_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

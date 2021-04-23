@@ -11,8 +11,8 @@ namespace RoomManagementMicroservice.Data
 
         Task<RoomDescriptionDto> GetRoomByNumberAsync(int roomNumber);
 
-        Task<int> AddRoomAsync(RoomToAddDto roomToAdd);
+        Task<int> AddRoomAsync(PostRoomDto roomToAdd);
 
-        //Task<Room> ModifyRoomAttributesAsync(RoomDescription room, List<RoomDescription> patchDto);
+        Task<int> UpdateAsync(int roomNumber,PatchRoomDto patchRoomDto);
     }
 }

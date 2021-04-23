@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.Entities;
+using System.Collections.Generic;
 
 namespace RoomManagementMicroservice.Data
 {
@@ -17,7 +18,9 @@ namespace RoomManagementMicroservice.Data
         {
             modelBuilder.Entity<Room>().Property("Id").ValueGeneratedOnAdd();
             modelBuilder.Entity<Room>()
-                        .HasData(new Room
+                        .HasData(new List<Room>()
+                        {
+                        new Room
                         {
                             Id = 1,
                             RoomCategory = "Standard",
@@ -60,7 +63,8 @@ namespace RoomManagementMicroservice.Data
                 Description = "blabla",
                 Facilities = "Free Wi-Fi",
                 State = "Booked",
-            });
+            } });
+
         }
     }
 }

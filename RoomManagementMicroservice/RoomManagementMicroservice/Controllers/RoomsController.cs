@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Controllers
 {
+    //token admin: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTkyOTYyNDMsInVzZXJJZCI6Mn0.iDhjcbhbd0V-BxJjgr6rxRd9mhrQBz2XZH2kOK3ohJU
     [Route("api/v1/rooms")]
     [ApiController]
     public class RoomsController : ControllerBase
@@ -54,25 +55,22 @@ namespace RoomManagementMicroservice.Controllers
         [Route("addRoom")]
         [HttpPost]
 
-        public async Task<IActionResult> AddRoomAsync([FromBody] RoomToAddDto roomToAdd)
+        public async Task<IActionResult> PostRoomAsync([FromBody] PostRoomDto roomToAdd)
         {
             await _repository.AddRoomAsync(roomToAdd);
             return CreatedAtAction("addRoom", roomToAdd);
         }
 
-        /*[HttpPatch("{roomNumber}")]
-        public async Task<IActionResult> ModifyRoomAttributesAsync(int roomNumber, [FromBody] List<RoomDescription> patchDto)
+        [HttpPatch("{roomNumber}")]
+        public async Task<IActionResult> UpdateRoomAsync(int roomNumber, [FromBody] PatchRoomDto patchRoomDto)
         {
-            var room = await _repository.GetRoomByNumberAsync(roomNumber);
-
-            if (room == null)
+            var result = await _repository.UpdateAsync(roomNumber,patchRoomDto);
+            if(result==-1)
             {
-                return NotFound();
+                return NotFound(new Error($"The room with number {roomNumber} was not found."));
             }
-
-            await _repository.ModifyRoomAttributesAsync(room, patchDto);
-
             return NoContent();
-        }*/
+            
+        }
     }
 }
