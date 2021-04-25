@@ -1,6 +1,6 @@
 ﻿@page "/register"
 @inject NavigationManager NavigationManager
-@inject HttpClient Http
+@inject HttpClient HttpClient
 
 <div class="container">
 
@@ -16,32 +16,32 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input type="Email" class="form-control" placeholder="Email" required @bind="email">
+                    <input type="Email" name="Email" class="form-control" placeholder="Email" required @bind="email">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" required @bind="username">
+                    <input type="text" name="Username" class="form-control" placeholder="Username" required @bind="username">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password" required @bind="password">
+                    <input type="password" name="Password" class="form-control" placeholder="Password" required @bind="password">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-check"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password confirmation" required @bind="confirmPassword">
+                    <input type="password" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" required @bind="confirmPassword">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="form-group d-flex justify-content-end">
-                    <input type="submit" value="Sign Up" class="btn btn-light" @onclick='(() => AddUser())'>
+                    <input type="submit" value="Sign Up" class="btn btn-light" @onclick='SubmitRegisterForm'>
                 </div>
             </form>
         </div>
@@ -60,60 +60,65 @@
                 <strong>Attention!</strong> @registerErrorMessage.
             </div>
         }
-
     </div>
 
 </div>
 
 @code {
+    const string ApiRegisterEndpoint = "http://localhost:60094/api/v1/users/register";
+
     private string email;
+    private string username;
     private string password;
     private string confirmPassword;
-    private string username;
+
     bool registerError;
     string registerErrorMessage;
-    bool isUserLoggedIn;
 
-    public string LoginMesssage { get; set; }
-    private bool loading;
 
-    private async Task AddUser()
+    public async Task SubmitRegisterForm()
     {
-        string apiUrl = "http://localhost:60094/api/v1/users/register";
+
+        if (string.IsNullOrWhiteSpace(username) ||
+            string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(password) ||
+            string.IsNullOrWhiteSpace(confirmPassword))
+        {
+            //registerError = true;
+            //registerErrorMessage = "Please fill out all fields!";
+            return;
+        }
+
         if (password != confirmPassword)
         {
             registerError = true;
-            registerErrorMessage = "Passwords don't match";
+            registerErrorMessage = "Passwords don't match!";
             return;
         }
 
-
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
-string.IsNullOrWhiteSpace(password))
+        RegisterFormDTO registerForm = new RegisterFormDTO
         {
-            return;
-        }
-
-        User addUser = new User { Username = username, Email = email, Password = password };
-
-        var httpResponse = await Http.PostAsJsonAsync(apiUrl, addUser);
+            Username = username,
+            Email = email,
+            Password = password
+        };
 
         RegisterError registerErrorObj;
-        if ((int)httpResponse.StatusCode != 201)
+        var httpResponse = await HttpClient.PostAsJsonAsync(ApiRegisterEndpoint, registerForm);
+
+        if (!httpResponse.IsSuccessStatusCode) // status code range (200-299)
         {
-            Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
             registerErrorObj = await httpResponse.Content.ReadFromJsonAsync<RegisterError>();
             registerError = true;
-            registerErrorMessage = registerErrorObj.errorMessage;
-            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {registerErrorObj.errorMessage}");
+            registerErrorMessage = registerErrorObj.ErrorMessage;
+            Console.WriteLine($"Error: {(int)httpResponse.StatusCode} {httpResponse.ReasonPhrase} --- {registerErrorObj.ErrorMessage}");
             return;
         }
-
 
         NavigationManager.NavigateTo("/login", true);
     }
 
-    private class User
+    private class RegisterFormDTO
     {
         public string Email { get; set; }
         public string Username { get; set; }
@@ -122,6 +127,6 @@ string.IsNullOrWhiteSpace(password))
 
     public class RegisterError
     {
-        public string errorMessage { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

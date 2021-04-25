@@ -1,7 +1,9 @@
 ﻿@page "/login"
 @inject NavigationManager NavigationManager
-@inject HttpClient Http
+@inject HttpClient HttpClient
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@using Newtonsoft.Json
 
 <div class="container">
 
@@ -17,14 +19,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input type="Email" class="form-control" placeholder="Email" required @bind="email">
+                    <input type="Email" name="Email" class="form-control" placeholder="Email" required @bind="email">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="password" required @bind="password">
+                    <input type="password" name="Password" class="form-control" placeholder="password" required @bind="password">
                     <div class="invalid-feedback">Please fill out this field!</div>
                 </div>
                 <div class="form-check text-light input-group-lg">
@@ -32,7 +34,7 @@
                     <label class="form-check-label" for="rememberMeCheck">Remember me</label>
                 </div>
                 <div class="form-group d-flex justify-content-end">
-                    <input type="submit" value="Login" class="btn btn-light" @onclick="(() => LoginUser())">
+                    <input type="submit" value="Login" class="btn btn-light" @onclick="SubmitLoginForm">
                 </div>
             </form>
         </div>
@@ -57,73 +59,61 @@
 
 
 @code {
+    const string ApiLoginEndpoint = "http://localhost:60094/api/v1/users/login";
+
     private string email;
     private string password;
-    private string username;
+
     bool loginError = false;
-    bool isUserLoggedIn;
     string loginErrorMessage;
 
-    private bool loading;
 
-    private async Task LoginUser()
+    private async Task SubmitLoginForm()
     {
-        string apiUrl = "http://localhost:60094/api/v1/users/login";
 
-        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(password))
         {
+            //loginError = true;
+            //loginErrorMessage = "Please fill out all fields!";
             return;
         }
 
-        UserLoginData userLoginData = new UserLoginData { email = email, password = password };
-
-        var httpResponse = await Http.PostAsJsonAsync(apiUrl, userLoginData);
-
+        LoginFormDTO userLoginData = new LoginFormDTO
+        {
+            Email = email,
+            Password = password
+        };
 
         LoginError loginErrorObj;
-        if ((int)httpResponse.StatusCode != 200)
+        var httpResponse = await HttpClient.PostAsJsonAsync(ApiLoginEndpoint, userLoginData);
+
+        if (!httpResponse.IsSuccessStatusCode) // status code range (200-299)
         {
-            Console.WriteLine($"There was an error! { httpResponse.ReasonPhrase}");
             loginErrorObj = await httpResponse.Content.ReadFromJsonAsync<LoginError>();
             loginError = true;
-            loginErrorMessage = loginErrorObj.errorMessage;
-            Console.WriteLine($"{httpResponse.ReasonPhrase} ----- {loginErrorObj.errorMessage}");
+            loginErrorMessage = loginErrorObj.ErrorMessage;
+            Console.WriteLine($"Error: {(int)httpResponse.StatusCode} {httpResponse.ReasonPhrase} --- {loginErrorObj.ErrorMessage}");
             return;
         }
-        UserTokenDeserializer userTokenDeserializer = await httpResponse.Content.ReadFromJsonAsync<UserTokenDeserializer>();
 
-        await sessionStorage.SetItemAsync("jwt", userTokenDeserializer.jwt);
+        string jsonString = await httpResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"SubmitLoginForm response: {jsonString}");
+        dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
+
+        await sessionStorage.SetItemAsync("jwt", (string)jsonObject.jwt);
         NavigationManager.NavigateTo("/home", true);
     }
 
-    public async Task<bool> IsLoggedIn()
+    public class LoginFormDTO
     {
-        var token = await sessionStorage.GetItemAsync<string>("jwt");
-        return !string.IsNullOrWhiteSpace(token);
-    }
-
-    public async void LogOut()
-    {
-        //this will clear the session data
-        await sessionStorage.ClearAsync();
-        NavigationManager.NavigateTo("/login", true);
-    }
-
-
-    public class UserLoginData
-    {
-        public string email { get; set; }
-        public string password { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
     public class LoginError
     {
-        public string errorMessage { get; set; }
-    }
-
-    public class UserTokenDeserializer
-    {
-        public string jwt { get; set; }
+        public string ErrorMessage { get; set; }
     }
 
 }
