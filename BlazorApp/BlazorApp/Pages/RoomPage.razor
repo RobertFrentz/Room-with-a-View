@@ -5,7 +5,10 @@
 
     <div class="container">
 
-        <h3 class="mb-3">Room Category - Room Number: @RoomNumber</h3>
+        @if (roomDetails.RoomCategory != null)
+        {
+            <h3 class="mb-3">Room: @roomDetails.RoomCategory - @roomDetails.RoomNumber</h3>
+        }
 
         <div class="row" style="margin: 0px">
 
@@ -16,28 +19,34 @@
                 <form>
                     <div class="form-group">
                         <label for="checkInDate">Check-in:</label>
-                        <input type="date" min="2021-05-20" value="2021-05-20" class="form-control" id="checkInDate">
+                        <input type="date" class="form-control" id="checkInDate" @bind="_checkInDate">
                     </div>
 
                     <div class="form-group">
                         <label for="checkOutDate">Check-out:</label>
-                        <input type="date" min="2021-05-20" value="2021-05-23" class="form-control" id="checkOutDate">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="personsNumber">Persons number:</label>
-                        <input type="number" min="1" max="10" value="1" class="form-control" id="personsNumber">
+                        <input type="date" class="form-control" id="checkOutDate" @bind="_checkOutDate">
                     </div>
 
                     <div class="form-group row">
+                        <label for="personsNumber" class="col-sm-5 col-form-label">Persons:</label>
+                        <div class="col-sm-7">
+                            @if (roomDetails.Description != null)
+                            {
+                                <span class="form-control-plaintext" id="personsNumber">@roomDetails.PersonsNumber</span>
+                            }
+                        </div>
+
                         <label for="estimatedPrice" class="col-sm-5 col-form-label">Price:</label>
                         <div class="col-sm-7">
-                            <input type="text" readonly class="form-control-plaintext" id="estimatedPrice" value="293.6 Lei">
+                            @if (roomDetails.Price != 0)
+                            {
+                                <span class="form-control-plaintext" id="estimatedPrice">@estimatedRoomPrice Lei</span>
+                            }
                         </div>
 
                         <label for="roomAvailability" class="col-sm-5 col-form-label">Availability:</label>
                         <div class="col-sm-7">
-                            <input type="text" readonly class="form-control-plaintext" id="roomAvailability" value="Available">
+                            <span class="form-control-plaintext" id="roomAvailability">Available</span>
                         </div>
                     </div>
 
@@ -46,7 +55,7 @@
                 </form>
             </div>
 
-            <div class="col-sm-9 px-4">
+            <div class="col-sm-9 pl-4 pr-0">
 
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -96,7 +105,7 @@
                 <ul class="list-group">
                     @if (roomDetails.Facilities != null)
                     {
-                        @if (roomDetails.Facilities.Contains("parking"))
+                        @if (roomDetails.Facilities.Contains("Parking"))
                         {
                             <li class="list-group-item"><i class="fas fa-parking mx-2"></i>Free parking</li>
                         }
@@ -134,36 +143,64 @@
 @code {
     [Parameter]
     public int RoomNumber { get; set; }
+
+    const string ApiRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
+
+    public DateTime checkInDate = DateTime.Now;
+    public DateTime checkOutDate = DateTime.Now.AddDays(2);
+    public double estimatedRoomPrice;
+    public DateTime _checkInDate
+    {
+        get { return checkInDate; }
+        set
+        {
+            checkInDate = value;
+            ComputeEstimatedPrice();
+        }
+    }
+    public DateTime _checkOutDate
+    {
+        get { return checkOutDate; }
+        set
+        {
+            checkOutDate = value;
+            ComputeEstimatedPrice();
+        }
+    }
+
+
     public Room roomDetails = new Room();
 
     protected override async Task OnInitializedAsync()
     {
-        string roomInfoApiUrl = $"http://localhost:19008/api/v1/rooms/{RoomNumber}";
-        Console.WriteLine(roomInfoApiUrl);
-        var getRoomInfoRequest = new HttpRequestMessage(HttpMethod.Get, roomInfoApiUrl);
-        var httpResponse = await Http.SendAsync(getRoomInfoRequest);
+        string roomInfoApiUrl = $"{ApiRoomsEndpoint}/{RoomNumber}";
+        var request = new HttpRequestMessage(HttpMethod.Get, roomInfoApiUrl);
+        var httpResponse = await Http.SendAsync(request);
         RoomInfoDeserializer roomInfoDeserializer = await httpResponse.Content.ReadFromJsonAsync<RoomInfoDeserializer>();
         roomDetails = roomInfoDeserializer.room;
+
         Console.WriteLine(roomDetails.RoomCategory);
         Console.WriteLine(roomDetails.RoomNumber);
         Console.WriteLine(roomDetails.Description);
         Console.WriteLine(roomDetails.Price);
         Console.WriteLine(roomDetails.Facilities);
         Console.WriteLine(roomDetails.PersonsNumber);
+
+        ComputeEstimatedPrice();
+    }
+
+    public void ComputeEstimatedPrice()
+    {
+        estimatedRoomPrice = roomDetails.Price * ((checkOutDate.Date - checkInDate.Date).Days + 1);
     }
 
     public class Room
     {
         public string RoomCategory { get; set; }
-
         public int RoomNumber { get; set; }
-
         public string Description { get; set; }
-
         public int Price { get; set; }
-
         public string Facilities { get; set; }
-
         public int PersonsNumber { get; set; }
     }
 
