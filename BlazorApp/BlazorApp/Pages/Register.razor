@@ -1,6 +1,9 @@
 ﻿@page "/register"
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
+@using BlazorApp.Pages
+
+<AuthComponent @ref="authComponent" />
 
 <div class="container">
 
@@ -65,6 +68,8 @@
 </div>
 
 @code {
+    private AuthComponent authComponent;
+
     const string ApiRegisterEndpoint = "http://localhost:60094/api/v1/users/register";
 
     private string email;
@@ -75,6 +80,14 @@
     bool registerError;
     string registerErrorMessage;
 
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (await authComponent.UserIsLoggedIn())
+        {
+            NavigationManager.NavigateTo("/home", true);
+        }
+    }
 
     public async Task SubmitRegisterForm()
     {

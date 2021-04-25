@@ -1,0 +1,39 @@
+﻿@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@using Newtonsoft.Json
+
+@code {
+
+    const string ApiCheckValidJwtEndpoint = "http://localhost:60094/api/v1/users/authorization";
+
+    public async Task<bool> UserIsLoggedIn()
+    {
+        return await CheckValidJwt();
+    }
+
+    public async Task<bool> CheckValidJwt()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            Console.WriteLine("JWT missing");
+            return false;
+        }
+
+        var request = new HttpRequestMessage(HttpMethod.Get, ApiCheckValidJwtEndpoint);
+        request.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(request);
+
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            Console.WriteLine("JWT is not valid");
+            await localStorage.ClearAsync();
+            NavigationManager.NavigateTo("/login", true);
+            return false;
+        }
+
+        Console.WriteLine("JWT is valid");
+        return true;
+    }
+}

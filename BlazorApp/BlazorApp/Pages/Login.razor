@@ -4,6 +4,9 @@
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @using Newtonsoft.Json
+@using BlazorApp.Pages
+
+<AuthComponent @ref="authComponent" />
 
 <div class="container">
 
@@ -59,6 +62,8 @@
 
 
 @code {
+    private AuthComponent authComponent;
+
     const string ApiLoginEndpoint = "http://localhost:60094/api/v1/users/login";
 
     private string email;
@@ -67,6 +72,14 @@
     bool loginError = false;
     string loginErrorMessage;
 
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (await authComponent.UserIsLoggedIn())
+        {
+            NavigationManager.NavigateTo("/home", true);
+        }
+    }
 
     private async Task SubmitLoginForm()
     {
@@ -101,7 +114,7 @@
         Console.WriteLine($"SubmitLoginForm response: {jsonString}");
         dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
 
-        await sessionStorage.SetItemAsync("jwt", (string)jsonObject.jwt);
+        await localStorage.SetItemAsync("jwt", (string)jsonObject.jwt);
         NavigationManager.NavigateTo("/home", true);
     }
 

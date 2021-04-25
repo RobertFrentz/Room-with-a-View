@@ -1,0 +1,26 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@code {
+
+    public async Task<string> GetUsername()
+    {
+        //return await localStorage.GetItemAsync<string>("username");
+        return "Bob";
+    }
+
+    public async Task<bool> UserIsStaff()
+    {
+        // To be implemented when login and register will provide necessary info
+        return true;
+    }
+
+    public async Task<bool> UserIsManager()
+    {
+        return true;
+    }
+
+    public async Task ClearLocalStorage()
+    {
+        await localStorage.ClearAsync();
+    }
+}

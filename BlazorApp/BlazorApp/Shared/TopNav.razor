@@ -1,6 +1,11 @@
 ﻿@inject HttpClient Http
-@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
+
+@using BlazorApp.Pages
+
+<AuthComponent @ref="authComponent" />
+<LocalStorageComponent @ref="localStorageComponent" />
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
 
@@ -13,76 +18,85 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                @if (isUserLoggedIn)
+                @if (userIsLoggedIn)
                 {
                     <li class="nav-item dropdown ml-2">
                         <a class="dropdown-toggle btn btn-outline-light bg-light text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hi, @username
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">My bookings</a>
-                            <a class="dropdown-item" href="#">My profile?</a>
+                            <a class="dropdown-item" href="/bookings">My bookings</a>
+                            @if (userIsStaff)
+                            {
+                                <a class="dropdown-item" href="/tasks">My tasks</a>
+                            }
+                            @if (userIsManager)
+                            {
+                                <a class="dropdown-item" href="/management/rooms">Rooms overview</a>
+                                <a class="dropdown-item" href="/management/staff">Staff management</a>
+                            }
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" @onclick='(() => LogOut())'>Logout</a>
+                            <a class="dropdown-item" href="#" @onclick='LogOut'>Logout</a>
                         </div>
                     </li>
                 }
-                @if (!isUserLoggedIn)
+                @if (!userIsLoggedIn)
                 {
                     <li class="nav-item ml-2">
                         <a class="btn btn-outline-light bg-light text-dark" href="register">Register</a>
                     </li>
-                <li class="nav-item ml-2">
-                    <a class="btn btn-outline-light bg-light text-dark" href="login">Sign in</a>
-                </li>
+                    <li class="nav-item ml-2">
+                        <a class="btn btn-outline-light bg-light text-dark" href="login">Sign in</a>
+                    </li>
                 }
             </ul>
         </div>
 
     </div>
 
-
 </nav>
 
+
 @code {
-    private string username;
-    private string token;
-    bool isUserLoggedIn;
 
-    protected override async Task OnInitializedAsync()
+    private AuthComponent authComponent;
+    private LocalStorageComponent localStorageComponent;
+
+    string username;
+    bool userIsLoggedIn;
+    bool userIsManager;
+    bool userIsStaff;
+
+
+    /* manipulate components references after the component has finished rendering */
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        isUserLoggedIn = await IsLoggedIn();
-        if (isUserLoggedIn)
+        if (!firstRender)
         {
-            username = await GetUsername();
+            Console.WriteLine("not first render");
+            return;
         }
+        Console.WriteLine("first render");
+
+        if (await authComponent.UserIsLoggedIn())
+        {
+            userIsLoggedIn = true;
+            username = await localStorageComponent.GetUsername();
+            userIsManager = await localStorageComponent.UserIsManager();
+            userIsStaff = await localStorageComponent.UserIsStaff();
+        }
+        else
+        {
+            userIsLoggedIn = false;
+        }
+
+        this.StateHasChanged(); // notifies the component that its state has changed
     }
 
-    public async Task<bool> IsLoggedIn()
-    {
-        token = await sessionStorage.GetItemAsync<string>("jwt");
-        return !string.IsNullOrWhiteSpace(token);
-    }
-
-    public async Task<string> GetUsername()
-    {
-        string getUsernameApiUrl = "http://localhost:60094/api/v1/users/username";
-        var getRequest = new HttpRequestMessage(HttpMethod.Get, getUsernameApiUrl);
-        getRequest.Headers.Add("authorizationToken", token);
-        using var httpResponse = await Http.SendAsync(getRequest);
-        UsernameDeserializer usernameDeserializer = await httpResponse.Content.ReadFromJsonAsync<UsernameDeserializer>();
-        return usernameDeserializer.Username;
-    }
 
     public async void LogOut()
     {
-        //this will clear the session data
-        await sessionStorage.ClearAsync();
-        NavigationManager.NavigateTo("/home", true);
-    }
-
-    public class UsernameDeserializer
-    {
-        public string Username { get; set; }
+        await localStorageComponent.ClearLocalStorage();
+        NavigationManager.NavigateTo("/login", true);
     }
 }
