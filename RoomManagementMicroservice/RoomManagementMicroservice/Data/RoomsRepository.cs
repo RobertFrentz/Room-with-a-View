@@ -54,7 +54,7 @@ namespace RoomManagementMicroservice.Data
         }
         public async Task<int> AddRoomAsync(PostRoomDto roomToAdd)
         {
-            Room room = new Room(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
+            Room room = new(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
             int numberOfRooms = context.Rooms.Count();
             room.RoomNumber = (numberOfRooms / 10 + 1) * 100 + numberOfRooms % 10;
             room.State = "Available";
