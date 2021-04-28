@@ -1,8 +1,9 @@
-﻿@inject HttpClient Http
+﻿@inject HttpClient HttpClient
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
 
 @using BlazorApp.Pages
+@using Newtonsoft.Json
 
 <AuthComponent @ref="authComponent" />
 <LocalStorageComponent @ref="localStorageComponent" />
@@ -81,7 +82,8 @@
         if (await authComponent.UserIsLoggedIn())
         {
             userIsLoggedIn = true;
-            username = await localStorageComponent.GetUsername();
+            //username = await localStorageComponent.GetUsername();
+            username = await GetUsername();
             userIsManager = await localStorageComponent.UserIsManager();
             userIsStaff = await localStorageComponent.UserIsStaff();
         }
@@ -98,5 +100,16 @@
     {
         await localStorageComponent.ClearLocalStorage();
         NavigationManager.NavigateTo("/login", true);
+    }
+
+    public async Task<string> GetUsername()
+    {
+        string getUsernameApiUrl = "http://localhost:60094/api/v1/users/username";
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, getUsernameApiUrl);
+        getRequest.Headers.Add("authorizationToken", await localStorage.GetItemAsync<string>("jwt"));
+        using var httpResponse = await HttpClient.SendAsync(getRequest);
+        string jsonString = await httpResponse.Content.ReadAsStringAsync();
+        dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
+        return jsonObject.username;
     }
 }
