@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserManagementMicroservice.DTOs;
 using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
 
@@ -17,7 +18,7 @@ namespace UserManagementMicroservice.Data
             this.context = context;
         }
 
-        public async Task<int> RegisterAsync(UserRegister userRegister)
+        public async Task<int> RegisterAsync(UserRegisterDto userRegister, int role)
         {
             if(this.context.Users.Any(user => user.Username == userRegister.Username))
             {
@@ -27,25 +28,25 @@ namespace UserManagementMicroservice.Data
             {
                 return -2;
             }
-            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password,0);
-            this.context.Add(Cryptography.HashUserData(registerUser));
+            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password, role);
+            var user = this.context.Add(Cryptography.HashUserData(registerUser));
             await this.context.SaveChangesAsync();
-            return 1;
+            return user.Entity.Id;
         }
 
-        public async Task<int> LoginAsync(UserCredentials userCredentials)
+        public async Task<User> LoginAsync(UserCredentialsDto userCredentials)
         {
             var user = await this.context.Users.Where(user => user.Email == Cryptography.HashString(userCredentials.Email) 
                                           && user.Password == Cryptography.HashString(userCredentials.Password)).FirstOrDefaultAsync();
             if (user == null)
             {
-                return -1;
+                return null;
             }
-            return user.Id;
+            return user;
 
         }
 
-        public async Task<bool> UpdateAsync(UserRegister user, int userId)
+        public async Task<bool> UpdateAsync(UserRegisterDto user, int userId)
         {
           var result = this.context.Users.Find(userId);
           result.Username = user.Username ?? result.Username;
@@ -57,8 +58,8 @@ namespace UserManagementMicroservice.Data
 
         public async Task<IEnumerable<User>> GetAllAsync(int userId)
         {
-            var result = this.context.Users.Find(userId);
-            if(result==null || result.Role!=1)
+            var result = await this.context.Users.FindAsync(userId);
+            if(result == null || result.Role != 1)
             {
                 return null;
             }
@@ -67,7 +68,6 @@ namespace UserManagementMicroservice.Data
 
         public async Task<User> GetByIdAsync(int userId)
         {
-            
             return await this.context.Users.FindAsync(userId);
         }
 
@@ -77,6 +77,19 @@ namespace UserManagementMicroservice.Data
             this.context.Remove(user);
             await this.context.SaveChangesAsync();
   
+        }
+        public async Task<bool> HasAdminPrivileges(int userId)
+        {
+            var user = await this.context.Users.FindAsync(userId);
+            if(user == null)
+            {
+                return false;
+            }
+            if(user.Role == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

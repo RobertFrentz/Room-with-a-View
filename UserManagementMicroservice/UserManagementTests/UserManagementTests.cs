@@ -9,6 +9,7 @@ using UserManagementMicroservice.Controllers;
 using Assert = Xunit.Assert;
 using System.Linq;
 using System.Collections.Generic;
+using UserManagementMicroservice.DTOs;
 
 namespace UserManagementTests
 {
@@ -91,7 +92,7 @@ namespace UserManagementTests
             var jwt = Jwt.CreateJWT(GetTestUser(1).Id, 1);
             context.Add(GetTestUser(1));
             context.SaveChanges();
-            UserRegister user1 = new() { Username = "Dorel", Password = "123", Email = "has@gmail.com" };
+            UserRegisterDto user1 = new() { Username = "Dorel", Password = "123", Email = "has@gmail.com" };
             var requestForUser1 = await usersController.UpdateAsync(user1, jwt);
             Assert.IsType<NoContentResult>(requestForUser1);
 
@@ -123,7 +124,7 @@ namespace UserManagementTests
             var context = new DataContext(options);
             UsersController usersController = new UsersController(new UsersRepository(context));
 
-            var result = await usersController.RegisterAsync(new UserRegister()
+            var result = await usersController.RegisterGuestAsync(new UserRegisterDto()
             {
                 Username = "Andrei1",
                 Email = "andrei1@gmail.com",
@@ -144,7 +145,7 @@ namespace UserManagementTests
             context.Add(GetTestUser(1));
             context.SaveChanges();
 
-            var result1 = await usersController.LoginAsync(new UserCredentials()
+            var result1 = await usersController.LoginAsync(new UserCredentialsDto()
             {
                 Email= "has@gmail.com",
                 Password =  "123"
@@ -165,7 +166,7 @@ namespace UserManagementTests
             context.Add(GetTestUser(1));
             context.SaveChanges();
 
-            var result = await usersController.LoginAsync(new UserCredentials()
+            var result = await usersController.LoginAsync(new UserCredentialsDto()
             {
                 Email = "notdexter@gmail.com",
                 Password = "otherpassword"

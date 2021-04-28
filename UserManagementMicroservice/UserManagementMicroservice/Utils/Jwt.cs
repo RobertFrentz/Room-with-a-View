@@ -5,6 +5,7 @@ using JWT.Exceptions;
 using JWT.Serializers;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace UserManagementMicroservice.Utils
 {

@@ -1,7 +1,7 @@
 ﻿
-namespace UserManagementMicroservice.Entities
+namespace UserManagementMicroservice.DTOs
 {
-    public class UserCredentials
+    public class UserCredentialsDto
     {
         public string Email { get; set; }
         public string Password { get; set; }
