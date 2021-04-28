@@ -4,6 +4,7 @@ using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
 using RoomManagementMicroservice.Utils;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Controllers
@@ -14,18 +15,25 @@ namespace RoomManagementMicroservice.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomsRepository _repository;
+        private readonly HttpClient client;
+        private readonly string usersManagementMicroserviceUri = "http://localhost:60094/api/v1/users/";
 
         public RoomsController(IRoomsRepository repository)
         {
             _repository = repository;
+            client = new HttpClient();
         }
-
-        
 
         [HttpGet]
 
-        public async Task<IActionResult> GetRoomsAsync()
+        public async Task<IActionResult> GetRoomsAsync([FromHeader] string authorizationToken)
         {
+            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
+            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+            }
             IEnumerable<RoomDescriptionDto> result = await _repository.GetRoomsAsync();
             if (result == null)
             {
@@ -35,13 +43,16 @@ namespace RoomManagementMicroservice.Controllers
             return Ok(result);
         }
 
-
-        
-
         [HttpGet("{roomNumber}")]
 
-        public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber)
+        public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber, [FromHeader] string authorizationToken)
         {
+            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
+            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+            }
             RoomDescriptionDto result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {
@@ -55,15 +66,27 @@ namespace RoomManagementMicroservice.Controllers
         [Route("addRoom")]
         [HttpPost]
 
-        public async Task<IActionResult> PostRoomAsync([FromBody] PostRoomDto roomToAdd)
+        public async Task<IActionResult> PostRoomAsync([FromBody] PostRoomDto roomToAdd , [FromHeader] string authorizationToken)
         {
+            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
+            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+            }
             await _repository.AddRoomAsync(roomToAdd);
             return CreatedAtAction("addRoom", roomToAdd);
         }
 
         [HttpPatch("{roomNumber}")]
-        public async Task<IActionResult> UpdateRoomAsync(int roomNumber, [FromBody] PatchRoomDto patchRoomDto)
+        public async Task<IActionResult> UpdateRoomAsync(int roomNumber, [FromBody] PatchRoomDto patchRoomDto , [FromHeader] string authorizationToken)
         {
+            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
+            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+            }
             var result = await _repository.UpdateAsync(roomNumber,patchRoomDto);
             if(result==-1)
             {
