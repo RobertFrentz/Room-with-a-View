@@ -6,34 +6,38 @@ using System.Text;
 
 namespace BlazorAppTests.PageObjects
 {
-    public class LoginPage : BasePage
+    public class RegisterPage : BasePage
     {
-        public LoginPage(IWebDriver driver)
+        public RegisterPage(IWebDriver driver)
         {
             this.driver = driver;
             PageFactory.InitElements(this, new RetryingElementLocator(this.driver, TimeSpan.FromSeconds(20)));
         }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[1]/h3")]
-        public IWebElement title { get; set; }
-
         [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[2]/form/div[1]/input")]
         public IWebElement txtEmail { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[2]/form/div[2]/input")]
+        public IWebElement txtUsername { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[2]/form/div[3]/input")]
         public IWebElement txtPassword { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[2]/form/div[4]/input")]
-        public IWebElement btnLogin { get; set; }
+        public IWebElement txtConfirmPassword { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[2]/form/div[5]/input")]
+        public IWebElement btnSignUp { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[2]/div/div/div[4]")]
         public IWebElement alertBox { get; set; }
 
-        public void Login(string username, string password)
+        public void Register(string email, string username, string password, string confirmPassword)
         {
-            txtEmail.SendKeys(username);
+            txtEmail.SendKeys(email);
+            txtUsername.SendKeys(username);
             txtPassword.SendKeys(password);
-            btnLogin.Click();
+            txtConfirmPassword.SendKeys(confirmPassword);
+            btnSignUp.Click();
         }
 
     }

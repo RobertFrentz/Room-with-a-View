@@ -5,7 +5,7 @@ using Xunit;
 
 namespace BlazorAppTests.Tests
 {
-    public class TestClass : Browser, IDisposable
+    public class LoginPageTests : Browser, IDisposable
     {
         public LoginPage loginPage;
         public HomePage homePage;
@@ -15,7 +15,7 @@ namespace BlazorAppTests.Tests
         {
             Driver.Navigate().GoToUrl("https://localhost:44331/login");
             loginPage = new LoginPage(Driver);
-            loginPage.Login("bobitz@gmail.com", "jmecheru");
+            loginPage.Login("admin@gmail.com", "admin");
             homePage = new HomePage(Driver);
             Assert.True(homePage.title.Displayed);
         }
@@ -25,8 +25,16 @@ namespace BlazorAppTests.Tests
         {
             Driver.Navigate().GoToUrl("https://localhost:44331/login");
             loginPage = new LoginPage(Driver);
-            loginPage.Login("robert@gmail.com", "jmecheru");
-            homePage = new HomePage(Driver);
+            loginPage.Login("adminul@gmail.com", "admin");
+            Assert.Equal("Attention! Email or password invalid.", loginPage.alertBox.Text);
+        }
+
+        [Fact]
+        public void Login_IncorrectPassword_FailedLogin()
+        {
+            Driver.Navigate().GoToUrl("https://localhost:44331/login");
+            loginPage = new LoginPage(Driver);
+            loginPage.Login("admin@gmail.com", "adminul");
             Assert.Equal("Attention! Email or password invalid.", loginPage.alertBox.Text);
         }
 
