@@ -50,12 +50,12 @@ namespace BookingMicroservice.Data
             {
                 return -2;
             }
-            var isAddingPossible = await _context.Bookings.AnyAsync(booking => !(booking.RoomNumber == postBooking.RoomNumber && 
+            var isAddingPossible = await _context.Bookings.AnyAsync(booking => (booking.RoomNumber == postBooking.RoomNumber && 
                                                      ((booking.CheckIn > postBooking.CheckIn && booking.CheckOut < postBooking.CheckOut) ||
                                                       (booking.CheckIn < postBooking.CheckIn && booking.CheckOut < postBooking.CheckOut) ||
                                                       (booking.CheckIn > postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut) ||
                                                       (booking.CheckIn < postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut))));
-            if (isAddingPossible)
+            if (!isAddingPossible)
             {
                 _context.Add(new Booking()
                 {

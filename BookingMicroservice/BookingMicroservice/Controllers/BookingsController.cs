@@ -3,11 +3,9 @@ using BookingMicroservice.DTOs;
 using BookingMicroservice.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace BookingMicroservice.Controllers
@@ -42,7 +40,7 @@ namespace BookingMicroservice.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetBookingsByUserId([FromHeader] string authorizationToken)
+        public async Task<IActionResult> GetBookingsByUserIdAsync([FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
             var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
