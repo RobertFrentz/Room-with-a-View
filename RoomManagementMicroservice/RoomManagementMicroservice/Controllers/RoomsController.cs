@@ -26,14 +26,14 @@ namespace RoomManagementMicroservice.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> GetRoomsAsync([FromHeader] string authorizationToken)
+        public async Task<IActionResult> GetRoomsAsync()
         {
-            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
+            /*client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
             var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
-            }
+            }*/
             IEnumerable<RoomDescriptionDto> result = await _repository.GetRoomsAsync();
             if (result == null)
             {

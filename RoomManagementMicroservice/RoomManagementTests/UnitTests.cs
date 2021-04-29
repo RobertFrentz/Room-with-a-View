@@ -10,6 +10,8 @@ namespace RoomManagementTests
 {
     public class UnitTests
     {
+
+        readonly string AdminJWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XL0";
         [Fact]
         public async void GetRoomsById_TheRoomWithGivenRoomNumberExists_ReturnOkObjectResultAsync()
         {
@@ -19,7 +21,7 @@ namespace RoomManagementTests
             var context = new DataContext(options);
             await context.Database.EnsureCreatedAsync();
             RoomsController roomsController = new(new RoomsRepository(context));
-            var result = await roomsController.GetRoomByNumberAsync(100);
+            var result = await roomsController.GetRoomByNumberAsync(100,AdminJWT);
             Assert.IsType<OkObjectResult>(result);
         }
 
@@ -35,7 +37,7 @@ namespace RoomManagementTests
 
             //Act
             RoomsController roomsController = new(new RoomsRepository(context));
-            var result = await roomsController.GetRoomByNumberAsync(111);
+            var result = await roomsController.GetRoomByNumberAsync(111,AdminJWT);
 
             //Asert
             Assert.IsType<NotFoundObjectResult>(result);
@@ -79,7 +81,7 @@ namespace RoomManagementTests
                 State="ReadyToClean"
             };
             RoomsController roomsController = new(new RoomsRepository(context));
-            var result = await roomsController.UpdateRoomAsync(103,patchRoomDto);
+            var result = await roomsController.UpdateRoomAsync(103,patchRoomDto,AdminJWT);
 
             //Asert
             Assert.IsType<NoContentResult>(result);
@@ -104,7 +106,7 @@ namespace RoomManagementTests
                 State = "ReadyToClean"
             };
             RoomsController roomsController = new(new RoomsRepository(context));
-            var result = await roomsController.UpdateRoomAsync(111, patchRoomDto);
+            var result = await roomsController.UpdateRoomAsync(111, patchRoomDto, AdminJWT);
 
             //Asert
             Assert.IsType<NotFoundObjectResult>(result);

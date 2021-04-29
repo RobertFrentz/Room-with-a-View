@@ -12,7 +12,7 @@ using UserManagementMicroservice.Utils;
 namespace UserManagementMicroservice.Controllers
 {
 
-    //admin user with id = 14 and JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyMzU1ODAsInVzZXJJZCI6MTR9.FAhpM6vMEfGN8MdfXyuvt1FV7iTboF4X4S8jRdGg7Bs
+    //admin user with id = 15 and JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XL0
     //role-->0 pt guest, 1 pt admin, 2 pt staff
     [Route("api/v1/users")]
     [ApiController]

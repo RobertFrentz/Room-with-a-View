@@ -85,7 +85,6 @@ namespace BookingMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchAvailableRoomsAsync([FromQuery] RoomSearchDto roomSearchDTO)
         {
-            
             var httpResultContent = await client.GetStringAsync(roomsManagementMicroserviceUri);
             if(httpResultContent!=null)
             {
