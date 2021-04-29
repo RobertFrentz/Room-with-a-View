@@ -1,20 +1,26 @@
-›
-ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs 8j?@BDFIKr2	
- "#(*+,-./012345679:;<=MNxÇ",-/1;<»
-zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs 8r=	 !"#$%&'()*+,-./0123456789:;<=>?@ABÇî
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\IRoomsRepository.csjr
-
-ñC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210420135543_InitialCreate.cs 8r1	
-!"#$&'()+,-./1234567Ç	!#$&()+-.3Ï
-~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.cs 8jCEFr=
- !"#%&'()*+,-./0123456789:;<>?@AHIxÇ !"'(*./012359:;<>?@ò
-ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.cs 8r	ñ
-ÇC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.cs 8r		
-ê
-{C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomToAddDto.cs 
+å
+ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs 8j !#rR
+%&'()+,.0123456789:;<=>?@ABCEFGHIJKLMNOQRSTUVWXYZ[\]^_abcxÇ%&(+234689;=GHIKMNTUVXZ[]_À
+zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs 8r@	
+ !"#$%&'()*+,-./0123456789:;<=>?@ABDEFÇí
+C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\IRoomsRepository.csr
+
+ñC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210422211514_InitialCreate.cs 8r1	
+!"#$&'()+,-./1234567Ç	!#$&()+-.3Ä
+~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.cs 8
+rL
+ !"#%&'()*+,-./0123456789:;<>?@ACDEFGHIJKLMNOPQRSxÇ% !"'(*./012359:;<>?@EFHJKLMNOPó
+{C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PatchRoomDto.cs 
+8
+j
+r	è
+zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PostRoomDto.cs 
 8
 r	
-§
+ò
+ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.cs 8r	ñ
+ÇC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.cs 8r		
+§
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Entities\Room.cs 8r	
 Çñ
 qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Program.cs 8r	

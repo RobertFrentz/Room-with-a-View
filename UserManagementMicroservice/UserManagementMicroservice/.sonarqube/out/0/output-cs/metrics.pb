@@ -1,15 +1,20 @@
-›
-ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Controllers\UsersController.cs. 	8jrç
- !"#$%&'(*+-./012345789:;<=>?@ABDEFGHIJKLMNOPQRSUVWXYZ[\]^_`abcefghijklmnqstuvwxyz{|}~ÄÅÉÑÖÜáàâäãåéèêxÇ4 "#%'/024;<>@AHIKMNPRYZ\^`bijlnvwy{|~ÄÜáâãåù
+¢
+ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Controllers\UsersController.cs7 8jræ	
+ !"#$%&()+,./012345689:;<=>?ABCDEFGHIJKLNOPQRSTUVWXYZ[\^_`abcdefghijklmnopqstuvwxyz{|}~ÄÅÇÉÑÖÜàâäãåçéèêëíïóòôöõúùûü†°£§•¶ß®™¨≠xÇH !#%)0135<=>EFGIKRSUWY[bceghjlnpwxz|}ÅÉÖåçèëíöõúû†¶ß®ù
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\DataContext.cs 8r	
-Çî
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\IUsersRepository.csr	
-Œ
+Çñ
+C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\IUsersRepository.csr	
+Œ
 ñC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Migrations\20210420162254_InitialCreate.cs 8r	
  Ç
-	Ú
-~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.cs 8rG	
- !"$%&'()*+,.012345678:;<=>?@ABDEGHJKLMNPQRxÇ !&'(*,234567<=?AGLMN™
+	Ñ
+sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Role.csr	
+Ü
+~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.cs! 8rU
+ !"#%&'()*+,-/123456789;<=>?@ABCEFGHJKLMNPQRSTUVWXYZ[\]^_xÇ" !"'()+-345678=>@BGLMNSTVXZ\î
+ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\UserCredentialsDto.cs 8r	ë
+~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\UserRegisterDto.cs 8r		
+™
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Entities\User.cs 8r	
  Çñ
 qC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Program.cs 8r	
@@ -20,8 +25,6 @@ qC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\Use
 |C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Cryptography.cs 8r	
 xÇ	ê
 uC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Error.cs 8r	
-Ç–
-sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Jwt.cs 8j!r<	
- !"#$%&'()*+,-.012345679:;<=>?@xÇ#'+-246;<=ë
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\UserCredentials.cs 8r	è
-|C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\UserRegister.cs 8r		
+Ç—
+sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Jwt.cs 8j"r=
+ !"#$%&'()*+,-./12345678:;<=>?@AxÇ$(,.357<=>

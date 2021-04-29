@@ -1,276 +1,547 @@
-ì
+±E
 ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs
-	namespace		 	&
-RoomManagementMicroservice		
- $
-.		$ %
-Controllers		% 0
-{
+	namespace
 
- 
-[ 
-Route 
-
-(
- 
-$str 
-) 
-] 
-[ 
-ApiController 
-] 
-public 
-
-class 
-RoomsController  
-:! "
-ControllerBase# 1
-{ 
-private 
-readonly 
-IRoomsRepository )
-_repository* 5
-;5 6
-public 
-RoomsController 
-( 
-IRoomsRepository /
-
-repository0 :
-): ;
-{ 	
-_repository 
-= 
-
-repository $
-;$ %
-} 	
-[ 	
-HttpGet	 
-] 
-public 
-async 
-Task 
-< 
-IActionResult '
->' (
-GetRoomsAsync) 6
-(6 7
-)7 8
-{ 	
-IEnumerable 
-< 
-RoomDescriptionDto *
->* +
-result, 2
-=3 4
-await5 :
-_repository; F
-.F G
-GetRoomsAsyncG T
-(T U
-)U V
-;V W
-if 
-( 
-result 
-== 
-null 
-) 
-{ 
-return 
-NotFound 
-(  
-new  #
-Error$ )
-() *
-$str* 4
-)4 5
-)5 6
-;6 7
-}   
-return"" 
-Ok"" 
-("" 
-result"" 
-)"" 
-;"" 
-}## 	
-[(( 	
-HttpGet((	 
-((( 
-$str(( 
-)((  
-]((  !
-public** 
-async** 
-Task** 
-<** 
-IActionResult** '
->**' ( 
-GetRoomByNumberAsync**) =
-(**= >
-int**> A
-
-roomNumber**B L
-)**L M
-{++ 	
-RoomDescriptionDto,, 
-result,, %
-=,,& '
-await,,( -
-_repository,,. 9
-.,,9 : 
-GetRoomByNumberAsync,,: N
-(,,N O
-
-roomNumber,,O Y
-),,Y Z
-;,,Z [
-if-- 
-(-- 
-result-- 
-==-- 
-null-- 
-)-- 
-{.. 
-return// 
-NotFound// 
-(//  
-new//  #
-Error//$ )
-(//) *
-$str//* U
-)//U V
-)//V W
-;//W X
-}00 
-return11 
-Ok11 
-(11 
-JsonConvert11 !
-.11! "
-SerializeObject11" 1
-(111 2
-new112 5
-{22 
-room33 
-=33 
-result33 
-}44 
-)44 
-)44 
-;44 
-}55 	
-[66 	
-Route66	 
-(66 
-$str66 
-)66 
-]66 
-[77 	
-HttpPost77	 
-]77 
-public99 
-async99 
-Task99 
-<99 
-IActionResult99 '
->99' (
-AddRoomAsync99) 5
-(995 6
-[996 7
-FromBody997 ?
-]99? @
-RoomToAddDto99A M
-	roomToAdd99N W
-)99W X
-{:: 	
-await;; 
-_repository;; 
-.;; 
-AddRoomAsync;; *
-(;;* +
-	roomToAdd;;+ 4
-);;4 5
-;;;5 6
-return<< 
-CreatedAtAction<< "
-(<<" #
-$str<<# ,
-,<<, -
-	roomToAdd<<. 7
-)<<7 8
-;<<8 9
-}== 	
-}MM 
-}NN ¯
-zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs
-	namespace 	&
-RoomManagementMicroservice
+ 	&
+RoomManagementMicroservice
+
+
  $
-.$ %
-Data% )
-{ 
-public 
+.
+
+$ %
+Controllers
+
+% 0
+{ 
+[ 
+Route 
+
+(
+ 
+$str 
+) 
+] 
+[ 
+ApiController 
+] 
+public 
 
-class 
-DataContext 
-: 
-	DbContext (
-{ 
-public 
-DataContext 
-( 
-DbContextOptions +
-options, 3
-)3 4
-:5 6
-base7 ;
-(; <
-options< C
-)C D
-{		 	
-} 	
-public 
-DbSet 
-< 
-Room 
-> 
-Rooms  
-{! "
-get# &
-;& '
-set( +
-;+ ,
-}- .
-	protected 
-override 
-void 
-OnModelCreating  /
-(/ 0
-ModelBuilder0 <
-modelBuilder= I
-)I J
-{ 	
-modelBuilder 
-. 
-Entity 
-<  
-Room  $
->$ %
-(% &
-)& '
-.' (
-Property( 0
-(0 1
-$str1 5
-)5 6
-.6 7
-ValueGeneratedOnAdd7 J
-(J K
-)K L
-;L M
+class 
+RoomsController  
+:! "
+ControllerBase# 1
+{ 
+private 
+readonly 
+IRoomsRepository )
+_repository* 5
+;5 6
+private 
+readonly 
+
+HttpClient #
+client$ *
+;* +
+private 
+readonly 
+string *
+usersManagementMicroserviceUri  >
+=? @
+$strA g
+;g h
+public 
+RoomsController 
+( 
+IRoomsRepository /
+
+repository0 :
+): ;
+{ 	
+_repository 
+= 
+
+repository $
+;$ %
+client 
+= 
+new 
+
+HttpClient #
+(# $
+)$ %
+;% &
+} 	
+[ 	
+HttpGet	 
+] 
+public 
+async 
+Task 
+< 
+IActionResult '
+>' (
+GetRoomsAsync) 6
+(6 7
+)7 8
+{ 	
+IEnumerable%% 
+<%% 
+RoomDescriptionDto%% *
+>%%* +
+result%%, 2
+=%%3 4
+await%%5 :
+_repository%%; F
+.%%F G
+GetRoomsAsync%%G T
+(%%T U
+)%%U V
+;%%V W
+if&& 
+(&& 
+result&& 
+==&& 
+null&& 
+)&& 
+{'' 
+return(( 
+NotFound(( 
+(((  
+new((  #
+Error(($ )
+((() *
+$str((* 4
+)((4 5
+)((5 6
+;((6 7
+})) 
+return++ 
+Ok++ 
+(++ 
+result++ 
+)++ 
+;++ 
+},, 	
+[.. 	
+HttpGet..	 
+(.. 
+$str.. 
+)..  
+]..  !
+public00 
+async00 
+Task00 
+<00 
+IActionResult00 '
+>00' ( 
+GetRoomByNumberAsync00) =
+(00= >
+int00> A
+
+roomNumber00B L
+,00L M
+[00N O
+
+FromHeader00O Y
+]00Y Z
+string00[ a
+authorizationToken00b t
+)00t u
+{11 	
+client22 
+.22 !
+DefaultRequestHeaders22 (
+.22( )
+Add22) ,
+(22, -
+$str22- A
+,22A B
+authorizationToken22C U
+)22U V
+;22V W
+var33 !
+responseAuthorization33 %
+=33& '
+await33( -
+client33. 4
+.334 5
+GetAsync335 =
+(33= >*
+usersManagementMicroserviceUri33> \
++33] ^
+$str33_ n
+)33n o
+;33o p
+if44 
+(44 !
+responseAuthorization44 %
+.44% &
+
+StatusCode44& 0
+==441 3
+System444 :
+.44: ;
+Net44; >
+.44> ?
+HttpStatusCode44? M
+.44M N
+Unauthorized44N Z
+)44Z [
+{55 
+return66 
+Unauthorized66 #
+(66# $!
+responseAuthorization66$ 9
+.669 :
+Content66: A
+.66A B
+ReadAsStringAsync66B S
+(66S T
+)66T U
+.66U V
+Result66V \
+)66\ ]
+;66] ^
+}77 
+RoomDescriptionDto88 
+result88 %
+=88& '
+await88( -
+_repository88. 9
+.889 : 
+GetRoomByNumberAsync88: N
+(88N O
+
+roomNumber88O Y
+)88Y Z
+;88Z [
+if99 
+(99 
+result99 
+==99 
+null99 
+)99 
+{:: 
+return;; 
+NotFound;; 
+(;;  
+new;;  #
+Error;;$ )
+(;;) *
+$str;;* U
+);;U V
+);;V W
+;;;W X
+}<< 
+return== 
+Ok== 
+(== 
+JsonConvert== !
+.==! "
+SerializeObject==" 1
+(==1 2
+new==2 5
+{>> 
+room?? 
+=?? 
+result?? 
+}@@ 
+)@@ 
+)@@ 
+;@@ 
+}AA 	
+[BB 	
+RouteBB	 
+(BB 
+$strBB 
+)BB 
+]BB 
+[CC 	
+HttpPostCC	 
+]CC 
+publicEE 
+asyncEE 
+TaskEE 
+<EE 
+IActionResultEE '
+>EE' (
+PostRoomAsyncEE) 6
+(EE6 7
+[EE7 8
+FromBodyEE8 @
+]EE@ A
+PostRoomDtoEEB M
+	roomToAddEEN W
+,EEX Y
+[EEZ [
+
+FromHeaderEE[ e
+]EEe f
+stringEEg m
+authorizationToken	EEn Ä
+)
+EEÄ Å
+{FF 	
+clientGG 
+.GG !
+DefaultRequestHeadersGG (
+.GG( )
+AddGG) ,
+(GG, -
+$strGG- A
+,GGA B
+authorizationTokenGGC U
+)GGU V
+;GGV W
+varHH !
+responseAuthorizationHH %
+=HH& '
+awaitHH( -
+clientHH. 4
+.HH4 5
+GetAsyncHH5 =
+(HH= >*
+usersManagementMicroserviceUriHH> \
++HH] ^
+$strHH_ n
+)HHn o
+;HHo p
+ifII 
+(II !
+responseAuthorizationII %
+.II% &
+
+StatusCodeII& 0
+==II1 3
+SystemII4 :
+.II: ;
+NetII; >
+.II> ?
+HttpStatusCodeII? M
+.IIM N
+UnauthorizedIIN Z
+)IIZ [
+{JJ 
+returnKK 
+UnauthorizedKK #
+(KK# $!
+responseAuthorizationKK$ 9
+.KK9 :
+ContentKK: A
+.KKA B
+ReadAsStringAsyncKKB S
+(KKS T
+)KKT U
+.KKU V
+ResultKKV \
+)KK\ ]
+;KK] ^
+}LL 
+awaitMM 
+_repositoryMM 
+.MM 
+AddRoomAsyncMM *
+(MM* +
+	roomToAddMM+ 4
+)MM4 5
+;MM5 6
+returnNN 
+CreatedAtActionNN "
+(NN" #
+$strNN# ,
+,NN, -
+	roomToAddNN. 7
+)NN7 8
+;NN8 9
+}OO 	
+[QQ 	
+	HttpPatchQQ	 
+(QQ 
+$strQQ !
+)QQ! "
+]QQ" #
+publicRR 
+asyncRR 
+TaskRR 
+<RR 
+IActionResultRR '
+>RR' (
+UpdateRoomAsyncRR) 8
+(RR8 9
+intRR9 <
+
+roomNumberRR= G
+,RRG H
+[RRI J
+FromBodyRRJ R
+]RRR S
+PatchRoomDtoRRT `
+patchRoomDtoRRa m
+,RRn o
+[RRp q
+
+FromHeaderRRq {
+]RR{ |
+string	RR} É 
+authorizationToken
+RRÑ ñ
+)
+RRñ ó
+{SS 	
+clientTT 
+.TT !
+DefaultRequestHeadersTT (
+.TT( )
+AddTT) ,
+(TT, -
+$strTT- A
+,TTA B
+authorizationTokenTTC U
+)TTU V
+;TTV W
+varUU !
+responseAuthorizationUU %
+=UU& '
+awaitUU( -
+clientUU. 4
+.UU4 5
+GetAsyncUU5 =
+(UU= >*
+usersManagementMicroserviceUriUU> \
++UU] ^
+$strUU_ n
+)UUn o
+;UUo p
+ifVV 
+(VV !
+responseAuthorizationVV %
+.VV% &
+
+StatusCodeVV& 0
+==VV1 3
+SystemVV4 :
+.VV: ;
+NetVV; >
+.VV> ?
+HttpStatusCodeVV? M
+.VVM N
+UnauthorizedVVN Z
+)VVZ [
+{WW 
+returnXX 
+UnauthorizedXX #
+(XX# $!
+responseAuthorizationXX$ 9
+.XX9 :
+ContentXX: A
+.XXA B
+ReadAsStringAsyncXXB S
+(XXS T
+)XXT U
+.XXU V
+ResultXXV \
+)XX\ ]
+;XX] ^
+}YY 
+varZZ 
+resultZZ 
+=ZZ 
+awaitZZ 
+_repositoryZZ *
+.ZZ* +
+UpdateAsyncZZ+ 6
+(ZZ6 7
+
+roomNumberZZ7 A
+,ZZA B
+patchRoomDtoZZB N
+)ZZN O
+;ZZO P
+if[[ 
+([[ 
+result[[ 
+==[[ 
+-[[ 
+$num[[ 
+)[[ 
+{\\ 
+return]] 
+NotFound]] 
+(]]  
+new]]  #
+Error]]$ )
+(]]) *
+$"]]* ,!
+The room with number ]], A
+{]]A B
+
+roomNumber]]B L
+}]]L M
+ was not found.]]M \
+"]]\ ]
+)]]] ^
+)]]^ _
+;]]_ `
+}^^ 
+return__ 
+	NoContent__ 
+(__ 
+)__ 
+;__ 
+}aa 	
+}bb 
+}cc á!
+zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs
+	namespace 	&
+RoomManagementMicroservice
+ $
+.$ %
+Data% )
+{ 
+public 
+
+class 
+DataContext 
+: 
+	DbContext (
+{ 
+public		 
+DataContext		 
+(		 
+DbContextOptions		 +
+options		, 3
+)		3 4
+:		5 6
+base		7 ;
+(		; <
+options		< C
+)		C D
+{
+
+ 	
+} 	
+public 
+DbSet 
+< 
+Room 
+> 
+Rooms  
+{! "
+get# &
+;& '
+set( +
+;+ ,
+}- .
+	protected 
+override 
+void 
+OnModelCreating  /
+(/ 0
+ModelBuilder0 <
+modelBuilder= I
+)I J
+{ 	
 modelBuilder 
 . 
 Entity 
@@ -279,167 +550,194 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 >$ %
 (% &
 )& '
-. 
-HasData  
-(  !
-new! $
-Room% )
-{ 
-Id 
-=  
-$num! "
-," #
-RoomCategory (
-=) *
-$str+ 5
-,5 6
+.' (
+Property( 0
+(0 1
+$str1 5
+)5 6
+.6 7
+ValueGeneratedOnAdd7 J
+(J K
+)K L
+;L M
+modelBuilder 
+. 
+Entity 
+<  
+Room  $
+>$ %
+(% &
+)& '
+. 
+HasData  
+(  !
+new! $
+List% )
+<) *
+Room* .
+>. /
+(/ 0
+)0 1
+{ 
+new 
+Room  
+{ 
+Id 
+=  
+$num! "
+," #
+RoomCategory (
+=) *
+$str+ 5
+,5 6
 
-RoomNumber &
-=' (
-$num) ,
-,, -
-PersonsNumber )
-=* +
-$num, -
-,- .
-Price !
-=" #
-$num$ '
-,' (
-Description '
+RoomNumber &
 =' (
-$str( 0
-,0 1
-
-Facilities &
-=' (
-$str) 5
-,5 6
-State !
+$num) ,
+,, -
+PersonsNumber )
+=* +
+$num, -
+,- .
+Price !
 =" #
-$str$ /
-} 
-, 
-new 
-Room  
-{   
-Id!! 
-=!!  
-$num!!! "
-,!!" #
-RoomCategory"" (
-="") *
-$str""+ 5
-,""5 6
+$num$ '
+,' (
+Description '
+=' (
+$str( 0
+,0 1
 
-RoomNumber## &
-=##' (
-$num##) ,
-,##, -
-PersonsNumber$$ )
-=$$* +
-$num$$, -
-,$$- .
-Price%% !
-=%%" #
-$num%%$ '
-,%%' (
-Description&& '
-=&&( )
-$str&&* 2
-,&&2 3
+Facilities &
+=' (
+$str) 5
+,5 6
+State   !
+=  " #
+$str  $ /
+}!! 
+,!! 
+new"" 
+Room""  
+{## 
+Id$$ 
+=$$  
+$num$$! "
+,$$" #
+RoomCategory%% (
+=%%) *
+$str%%+ 5
+,%%5 6
 
-Facilities'' &
-=''' (
-$str'') 5
-,''5 6
-State(( !
+RoomNumber&& &
+=&&' (
+$num&&) ,
+,&&, -
+PersonsNumber'' )
+=''* +
+$num'', -
+,''- .
+Price(( !
 =((" #
-$str(($ ,
-,((, -
-})) 
-,)) 
-new** 
-Room**  
-{++ 
-Id,, 
-=,, 
-$num,,  
-,,,  !
-RoomCategory-- (
-=--) *
-$str--+ 5
-,--5 6
+$num(($ '
+,((' (
+Description)) '
+=))( )
+$str))* 2
+,))2 3
 
-RoomNumber.. &
-=..' (
-$num..) ,
-,.., -
-PersonsNumber// )
-=//* +
-$num//, -
-,//- .
-Price00 !
-=00" #
-$num00$ '
-,00' (
-Description11 '
-=11( )
-$str11* 2
-,112 3
+Facilities** &
+=**' (
+$str**) 5
+,**5 6
+State++ !
+=++" #
+$str++$ ,
+,++, -
+},, 
+,,, 
+new-- 
+Room--  
+{.. 
+Id// 
+=// 
+$num//  
+,//  !
+RoomCategory00 (
+=00) *
+$str00+ 5
+,005 6
 
-Facilities22 &
-=22' (
-$str22) 5
-,225 6
-State33 !
+RoomNumber11 &
+=11' (
+$num11) ,
+,11, -
+PersonsNumber22 )
+=22* +
+$num22, -
+,22- .
+Price33 !
 =33" #
-$str33$ ,
-}44 
-,44 
-new55 
-Room55 
-{66 
-Id77 
-=77 
-$num77 
-,77 
-RoomCategory88 
-=88 
-$str88 )
-,88) *
+$num33$ '
+,33' (
+Description44 '
+=44( )
+$str44* 2
+,442 3
 
-RoomNumber99 
-=99 
-$num99  
-,99  !
-PersonsNumber:: 
-=:: 
-$num::  !
-,::! "
-Price;; 
-=;; 
-$num;; 
-,;; 
-Description<< 
-=<< 
-$str<< &
-,<<& '
+Facilities55 &
+=55' (
+$str55) 5
+,555 6
+State66 !
+=66" #
+$str66$ ,
+}77 
+,77 
+new88 
+Room88 
+{99 
+Id:: 
+=:: 
+$num:: 
+,:: 
+RoomCategory;; 
+=;; 
+$str;; )
+,;;) *
 
-Facilities== 
-=== 
-$str== )
-,==) *
-State>> 
+RoomNumber<< 
+=<< 
+$num<<  
+,<<  !
+PersonsNumber== 
+=== 
+$num==  !
+,==! "
+Price>> 
 =>> 
-$str>>  
-,>>  !
-}?? 
-)?? 
-;?? 
-}@@ 	
-}AA 
-}BB ∞
+$num>> 
+,>> 
+Description?? 
+=?? 
+$str?? &
+,??& '
+
+Facilities@@ 
+=@@ 
+$str@@ )
+,@@) *
+StateAA 
+=AA 
+$strAA  
+,AA  !
+}BB 
+}BB 
+)BB 
+;BB 
+}DD 	
+}EE 
+}FF ¢	
 C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\IRoomsRepository.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -501,14 +799,28 @@ roomNumber: D
 int 
 > 
 AddRoomAsync 
-( 
-RoomToAddDto +
-	roomToAdd, 5
-)5 6
-;6 7
+( 
+PostRoomDto *
+	roomToAdd+ 4
+)4 5
+;5 6
+Task 
+< 
+int 
+> 
+UpdateAsync 
+( 
+int !
+
+roomNumber" ,
+,, -
+PatchRoomDto- 9
+patchRoomDto: F
+)F G
+;G H
 } 
 } º>
-ñC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210420135543_InitialCreate.cs
+ñC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210422211514_InitialCreate.cs
 	namespace 	&
 RoomManagementMicroservice
  $
@@ -991,7 +1303,7 @@ InsertData++ '
 ;44 
 }55 	
 }66 
-}77 Ë-
+}77 Ë=
 ~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.cs
 	namespace
 
@@ -1236,43 +1548,40 @@ Facilities11" ,
 int77 
 >77 
 AddRoomAsync77 +
-(77+ ,
-RoomToAddDto77, 8
-	roomToAdd779 B
-)77B C
+(77+ ,
+PostRoomDto77, 7
+	roomToAdd778 A
+)77A B
 {88 	
 Room99 
 room99 
 =99 
-new99 
-Room99  
-(99  !
-	roomToAdd99! *
-.99* +
-RoomCategory99+ 7
-,997 8
-	roomToAdd999 B
-.99B C
-PersonsNumber99C P
-,99P Q
-	roomToAdd99R [
-.99[ \
-Description99\ g
-,99g h
-	roomToAdd99i r
-.99r s
-Price99s x
-,99x y
-	roomToAdd	99z É
-.
-99É Ñ
+new99 
+(99 
+	roomToAdd99 %
+.99% &
+RoomCategory99& 2
+,992 3
+	roomToAdd994 =
+.99= >
+PersonsNumber99> K
+,99K L
+	roomToAdd99M V
+.99V W
+Description99W b
+,99b c
+	roomToAdd99d m
+.99m n
+Price99n s
+,99s t
+	roomToAdd99u ~
+.99~ 
 
-Facilities
-99Ñ é
+Facilities	99 â
 )
-99é è
+99â ä
 ;
-99è ê
+99ä ã
 int:: 
 numberOfRooms:: 
 =:: 
@@ -1330,9 +1639,250 @@ RoomNumber;; 
 return@@ 
 $num@@ 
 ;@@ 
-}AA 	
-}HH 
-}II ç
+}AA 	
+publicCC 
+asyncCC 
+TaskCC 
+<CC 
+intCC 
+>CC 
+UpdateAsyncCC *
+(CC* +
+intCC+ .
+
+roomNumberCC/ 9
+,CC9 :
+PatchRoomDtoCC: F
+patchRoomDtoCCG S
+)CCS T
+{DD 	
+varEE 
+resultEE 
+=EE 
+awaitEE 
+contextEE &
+.EE& '
+RoomsEE' ,
+.EE, -
+WhereEE- 2
+(EE2 3
+roomEE3 7
+=>EE8 :
+roomEE; ?
+.EE? @
+
+RoomNumberEE@ J
+==EEK M
+
+roomNumberEEN X
+)EEX Y
+.EEY Z
+FirstOrDefaultAsyncEEZ m
+(EEm n
+)EEn o
+;EEo p
+ifFF 
+(FF 
+resultFF 
+==FF 
+nullFF 
+)FF 
+{GG 
+returnHH 
+-HH 
+$numHH 
+;HH 
+}II 
+resultJJ 
+.JJ 
+PersonsNumberJJ  
+=JJ! "
+patchRoomDtoJJ# /
+.JJ/ 0
+PersonsNumberJJ0 =
+;JJ= >
+resultKK 
+.KK 
+DescriptionKK 
+=KK  
+patchRoomDtoKK! -
+.KK- .
+DescriptionKK. 9
+??KK: <
+resultKK= C
+.KKC D
+DescriptionKKD O
+;KKO P
+resultLL 
+.LL 
+PriceLL 
+=LL 
+patchRoomDtoLL '
+.LL' (
+PriceLL( -
+;LL- .
+resultMM 
+.MM 
+
+FacilitiesMM 
+=MM 
+patchRoomDtoMM  ,
+.MM, -
+
+FacilitiesMM- 7
+??MM8 :
+resultMM; A
+.MMA B
+
+FacilitiesMMB L
+;MML M
+resultNN 
+.NN 
+StateNN 
+=NN 
+patchRoomDtoNN '
+.NN' (
+StateNN( -
+??NN- /
+resultNN/ 5
+.NN5 6
+StateNN6 ;
+;NN; <
+awaitOO 
+contextOO 
+.OO 
+SaveChangesAsyncOO *
+(OO* +
+)OO+ ,
+;OO, -
+returnPP 
+$numPP 
+;PP 
+}QQ 	
+}RR 
+}SS ﬁ
+{C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PatchRoomDto.cs
+	namespace 	&
+RoomManagementMicroservice
+ $
+.$ %
+DTOs% )
+{ 
+public 
+
+class 
+PatchRoomDto 
+{		 
+public 
+int 
+PersonsNumber  
+{! "
+get# &
+;& '
+set( +
+;+ ,
+}- .
+public 
+string 
+Description !
+{" #
+get$ '
+;' (
+set) ,
+;, -
+}. /
+public 
+int 
+Price 
+{ 
+get 
+; 
+set  #
+;# $
+}% &
+public 
+string 
+
+Facilities  
+{! "
+get# &
+;& '
+set( +
+;+ ,
+}- .
+public 
+string 
+State 
+{ 
+get !
+;! "
+set# &
+;& '
+}( )
+} 
+} „
+zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PostRoomDto.cs
+	namespace 	&
+RoomManagementMicroservice
+ $
+.$ %
+DTOs% )
+{ 
+public 
+
+class 
+PostRoomDto 
+{ 
+public 
+string 
+RoomCategory "
+{# $
+get% (
+;( )
+set* -
+;- .
+}/ 0
+public 
+int 
+PersonsNumber  
+{! "
+get# &
+;& '
+set( +
+;+ ,
+}- .
+public 
+string 
+Description !
+{" #
+get$ '
+;' (
+set) ,
+;, -
+}. /
+public 
+int 
+Price 
+{ 
+get 
+; 
+set  #
+;# $
+}% &
+public		 
+string		 
+
+Facilities		  
+{		! "
+get		# &
+;		& '
+set		( +
+;		+ ,
+}		- .
+}
+
+ 
+} ç
 
 ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.cs
 	namespace 	&
@@ -1446,69 +1996,7 @@ Facilities  
 }		 
 }
 
- Â
-{C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomToAddDto.cs
-	namespace 	&
-RoomManagementMicroservice
- $
-.$ %
-DTOs% )
-{ 
-public 
-
-class 
-RoomToAddDto 
-{ 
-public 
-string 
-RoomCategory "
-{# $
-get% (
-;( )
-set* -
-;- .
-}/ 0
-public 
-int 
-PersonsNumber  
-{! "
-get# &
-;& '
-set( +
-;+ ,
-}- .
-public 
-string 
-Description !
-{" #
-get$ '
-;' (
-set) ,
-;, -
-}. /
-public 
-int 
-Price 
-{ 
-get 
-; 
-set  #
-;# $
-}% &
-public		 
-string		 
-
-Facilities		  
-{		! "
-get		# &
-;		& '
-set		( +
-;		+ ,
-}		- .
-}
-
- 
-} É
+ É
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Entities\Room.cs
 	namespace 	&
 RoomManagementMicroservice

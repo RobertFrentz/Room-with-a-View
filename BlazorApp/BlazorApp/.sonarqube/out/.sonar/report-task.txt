@@ -2,5 +2,5 @@ projectKey=BlazorApp
 serverUrl=http://localhost:9000
 serverVersion=8.7.1.42226
 dashboardUrl=http://localhost:9000/dashboard?id=BlazorApp
-ceTaskId=AXj4p7fbtRXDu__l17Tm
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXj4p7fbtRXDu__l17Tm
+ceTaskId=AXkdU5YAHpPHcWzaLe7U
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXkdU5YAHpPHcWzaLe7U

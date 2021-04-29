@@ -2,8 +2,10 @@ X
 OC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\Program.csutf-8ê
 ÑC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.csutf-8z
 oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\BlazorApp.AssemblyInfo.csutf-8u
-jC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\App.razor.g.csutf-8Ä
-uC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\HomePage.razor.g.csutf-8}
+jC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\App.razor.g.csutf-8Ö
+zC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\AuthComponent.razor.g.csutf-8Ä
+uC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\HomePage.razor.g.csutf-8é
+ÇC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\LocalStorageComponent.razor.g.csutf-8}
 rC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\Login.razor.g.csutf-8Ç
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\MyBookings.razor.g.csutf-8
 tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorApp\obj\Debug\net5.0\Razor\Pages\MyTasks.razor.g.csutf-8Ä

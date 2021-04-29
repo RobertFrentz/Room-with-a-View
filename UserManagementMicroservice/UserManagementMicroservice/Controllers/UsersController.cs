@@ -28,12 +28,8 @@ namespace UserManagementMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromHeader] string authorizationToken)
         {
-            var result = Jwt.CheckJWT(authorizationToken);
-            if (!Jwt.IsValidJWT(result))
-            {
-                return Unauthorized(new Error(result));
-            }
-            var response = await _repository.GetAllAsync(Jwt.ExtractUserId(result));
+            var result=CheckAuth(authorizationToken) as ObjectResult;
+            var response = await _repository.GetAllAsync(Jwt.ExtractUserId(result.Value.ToString()));
             if (response == null)
             {
                 return Unauthorized(new Error("Admin privileges required"));
@@ -61,12 +57,8 @@ namespace UserManagementMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromHeader] string authorizationToken)
         {
-            var result = Jwt.CheckJWT(authorizationToken);
-            if (!Jwt.IsValidJWT(result))
-            {
-                return Unauthorized(new Error(result));
-            }
-            var response = await _repository.GetByIdAsync(Jwt.ExtractUserId(result));
+            var result = CheckAuth(authorizationToken) as ObjectResult;
+            var response = await _repository.GetByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             return Ok(response);
         }
 
@@ -74,12 +66,8 @@ namespace UserManagementMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsernameAsync([FromHeader] string authorizationToken)
         {
-            var result = Jwt.CheckJWT(authorizationToken);
-            if(!Jwt.IsValidJWT(result))
-            {
-                return Unauthorized(new Error(result));
-            }
-            var user = await _repository.GetByIdAsync(Jwt.ExtractUserId(result));
+            var result = CheckAuth(authorizationToken) as ObjectResult;
+            var user = await _repository.GetByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             if(user == null)
             {
                 return NotFound(new Error("User doesnt't exist"));
@@ -107,12 +95,8 @@ namespace UserManagementMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAdminAsync([FromHeader] string authorizationToken, [FromBody] UserRegisterDto userRegister)
         {
-            var jwt = Jwt.CheckJWT(authorizationToken);
-            if (!Jwt.IsValidJWT(jwt))
-            {
-                return Unauthorized(new Error(jwt));
-            }
-            if (! await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt)))
+            var jwt = CheckAuth(authorizationToken) as ObjectResult;
+            if (! await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt.Value.ToString())))
             {
                 return Unauthorized(new Error("Admin privileges required"));
             }
@@ -132,12 +116,8 @@ namespace UserManagementMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterStaffAsync([FromHeader] string authorizationToken, [FromBody] UserRegisterDto userRegister)
         {
-            var jwt = Jwt.CheckJWT(authorizationToken);
-            if (!Jwt.IsValidJWT(jwt))
-            {
-                return Unauthorized(new Error(jwt));
-            }
-            if (!await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt)))
+            var jwt = CheckAuth(authorizationToken) as ObjectResult;
+            if (!await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt.Value.ToString())))
             {
                 return Unauthorized(new Error("Admin privileges required"));
             }
@@ -169,14 +149,10 @@ namespace UserManagementMicroservice.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] UserRegisterDto user,[FromHeader] string authenticationToken)
+        public async Task<IActionResult> UpdateAsync([FromBody] UserRegisterDto user,[FromHeader] string authorizationToken)
         {
-            var result = Jwt.CheckJWT(authenticationToken);
-            if (!Jwt.IsValidJWT(result))
-            {
-                return Unauthorized(new Error(result));
-            }
-            bool isUpdated = await _repository.UpdateAsync(user, Jwt.ExtractUserId(result));
+            var result = CheckAuth(authorizationToken) as ObjectResult;
+            bool isUpdated = await _repository.UpdateAsync(user, Jwt.ExtractUserId(result.Value.ToString()));
             if(!isUpdated)
             {
                 return NotFound(new Error("User doesn't exist"));
@@ -185,14 +161,10 @@ namespace UserManagementMicroservice.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync([FromHeader] string authenticationToken) 
+        public async Task<IActionResult> DeleteAsync([FromHeader] string authorizationToken) 
         {
-            var result = Jwt.CheckJWT(authenticationToken);
-            if (!Jwt.IsValidJWT(result))
-            {
-                return Unauthorized(new Error(result));
-            }
-            await _repository.DeleteByIdAsync(Jwt.ExtractUserId(result));
+            var result = CheckAuth(authorizationToken) as ObjectResult;
+            await _repository.DeleteByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             return NoContent();
             
         } 
