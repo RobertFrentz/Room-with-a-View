@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -20,11 +21,15 @@ namespace UserManagementMicroservice.Controllers
     {
         private readonly IUsersRepository _repository;
 
+        [ActivatorUtilitiesConstructor]
         public UsersController(IUsersRepository repository)
         {
             _repository = repository;
         }
+        public UsersController()
+        {
 
+        }
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromHeader] string authorizationToken)
         {
@@ -53,11 +58,27 @@ namespace UserManagementMicroservice.Controllers
             return Ok(result);
         }
 
+        [Route("adminPrivileges")]
+        [HttpGet]
+        public async Task<IActionResult> VerifyAdminPrivileges(string json)
+        {
+            var result = await _repository.HasAdminPrivileges(Jwt.ExtractUserId(json));
+            if (!result)
+            {
+                return Unauthorized(new Error("Admin privileges required"));
+            }
+            return Ok(result);
+        }
+
         [Route("user")]
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromHeader] string authorizationToken)
+        public async Task<IActionResult> GetByIdAsync([FromHeader] string authorizationToken)
         {
             var result = CheckAuth(authorizationToken) as ObjectResult;
+            if(result is UnauthorizedObjectResult)
+            {
+                return result;
+            }
             var response = await _repository.GetByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             return Ok(response);
         }
@@ -67,6 +88,10 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> GetUsernameAsync([FromHeader] string authorizationToken)
         {
             var result = CheckAuth(authorizationToken) as ObjectResult;
+            if (result is UnauthorizedObjectResult)
+            {
+                return result;
+            }
             var user = await _repository.GetByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             if(user == null)
             {
@@ -75,19 +100,28 @@ namespace UserManagementMicroservice.Controllers
             return Ok(JsonConvert.SerializeObject(new { username = user.Username }));
         }
 
+        [Route("register")]
+        [HttpPost]
+        public async Task<IActionResult> RegisterAsync(UserRegisterDto userRegister,int role)
+        {
+            var result = await _repository.RegisterAsync(userRegister, role);
+            if (result == -2)
+            {
+                return Conflict(new Error("Email already exists"));
+            }
+            if (result == -1)
+            {
+                return Conflict(new Error("Username already exists"));
+            }
+            return Ok(result);
+        }
+
+        
         [Route("register/guest")]
         [HttpPost]
         public async Task<IActionResult> RegisterGuestAsync([FromBody] UserRegisterDto userRegister)
         {
-            var result = await _repository.RegisterAsync(userRegister, 0);
-            if(result == -2)    
-            {
-                return Conflict(new Error("Email already exists"));
-            }
-            if(result == -1)   
-            {
-                return Conflict(new Error("Username already exists"));
-            }
+            var result = await RegisterAsync(userRegister, 0);
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
@@ -95,20 +129,17 @@ namespace UserManagementMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAdminAsync([FromHeader] string authorizationToken, [FromBody] UserRegisterDto userRegister)
         {
-            var jwt = CheckAuth(authorizationToken) as ObjectResult;
-            if (! await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt.Value.ToString())))
+            var jsonObjectResult = CheckAuth(authorizationToken) as ObjectResult;
+            if (jsonObjectResult is UnauthorizedObjectResult)
             {
-                return Unauthorized(new Error("Admin privileges required"));
+                return jsonObjectResult;
             }
-            var result = await _repository.RegisterAsync(userRegister, 1);
-            if (result == -2)
+            var priviliges = await VerifyAdminPrivileges(jsonObjectResult.Value.ToString());
+            if (priviliges is UnauthorizedObjectResult)
             {
-                return Conflict(new Error("Email already exists"));
+                return priviliges;
             }
-            if (result == -1)
-            {
-                return Conflict(new Error("Username already exists"));
-            }
+            var result = await RegisterAsync(userRegister, 1);
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
@@ -116,20 +147,17 @@ namespace UserManagementMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterStaffAsync([FromHeader] string authorizationToken, [FromBody] UserRegisterDto userRegister)
         {
-            var jwt = CheckAuth(authorizationToken) as ObjectResult;
-            if (!await _repository.HasAdminPrivileges(Jwt.ExtractUserId(jwt.Value.ToString())))
+            var jsonObjectResult = CheckAuth(authorizationToken) as ObjectResult;
+            if (jsonObjectResult is UnauthorizedObjectResult)
             {
-                return Unauthorized(new Error("Admin privileges required"));
+                return jsonObjectResult;
             }
-            var result = await _repository.RegisterAsync(userRegister, 2);
-            if (result == -2)
+            var priviliges = await VerifyAdminPrivileges(jsonObjectResult.Value.ToString());
+            if (priviliges is UnauthorizedObjectResult)
             {
-                return Conflict(new Error("Email already exists"));
+                return priviliges;
             }
-            if (result == -1)
-            {
-                return Conflict(new Error("Username already exists"));
-            }
+            var result = await RegisterAsync(userRegister, 2);
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
@@ -152,6 +180,10 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> UpdateAsync([FromBody] UserRegisterDto user,[FromHeader] string authorizationToken)
         {
             var result = CheckAuth(authorizationToken) as ObjectResult;
+            if (result is UnauthorizedObjectResult)
+            {
+                return result;
+            }
             bool isUpdated = await _repository.UpdateAsync(user, Jwt.ExtractUserId(result.Value.ToString()));
             if(!isUpdated)
             {
@@ -164,6 +196,10 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> DeleteAsync([FromHeader] string authorizationToken) 
         {
             var result = CheckAuth(authorizationToken) as ObjectResult;
+            if (result is UnauthorizedObjectResult)
+            {
+                return result;
+            }
             await _repository.DeleteByIdAsync(Jwt.ExtractUserId(result.Value.ToString()));
             return NoContent();
             

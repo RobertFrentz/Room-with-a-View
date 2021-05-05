@@ -3,17 +3,17 @@
   <ProjectName>UserManagementMicroservice</ProjectName>
   <ProjectLanguage>C#</ProjectLanguage>
   <ProjectType>Product</ProjectType>
-  <ProjectGuid>466decc4-422f-47c3-838d-c428f3888463</ProjectGuid>
+  <ProjectGuid>1fe97478-702d-455b-acc5-88f18ab24c16</ProjectGuid>
   <FullPath>C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\UserManagementMicroservice.csproj</FullPath>
   <IsExcluded>false</IsExcluded>
   <AnalysisResults>
     <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\.sonarqube\conf\0\FilesToAnalyze.txt" />
   </AnalysisResults>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\bin\Debug\net5.0\UserManagementMicroservice.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\bin\Debug\net6.0\UserManagementMicroservice.dll.RoslynCA.json</Property>
     <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\.sonarqube\out\0</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>
-  <TargetFramework>net5.0</TargetFramework>
+  <TargetFramework>net6.0</TargetFramework>
 </ProjectInfo>

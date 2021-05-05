@@ -10,10 +10,10 @@
     <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\.sonarqube\conf\1\FilesToAnalyze.txt" />
   </AnalysisResults>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementTests\bin\Debug\net5.0\UserManagementTests.dll.RoslynCA.json|C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementTests\bin\Debug\net5.0\UserManagementTests.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementTests\bin\Debug\net6.0\UserManagementTests.dll.RoslynCA.json|C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementTests\bin\Debug\net6.0\UserManagementTests.dll.RoslynCA.json</Property>
     <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\.sonarqube\out\1</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>
-  <TargetFramework>net5.0</TargetFramework>
+  <TargetFramework>net6.0</TargetFramework>
 </ProjectInfo>

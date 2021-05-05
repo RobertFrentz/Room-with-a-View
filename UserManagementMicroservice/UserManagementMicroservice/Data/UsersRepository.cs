@@ -28,7 +28,7 @@ namespace UserManagementMicroservice.Data
             {
                 return -2;
             }
-            User registerUser= new User(userRegister.Username, userRegister.Email, userRegister.Password, role);
+            User registerUser= new(userRegister.Username, userRegister.Email, userRegister.Password, role);
             var user = this.context.Add(Cryptography.HashUserData(registerUser));
             await this.context.SaveChangesAsync();
             return user.Entity.Id;
@@ -49,6 +49,10 @@ namespace UserManagementMicroservice.Data
         public async Task<bool> UpdateAsync(UserRegisterDto user, int userId)
         {
           var result = this.context.Users.Find(userId);
+          if(result==null)
+            {
+                return false;
+            }
           result.Username = user.Username ?? result.Username;
           result.Email = Cryptography.HashString(user.Email) ?? result.Email;
           result.Password = Cryptography.HashString(user.Password) ?? result.Password;

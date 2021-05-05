@@ -15,6 +15,6 @@ qC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\Use
 |C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Cryptography.csutf-8~
 uC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Error.csutf-8|
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Utils\Jwt.csutf-8²
-¦C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.csutf-8®
-¢C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net5.0\UserManagementMicroservice.AssemblyInfo.csutf-8Á
-µC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net5.0\UserManagementMicroservice.MvcApplicationPartsAssemblyInfo.csutf-8
+¦C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8®
+¢C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net6.0\UserManagementMicroservice.AssemblyInfo.csutf-8Á
+µC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\obj\Debug\net6.0\UserManagementMicroservice.MvcApplicationPartsAssemblyInfo.csutf-8
