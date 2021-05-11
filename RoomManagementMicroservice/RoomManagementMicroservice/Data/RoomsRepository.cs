@@ -29,8 +29,9 @@ namespace RoomManagementMicroservice.Data
                 Description = room.Description,
                 Facilities = room.Facilities,
                 PersonsNumber = room.PersonsNumber,
-                Price = room.Price
-            }).OrderBy(room => room.Price).Take(10).ToListAsync();
+                Price = room.Price,
+                Image = room.Image
+            }).OrderBy(room => room.Price).ToListAsync();
             return rooms;
         }
 
@@ -48,7 +49,8 @@ namespace RoomManagementMicroservice.Data
                 Description = room.Description,
                 Facilities = room.Facilities,
                 PersonsNumber = room.PersonsNumber,
-                Price = room.Price
+                Price = room.Price,
+                Image = room.Image
             };
             return roomDescription;
         }
