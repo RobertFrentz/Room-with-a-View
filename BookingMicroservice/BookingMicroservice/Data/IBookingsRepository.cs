@@ -1,6 +1,8 @@
 ﻿using BookingMicroservice.DTOs;
 using BookingMicroservice.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Threading.Tasks;
 
 namespace BookingMicroservice.Data
@@ -14,5 +16,7 @@ namespace BookingMicroservice.Data
         Task<int> AddBookingAsync(PostBookingDto postBooking);
         Task<int> UpdateBookingAsync(PatchBookingDto patchBooking);
         Task<IEnumerable<RoomDescriptionDto>> SearchAvailableRoomsAsync(RoomSearchDto roomSearchDTO, List<RoomDescriptionDto> rooms);
+
+        Task<bool> CheckRoomAvailability(int roomNumber, DateTime? checkIn, DateTime? checkOut);
     }
 }

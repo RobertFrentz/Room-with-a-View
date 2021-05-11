@@ -1,6 +1,7 @@
 ﻿using BookingMicroservice.DTOs;
 using BookingMicroservice.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,12 +51,8 @@ namespace BookingMicroservice.Data
             {
                 return -2;
             }
-            var isAddingPossible = await _context.Bookings.AnyAsync(booking => (booking.RoomNumber == postBooking.RoomNumber && 
-                                                     ((booking.CheckIn > postBooking.CheckIn && booking.CheckOut < postBooking.CheckOut) ||
-                                                      (booking.CheckIn < postBooking.CheckIn && booking.CheckOut < postBooking.CheckOut) ||
-                                                      (booking.CheckIn > postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut) ||
-                                                      (booking.CheckIn < postBooking.CheckIn && booking.CheckOut > postBooking.CheckOut))));
-            if (!isAddingPossible)
+            var isAddingNotPossible = await CheckRoomAvailability(postBooking.RoomNumber, postBooking.CheckIn, postBooking.CheckOut);
+            if (isAddingNotPossible)
             {
                 _context.Add(new Booking()
                 {
@@ -82,12 +79,8 @@ namespace BookingMicroservice.Data
                 return -2;
             }
             int roomNumber = result.RoomNumber;
-            var isUpdatePossible = await _context.Bookings.AnyAsync(booking => !(booking.RoomNumber == roomNumber && booking.Id != patchBooking.Id && 
-                                                     ((booking.CheckIn > patchBooking.CheckIn && booking.CheckOut < patchBooking.CheckOut) ||
-                                                      (booking.CheckIn < patchBooking.CheckIn && booking.CheckOut < patchBooking.CheckOut) ||
-                                                      (booking.CheckIn > patchBooking.CheckIn && booking.CheckOut > patchBooking.CheckOut) ||
-                                                      (booking.CheckIn < patchBooking.CheckIn && booking.CheckOut > patchBooking.CheckOut))));
-            if(!isUpdatePossible)
+            var isUpdateNotPossible = await CheckRoomAvailability(roomNumber, patchBooking.CheckIn, patchBooking.CheckOut);
+            if (isUpdateNotPossible)
             {
                 return -1;
             }
@@ -108,12 +101,8 @@ namespace BookingMicroservice.Data
                 {
                     continue;
                 }
-                var isAvailable = await _context.Bookings.AnyAsync(booking => !(booking.RoomNumber == room.RoomNumber &&
-                                                     ((booking.CheckIn > roomSearchDTO.CheckIn && booking.CheckOut < roomSearchDTO.CheckOut) ||
-                                                      (booking.CheckIn < roomSearchDTO.CheckIn && booking.CheckOut < roomSearchDTO.CheckOut) ||
-                                                      (booking.CheckIn > roomSearchDTO.CheckIn && booking.CheckOut > roomSearchDTO.CheckOut) ||
-                                                      (booking.CheckIn < roomSearchDTO.CheckIn && booking.CheckOut > roomSearchDTO.CheckOut))));
-                if(!isAvailable)
+                var isReserved = await CheckRoomAvailability(room.RoomNumber, roomSearchDTO.CheckIn, roomSearchDTO.CheckOut);
+                if (isReserved)
                 {
                     continue;
                 }
@@ -121,7 +110,15 @@ namespace BookingMicroservice.Data
             }
             return returnValue;
         }
-        
 
+        public async Task<bool> CheckRoomAvailability(int roomNumber, DateTime? checkIn, DateTime? checkOut)
+        {
+            var isReserved = await _context.Bookings.AnyAsync(booking => booking.RoomNumber == roomNumber &&
+                                                     ((booking.CheckIn > checkIn && booking.CheckOut < checkOut) ||
+                                                      (booking.CheckIn < checkIn && checkIn < booking.CheckOut && checkOut > booking.CheckOut) ||
+                                                      (booking.CheckIn > checkIn && booking.CheckIn < checkOut && checkOut < booking.CheckOut) ||
+                                                      (booking.CheckIn < checkIn && booking.CheckOut > checkOut)));
+            return !isReserved;
+        }
     }
 }

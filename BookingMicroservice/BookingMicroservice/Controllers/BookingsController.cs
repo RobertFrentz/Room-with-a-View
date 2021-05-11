@@ -3,6 +3,7 @@ using BookingMicroservice.DTOs;
 using BookingMicroservice.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -147,5 +148,18 @@ namespace BookingMicroservice.Controllers
             }
             return NoContent();
         }
+
+        [Route("available")]
+        [HttpGet]
+        public async Task<IActionResult> CheckRoomAvailability(int roomNumber, DateTime checkIn, DateTime checkOut)
+        {
+            var isAvailable = await _repository.CheckRoomAvailability(roomNumber, checkIn, checkOut);
+            return Ok(JsonConvert.SerializeObject(new
+            {
+                available = isAvailable
+            }));
+        }
+
+
     }
 }
