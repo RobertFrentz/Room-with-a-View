@@ -13,5 +13,7 @@
         public string Facilities { get; set; }
 
         public int PersonsNumber { get; set; }
+
+        public string Image { get; set; }
     }
 }

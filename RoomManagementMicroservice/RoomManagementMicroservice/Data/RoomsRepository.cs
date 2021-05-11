@@ -56,9 +56,9 @@ namespace RoomManagementMicroservice.Data
         {
             Room room = new(roomToAdd.RoomCategory, roomToAdd.PersonsNumber, roomToAdd.Description, roomToAdd.Price, roomToAdd.Facilities);
             int numberOfRooms = context.Rooms.Count();
-            room.RoomNumber = (numberOfRooms / 10 + 1) * 100 + numberOfRooms % 10;
+            room.RoomNumber = (numberOfRooms / 5 + 1) * 100 + numberOfRooms % 5;
             room.State = "Available";
-
+            room.Image = room.RoomCategory.ToLower() + room.RoomNumber % 3 + ".jpg";
             this.context.Add(room);
             await this.context.SaveChangesAsync();
             return 1;
@@ -79,6 +79,7 @@ namespace RoomManagementMicroservice.Data
             await context.SaveChangesAsync();
             return 0;
         }
+       
     }
 }
 

@@ -10,7 +10,7 @@
         public int Price { get; set; }
         public string Facilities { get; set; }
         public string State { get; set; }
-
+        public string Image { get; set; }
         public Room(string roomCategory, int personsNumber, string description, int price, string facilities)
         {
             RoomCategory = roomCategory;

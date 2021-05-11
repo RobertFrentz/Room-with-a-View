@@ -105,5 +105,12 @@ namespace RoomManagementMicroservice.Controllers
             return NoContent();
             
         }
+        /*[Route("image")]
+        [HttpGet]
+        public async Task<IActionResult> GetImage(int roomNumber)
+        {
+            var image = await System.IO.File.ReadAllBytesAsync(@"Resources\deluxe1.jpg");
+            return File(image, "image/jpeg");
+        }*/
     }
 }

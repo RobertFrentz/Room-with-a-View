@@ -14,5 +14,6 @@ namespace RoomManagementMicroservice.Data
         Task<int> AddRoomAsync(PostRoomDto roomToAdd);
 
         Task<int> UpdateAsync(int roomNumber,PatchRoomDto patchRoomDto);
+
     }
 }
