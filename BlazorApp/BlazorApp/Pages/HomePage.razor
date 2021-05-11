@@ -112,6 +112,7 @@
         }
 
         string roomCategory = roomTypes[roomCategoryIndex];
+        Console.WriteLine($"RoomCategory={roomCategory}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={personsNumber}");
         string getRoomsApiUrl = $"{ApiRoomsEndpoint}/search?RoomCategory={roomCategory}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={personsNumber}";
         var getRequest = new HttpRequestMessage(HttpMethod.Get, getRoomsApiUrl);
         var httpResponse = await HttpClient.SendAsync(getRequest);

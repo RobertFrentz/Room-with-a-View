@@ -60,11 +60,11 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber, [FromHeader] string authorizationToken)
         {
-            var verify=await VerifyAuthorization(authorizationToken);
-            if(verify is UnauthorizedObjectResult)
-            {
-                return verify;
-            }
+            //var verify=await VerifyAuthorization(authorizationToken);
+            //if(verify is UnauthorizedObjectResult)
+            //{
+            //    return verify;
+            //}
             RoomDescriptionDto result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {
