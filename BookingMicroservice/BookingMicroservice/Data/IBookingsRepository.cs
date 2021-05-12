@@ -10,13 +10,14 @@ namespace BookingMicroservice.Data
     public interface IBookingsRepository
     {
 
-        Task<IEnumerable<Booking>> GetBookings();
-        Task<IEnumerable<Booking>> GetBookingsByUserId(int userId);
+        Task<IEnumerable<Booking>> GetBookingsAsync();
+        Task<IEnumerable<Booking>> GetBookingsByUserIdAsync(int userId);
         Task<GetBookingDto?> GetBookingByIdAsync(int id);
-        Task<int> AddBookingAsync(PostBookingDto postBooking);
-        Task<int> UpdateBookingAsync(PatchBookingDto patchBooking);
+        Task<int> AddBookingAsync(PostBookingDto postBooking, int userId);
+        Task<int> UpdateBookingAsync(PatchBookingDto patchBooking, int userId);
         Task<IEnumerable<RoomDescriptionDto>> SearchAvailableRoomsAsync(RoomSearchDto roomSearchDTO, List<RoomDescriptionDto> rooms);
 
-        Task<bool> CheckRoomAvailability(int roomNumber, DateTime? checkIn, DateTime? checkOut);
+        Task<bool> CheckRoomAvailabilityAsync(int roomNumber, DateTime? checkIn, DateTime? checkOut);
+
     }
 }

@@ -60,11 +60,11 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber, [FromHeader] string authorizationToken)
         {
-            var verify=await VerifyAuthorization(authorizationToken);
+            /*var verify=await VerifyAuthorization(authorizationToken);
             if(verify is UnauthorizedObjectResult)
             {
                 return verify;
-            }
+            }*/
             RoomDescriptionDto result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {
@@ -105,12 +105,5 @@ namespace RoomManagementMicroservice.Controllers
             return NoContent();
             
         }
-        /*[Route("image")]
-        [HttpGet]
-        public async Task<IActionResult> GetImage(int roomNumber)
-        {
-            var image = await System.IO.File.ReadAllBytesAsync(@"Resources\deluxe1.jpg");
-            return File(image, "image/jpeg");
-        }*/
     }
 }

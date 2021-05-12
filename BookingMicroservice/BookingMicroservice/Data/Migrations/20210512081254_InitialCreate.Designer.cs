@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingMicroservice.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210420162326_InitialCreate")]
+    [Migration("20210512081254_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "6.0.0-preview.3.21201.2");
 
             modelBuilder.Entity("BookingMicroservice.Entities.Booking", b =>
                 {

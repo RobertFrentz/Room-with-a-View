@@ -35,7 +35,7 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var bookings = await _repository.GetBookings();
+            var bookings = await _repository.GetBookingsAsync();
             return Ok(bookings);
         }
 
@@ -50,7 +50,7 @@ namespace BookingMicroservice.Controllers
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
             var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
-            var bookings = await _repository.GetBookingsByUserId(userId);
+            var bookings = await _repository.GetBookingsByUserIdAsync(userId);
             if (!bookings.Any())
             {
                 return NotFound(new Error("You have no bookings."));
@@ -86,6 +86,10 @@ namespace BookingMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchAvailableRoomsAsync([FromQuery] RoomSearchDto roomSearchDTO)
         {
+            if (!Validation.CheckValidDates(roomSearchDTO.CheckIn, roomSearchDTO.CheckOut))
+            {
+                return BadRequest(new Error("Check in/check out dates invalid."));
+            }
             var httpResultContent = await client.GetStringAsync(roomsManagementMicroserviceUri);
             if(httpResultContent!=null)
             {
@@ -116,8 +120,18 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var result = await _repository.AddBookingAsync(postBooking);
-            if(result == -2)
+            var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postBooking.RoomNumber}");
+            if(responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return BadRequest(new Error($"Room with room number {postBooking.RoomNumber} does not exist."));
+            }
+            if (!Validation.CheckValidDates(postBooking.CheckIn, postBooking.CheckOut))
+            {
+                return BadRequest(new Error("Check in/check out dates invalid."));
+            }
+            var result = await _repository.AddBookingAsync(postBooking, userId);
+            if (result == -2)
             {
                 return BadRequest(new Error("Booking already exists."));
             }
@@ -125,6 +139,7 @@ namespace BookingMicroservice.Controllers
             {
                 return BadRequest(new Error("An existing booking interferes with given CheckIn/CheckOut."));
             }
+
             return CreatedAtAction("AddBooking", postBooking);
         }
 
@@ -137,8 +152,13 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var result = await _repository.UpdateBookingAsync(patchBooking);
-            if(result == -2) 
+            var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var result = await _repository.UpdateBookingAsync(patchBooking, userId);
+            if (!Validation.CheckValidDates(patchBooking.CheckIn, patchBooking.CheckOut))
+            {
+                return BadRequest(new Error("Check in/check out dates invalid."));
+            }
+            if (result == -2) 
             {
                 return NotFound(new Error($"Booking with id {patchBooking.Id} does not exist."));
             }
@@ -153,7 +173,16 @@ namespace BookingMicroservice.Controllers
         [HttpGet]
         public async Task<IActionResult> CheckRoomAvailability(int roomNumber, DateTime checkIn, DateTime checkOut)
         {
-            var isAvailable = await _repository.CheckRoomAvailability(roomNumber, checkIn, checkOut);
+            var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{roomNumber}");
+            if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return BadRequest(new Error($"Room with room number {roomNumber} does not exist."));
+            }
+            if (!Validation.CheckValidDates(checkIn, checkOut))
+            {
+                return BadRequest(new Error("Check in/check out dates invalid."));
+            }
+            var isAvailable = await _repository.CheckRoomAvailabilityAsync(roomNumber, checkIn, checkOut);
             return Ok(JsonConvert.SerializeObject(new
             {
                 available = isAvailable
