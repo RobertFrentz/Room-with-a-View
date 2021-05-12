@@ -54,12 +54,16 @@
         var postBody = new
         {
             roomNumber = roomNumber,
-            checkIn = checkInDate.ToString("yyyy-MM-dd HH:mm:ss"),
-            checkOut = checkOutDate.ToString("yyyy-MM-dd HH:mm:ss")
+            checkIn = checkInDate.ToString("yyyy-MM-dd"),
+            checkOut = checkOutDate.ToString("yyyy-MM-dd")
         };
         request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postBody), System.Text.Encoding.UTF8, "application/json");
         request.Headers.Add("authorizationToken", await localStorage.GetItemAsync<string>("jwt"));
-        using var response = await HttpClient.SendAsync(request);
+        using var httpResponse = await HttpClient.SendAsync(request);
+
+        string jsonString = await httpResponse.Content.ReadAsStringAsync();
+        dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
+        Console.WriteLine($"POST BOOKING jsonString: {jsonString}");
 
         NavManager.NavigateTo(redirectUri, true);
     }
