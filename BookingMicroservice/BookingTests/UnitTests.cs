@@ -89,8 +89,8 @@ namespace BookingTests
             RoomSearchDto roomSearchDto = new RoomSearchDto()
             {
                 RoomCategory = "Standard",
-                CheckIn = new DateTime(2021, 05, 01),
-                CheckOut = new DateTime(2021, 05, 06),
+                CheckIn = new DateTime(2021, 05, 20),
+                CheckOut = new DateTime(2021, 05, 25),
                 PersonsNumber = 2
             };
             BookingsController bookingsController = new BookingsController(new BookingsRepository(context));
@@ -115,10 +115,9 @@ namespace BookingTests
             //Act
             PostBookingDto postBookingDto = new PostBookingDto()
             {
-                RoomNumber = 110,
+                RoomNumber = 104,
                 CheckIn = new DateTime(2021, 06, 01),
                 CheckOut = new DateTime(2021, 06, 06),
-                UserId = 20
             };
             BookingsController bookingsController = new BookingsController(new BookingsRepository(context));
             var result = await bookingsController.AddBookingAsync(postBookingDto, authorizationToken);
@@ -143,8 +142,8 @@ namespace BookingTests
             PatchBookingDto patchBookingDto = new PatchBookingDto()
             {
                 Id = 1,
-                CheckIn = new DateTime(2021, 05, 07),
-                CheckOut = new DateTime(2021, 05, 12)
+                CheckIn = new DateTime(2021, 05, 21),
+                CheckOut = new DateTime(2021, 05, 22)
             };
             BookingsController bookingsController = new BookingsController(new BookingsRepository(context));
             var result = await bookingsController.UpdateBookingAsync(patchBookingDto, authorizationToken);

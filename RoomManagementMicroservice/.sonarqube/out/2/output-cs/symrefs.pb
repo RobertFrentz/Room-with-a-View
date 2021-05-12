@@ -1,4 +1,4 @@
-Ë
+—
 …C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs
 
   <
@@ -12,15 +12,15 @@
  
 
 $$) 6
-&&, 2'' ,, (
-11) <?? 0SS 2__ 2
+&&, 2'' ,, 
+11) <SS 2__ 2
 11D V33C U(
 44 %55 %77$ 999 +
 
 ==) =
-==B LDDO Y
-==b t??1 C
-?? @@ BB 
+==B LDDO Y
+
+==b t
 DD %EE KK 
 
 QQ) 6
@@ -37,15 +37,15 @@
 dd ee â
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs
 
- 
+ 
 
-		 
-		, 3		< C
+ 
+, 3< C
 
-  
+  
 
-  /
-= I  í
+  /
+= I  í
 C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\IRoomsRepository.cs
 
  %
@@ -66,42 +66,44 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 
 " ,
 
-: F™
-–C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210422211514_InitialCreate.cs
+: F’
+–C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210511163056_InitialCreate.cs
 
  &
 
-  "<
-4 D		  !! && ++ Z
-  ! &# ($ )" ' !! & !
- " 
-1 26 7
+  "ª
+4 D		  "" '' ,, 11 66 ;; @@ EE JJ OO TT YY ^^ cc d
+  ! &# ($ )" ' !! & ! !
+ " 
+1 26 7
 
-11  $
-116 F33 š
+ii  $
+ii6 Fkk Ì
 ~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.cs
 
-  Z
-% ,  %'' $::  '>> ?? EE &OO 
+
+
+  Z
+% ,  %&& $::  '>> ?? EE &OO 
 
- 
-+ 2 "
+ 
++ 2 "
 
-; H
- "" F
-3 7 # ! " !  $   
-!! !! #
+; H
+ !! P
+3 7 # ! " !  $  
+      #
 
-%%. B
-%%G Q''L VP
-'' (( .. #// !00 "11 !22  $33 
-''1 5''9 =
-,, .55 "
+$$. B
+$$G Q&&L VZ
+&& '' -- #.. !// "00 !11  $22 33 
+&&1 5&&9 =
+++ .55 "
 
 77 +<
-778 A99 %994 =99M V99d m99u ~(
-99 ;; << >> !
-:: ;; ,;;? L
+778 A99 %994 =99M V99d m99u ~F
+99 ;; << == == ==7 ;>> !
+:: ;; ,;;> K
 
 CC *
 CC/ 9EEN X<
@@ -110,17 +112,19 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 EE3 7EE; ?Å
 {C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PatchRoomDto.cs
 
- 
+ 
 
-  
+  
 
- !
+ !
 
- 
+ 
 
-  
+		  
 
- Ä
+
+
+ Ä
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PostRoomDto.cs
 
  
@@ -133,7 +137,7 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 
  
 
-		  Ø
+		  ä
 C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.cs
 
  #
@@ -148,7 +152,9 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 
   
 
-  µ
+  
+
+ µ
 ‚C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.cs
 
  $
@@ -157,7 +163,7 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 
  
 
- 
+ ©
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Entities\Room.cs
 
  
@@ -174,6 +180,8 @@ wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
    
 
  
+
+ 
 
  
  ' '
@@ -195,28 +203,37 @@ qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 
  
 > B& *
-* 4 £
+* 4 ·
 qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Startup.cs
 
- 
- 0""" :;; 0
+ 
+ 0$$" :== 0
 
- 
-& 3 )
- + " /
+ 
+& 3 )
+ + " /
 
- %<
-9 A     ** ++ 
-/ 6 
-   $"" 
-""< C$$ 
-++# $-- 
+ %<
+9 A  "" ,, -- 
+/ 6 
+"" $$$ 
+$$< C&& 
+--# $// 
 
-22 P
-222 566 77 88 ;; == ?? AA 
-22K N44 
-88! "88& '
-AA &CC »
+44 Z
+442 588 99 :: == ?? FF HH JJ 
+44K N66 BB 
+::! "::& '
+JJ &LL ó
+{C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Utils\Description.cs
+
+ F
+     ## (( 
+
+ 
+ %
+
+ »
 uC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Utils\Error.cs
 
  

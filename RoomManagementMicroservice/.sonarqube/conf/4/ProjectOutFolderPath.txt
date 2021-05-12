@@ -1,1 +1,0 @@
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\.sonarqube\out\4

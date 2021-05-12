@@ -76,19 +76,7 @@ namespace RoomManagementTests
             Assert.IsType<OkObjectResult>(result);
         }
  
-        [Theory]
-        [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLa")]
-        public async void GetRoomsByNumber_TheRoomWithGivenRoomNumberExists_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
-        {
-            var options = new DbContextOptionsBuilder<DataContext>()
-                              .UseInMemoryDatabase(databaseName: "GetRoomByNumberDatabaseUnauthorized")
-                              .Options;
-            var context = new DataContext(options);
-            await context.Database.EnsureCreatedAsync();
-            RoomsController roomsController = new(new RoomsRepository(context));
-            var result = await roomsController.GetRoomByNumberAsync(100, authorizationToken);
-            Assert.IsType<UnauthorizedObjectResult>(result);
-        }
+        
         
 
         [Fact]
