@@ -1,52 +1,109 @@
 ﻿@page "/bookings"
-
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject HttpClient HttpClient
 
 <div class="bg-light py-4">
-
     <div class="container">
 
         <h3 class="mb-3">My bookings</h3>
-
-        @for (int i = 0; i < 3; i++)
+        @if (allBookings != null && allBookedRooms != null)
         {
-            <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
-                <div class="col-sm-5 p-3">
-                    <img class="d-block w-100 h-auto" src="images/109169993.jpg" style="max-height: 270px; object-fit:cover;">
-                </div>
+            @for(int i=0; i< allBookings.Count; i++)
+            {
+                string imageUrl = StaticImagesEndpoint + allBookedRooms[i].Image;
+                
+                <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
+                    <div class="col-sm-5 p-3">
+                        <img class="d-block w-100 h-auto" src=@imageUrl style="max-height: 270px; object-fit:cover;">
+                    </div>
 
-                <div class="col-sm-7 p-3">
-                    <table class="table table-striped mb-0">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Room number:</th>
-                                <td>104</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Room type:</th>
-                                <td>Single</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Check-in</th>
-                                <td>16 May 2021</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Check-out:</th>
-                                <td>17 May 2021</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Price paid:</th>
-                                <td>170.6 Lei</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-sm-7 p-3">
+                        <table class="table table-striped mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Room number:</th>
+                                    <td>@allBookings[i].RoomNumber</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Room type:</th>
+                                    <td>@allBookedRooms[i].RoomCategory</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Check-in</th>
+                                    <td>@allBookings[i].CheckIn</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Check-out:</th>
+                                    <td>@allBookings[i].CheckOut</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Price paid:</th>
+                                    <td>@allBookings[i].TotalPay</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
-
 </div>
 
 
 @code {
+    const string ApiDisplayBookingsEndpoint = "http://localhost:5100/api/v1/bookings";
+    const string ApiHotelRoomEndpoint = "http://localhost:19008/api/v1/rooms/";
+    const string StaticImagesEndpoint = "http://localhost:19008/images/";
+    List<Booking> allBookings;
+    List<Room> allBookedRooms;
 
+    protected override async Task OnInitializedAsync()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiDisplayBookingsEndpoint);
+        getRequest.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(getRequest);
+        allBookings = await httpResponse.Content.ReadFromJsonAsync<List<Booking>>();
+        
+        allBookedRooms = new List<Room>();
+
+        foreach(var booking in allBookings)
+        {
+            string getRoomInfoRequestUrl = ApiHotelRoomEndpoint + booking.RoomNumber;
+            var getRoomInfoRequest = new HttpRequestMessage(HttpMethod.Get, getRoomInfoRequestUrl);
+            getRoomInfoRequest.Headers.Add("authorizationToken", token);
+            var httpRoomInfoResponse = await HttpClient.SendAsync(getRoomInfoRequest);
+            RoomListDeserializer roomListDeserializer = await httpRoomInfoResponse.Content.ReadFromJsonAsync<RoomListDeserializer>();
+            Room bookedRoom = roomListDeserializer.room;
+            allBookedRooms.Add(bookedRoom);
+        }
+
+    }
+
+    public class Booking
+    {
+        public int Id { get; set; }
+        public int RoomNumber { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+        public int UserId { get; set; }
+        public int TotalPay { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class Room
+    {
+        public string RoomCategory { get; set; }
+        public int RoomNumber { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+        public string Facilities { get; set; }
+        public int PersonsNumber { get; set; }
+        public string Image { get; set; }
+    }
+
+    public class RoomListDeserializer
+    {
+        public Room room { get; set; }
+    }
 }
