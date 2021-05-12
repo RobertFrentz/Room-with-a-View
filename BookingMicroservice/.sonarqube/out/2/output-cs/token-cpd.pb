@@ -1,1575 +1,2140 @@
-ÁÄ
+à≤
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Controllers\BookingsController.cs
-	namespace 	
-BookingMicroservice
+	namespace 	
+BookingMicroservice
  
-. 
-Controllers )
-{ 
-[ 
-Route 
+. 
+Controllers )
+{ 
+[ 
+Route 
 
-(
+(
  
-$str 
-) 
-] 
-[ 
-ApiController 
-] 
-public 
+$str 
+) 
+] 
+[ 
+ApiController 
+] 
+public 
 
-class 
-BookingsController #
-:$ %
-ControllerBase& 4
-{ 
-private 
-readonly 
-IBookingsRepository ,
-_repository- 8
-;8 9
+class 
+BookingsController #
+:$ %
+ControllerBase& 4
+{ 
 private 
-readonly 
-
-HttpClient #
-client$ *
-;* +
+readonly 
+IBookingsRepository ,
+_repository- 8
+;8 9
 private 
-readonly 
-string *
-usersManagementMicroserviceUri  >
-=? @
-$strA g
-;g h
+readonly 
+
+HttpClient #
+client$ *
+;* +
 private 
 readonly 
 string *
-roomsManagementMicroserviceUri  >
+usersManagementMicroserviceUri  >
 =? @
-$strA f
-;f g
-public 
-BookingsController !
-(! "
-IBookingsRepository" 5
+$strA g
+;g h
+private 
+readonly 
+string *
+roomsManagementMicroserviceUri  >
+=? @
+$strA f
+;f g
+public 
+BookingsController !
+(! "
+IBookingsRepository" 5
 
-repository6 @
-)@ A
-{ 	
-_repository 
-= 
+repository6 @
+)@ A
+{ 	
+_repository 
+= 
 
-repository $
-;$ %
-client 
-= 
-new 
+repository $
+;$ %
+client 
+= 
+new 
 
-HttpClient #
-(# $
-)$ %
-;% &
-} 	
-[ 	
-Route	 
-( 
-$str 
-) 
-] 
-[ 	
-HttpGet	 
-] 
-public 
-async 
-Task 
-< 
-IActionResult '
->' (
-GetBookings) 4
-(4 5
-[5 6
+HttpClient #
+(# $
+)$ %
+;% &
+} 	
+[ 	
+Route	 
+( 
+$str 
+) 
+] 
+[ 	
+HttpGet	 
+] 
+public 
+async 
+Task 
+< 
+IActionResult '
+>' (
+GetBookings) 4
+(4 5
+[5 6
 
-FromHeader6 @
-]@ A
-stringB H
-authorizationTokenI [
-)[ \
-{ 	
-client 
-. !
-DefaultRequestHeaders (
-.( )
-Add) ,
-(, -
-$str- A
-,A B
-authorizationTokenC U
-)U V
-;V W
-var   !
-responseAuthorization   %
-=  & '
-await  ( -
-client  . 4
-.  4 5
-GetAsync  5 =
-(  = >*
-usersManagementMicroserviceUri  > \
-+  \ ]
-$str  ] l
-)  l m
-;  m n
-if!! 
-(!! !
+FromHeader6 @
+]@ A
+stringB H
+authorizationTokenI [
+)[ \
+{ 	
+client   
+.   !
+DefaultRequestHeaders   (
+.  ( )
+Add  ) ,
+(  , -
+$str  - A
+,  A B
+authorizationToken  C U
+)  U V
+;  V W
+var!! !
 responseAuthorization!! %
-.!!% &
+=!!& '
+await!!( -
+client!!. 4
+.!!4 5
+GetAsync!!5 =
+(!!= >*
+usersManagementMicroserviceUri!!> \
++!!\ ]
+$str!!] l
+)!!l m
+;!!m n
+if"" 
+("" !
+responseAuthorization"" %
+.""% &
 
-StatusCode!!& 0
-==!!1 3
-System!!4 :
-.!!: ;
-Net!!; >
-.!!> ?
-HttpStatusCode!!? M
-.!!M N
-Unauthorized!!N Z
-)!!Z [
-{"" 
-return## 
-Unauthorized## #
-(### $!
-responseAuthorization##$ 9
-.##9 :
-Content##: A
-.##A B
-ReadAsStringAsync##B S
-(##S T
-)##T U
-.##U V
-Result##V \
-)##\ ]
-;##] ^
-}$$ 
-var%% 
-bookings%% 
-=%% 
-await%%  
-_repository%%! ,
-.%%, -
-GetBookings%%- 8
-(%%8 9
-)%%9 :
-;%%: ;
-return&& 
-Ok&& 
-(&& 
-bookings&& 
-)&& 
-;&&  
-}'' 	
-[** 	
-HttpGet**	 
-]** 
-public++ 
-async++ 
-Task++ 
-<++ 
-IActionResult++ '
->++' ($
-GetBookingsByUserIdAsync++) A
-(++A B
-[++B C
+StatusCode""& 0
+==""1 3
+System""4 :
+."": ;
+Net""; >
+.""> ?
+HttpStatusCode""? M
+.""M N
+Unauthorized""N Z
+)""Z [
+{## 
+return$$ 
+Unauthorized$$ #
+($$# $!
+responseAuthorization$$$ 9
+.$$9 :
+Content$$: A
+.$$A B
+ReadAsStringAsync$$B S
+($$S T
+)$$T U
+.$$U V
+Result$$V \
+)$$\ ]
+;$$] ^
+}%% 
+var&& 
+bookings&& 
+=&& 
+await&&  
+_repository&&! ,
+.&&, -
+GetBookingsAsync&&- =
+(&&= >
+)&&> ?
+;&&? @
+return'' 
+Ok'' 
+('' 
+bookings'' 
+)'' 
+;''  
+}(( 	
+[++ 	
+HttpGet++	 
+]++ 
+public,, 
+async,, 
+Task,, 
+<,, 
+IActionResult,, '
+>,,' ($
+GetBookingsByUserIdAsync,,) A
+(,,A B
+[,,B C
 
-FromHeader++C M
-]++M N
-string++O U
-authorizationToken++V h
-)++h i
-{,, 	
-client-- 
-.-- !
-DefaultRequestHeaders-- (
-.--( )
-Add--) ,
-(--, -
-$str--- A
-,--A B
-authorizationToken--C U
-)--U V
-;--V W
-var.. !
-responseAuthorization.. %
-=..& '
-await..( -
-client... 4
-...4 5
-GetAsync..5 =
-(..= >*
-usersManagementMicroserviceUri..> \
-+..] ^
-$str.._ n
-)..n o
-;..o p
-if// 
-(// !
+FromHeader,,C M
+],,M N
+string,,O U
+authorizationToken,,V h
+),,h i
+{-- 	
+client.. 
+... !
+DefaultRequestHeaders.. (
+...( )
+Add..) ,
+(.., -
+$str..- A
+,..A B
+authorizationToken..C U
+)..U V
+;..V W
+var// !
 responseAuthorization// %
-.//% &
+=//& '
+await//( -
+client//. 4
+.//4 5
+GetAsync//5 =
+(//= >*
+usersManagementMicroserviceUri//> \
++//] ^
+$str//_ n
+)//n o
+;//o p
+if00 
+(00 !
+responseAuthorization00 %
+.00% &
 
-StatusCode//& 0
-==//1 3
-System//4 :
-.//: ;
-Net//; >
-.//> ?
-HttpStatusCode//? M
-.//M N
-Unauthorized//N Z
-)//Z [
-{00 
-return11 
-Unauthorized11 #
-(11# $!
-responseAuthorization11$ 9
-.119 :
-Content11: A
-.11A B
-ReadAsStringAsync11B S
-(11S T
-)11T U
-.11U V
-Result11V \
-)11\ ]
-;11] ^
-}22 
-var33 
-userId33 
-=33 
-	ExtractId33 "
-.33" #
-ExtractUserId33# 0
-(330 1!
-responseAuthorization331 F
-.33F G
-Content33G N
-.33N O
-ReadAsStringAsync33O `
-(33` a
-)33a b
-.33b c
-Result33c i
-)33i j
-;33j k
-var44 
-bookings44 
-=44 
-await44  
-_repository44! ,
-.44, -
-GetBookingsByUserId44- @
-(44@ A
-userId44A G
-)44G H
-;44H I
-if55 
-(55 
-!55 
-bookings55 
-.55 
-Any55 
-(55 
-)55 
-)55  
-{66 
-return77 
-NotFound77 
-(77  
-new77  #
-Error77$ )
-(77) *
-$str77* A
-)77A B
-)77B C
-;77C D
-}88 
-return99 
-Ok99 
-(99 
-bookings99 
-)99 
-;99  
-}:: 	
-[<< 	
-HttpGet<<	 
-(<< 
-$str<< 
-)<< 
-]<< 
-public== 
-async== 
-Task== 
-<== 
-IActionResult== '
->==' (
-GetBookingByIdAsync==) <
-(==< =
-int=== @
-id==A C
-,==C D
-[==E F
+StatusCode00& 0
+==001 3
+System004 :
+.00: ;
+Net00; >
+.00> ?
+HttpStatusCode00? M
+.00M N
+Unauthorized00N Z
+)00Z [
+{11 
+return22 
+Unauthorized22 #
+(22# $!
+responseAuthorization22$ 9
+.229 :
+Content22: A
+.22A B
+ReadAsStringAsync22B S
+(22S T
+)22T U
+.22U V
+Result22V \
+)22\ ]
+;22] ^
+}33 
+var44 
+userId44 
+=44 
+	ExtractId44 "
+.44" #
+ExtractUserId44# 0
+(440 1!
+responseAuthorization441 F
+.44F G
+Content44G N
+.44N O
+ReadAsStringAsync44O `
+(44` a
+)44a b
+.44b c
+Result44c i
+)44i j
+;44j k
+var55 
+bookings55 
+=55 
+await55  
+_repository55! ,
+.55, -$
+GetBookingsByUserIdAsync55- E
+(55E F
+userId55F L
+)55L M
+;55M N
+if66 
+(66 
+!66 
+bookings66 
+.66 
+Any66 
+(66 
+)66 
+)66  
+{77 
+return88 
+NotFound88 
+(88  
+new88  #
+Error88$ )
+(88) *
+$str88* A
+)88A B
+)88B C
+;88C D
+}99 
+return:: 
+Ok:: 
+(:: 
+bookings:: 
+):: 
+;::  
+};; 	
+[== 	
+HttpGet==	 
+(== 
+$str== 
+)== 
+]== 
+public>> 
+async>> 
+Task>> 
+<>> 
+IActionResult>> '
+>>>' (
+GetBookingByIdAsync>>) <
+(>>< =
+int>>= @
+id>>A C
+,>>C D
+[>>E F
 
-FromHeader==F P
-]==P Q
-string==R X
-authorizationToken==Y k
-)==k l
-{>> 	
-client?? 
-.?? !
-DefaultRequestHeaders?? (
-.??( )
-Add??) ,
-(??, -
-$str??- A
-,??A B
-authorizationToken??C U
-)??U V
-;??V W
-var@@ !
-responseAuthorization@@ %
-=@@& '
-await@@( -
-client@@. 4
-.@@4 5
-GetAsync@@5 =
-(@@= >*
-usersManagementMicroserviceUri@@> \
-+@@] ^
-$str@@_ n
-)@@n o
-;@@o p
-ifAA 
-(AA !
+FromHeader>>F P
+]>>P Q
+string>>R X
+authorizationToken>>Y k
+)>>k l
+{?? 	
+client@@ 
+.@@ !
+DefaultRequestHeaders@@ (
+.@@( )
+Add@@) ,
+(@@, -
+$str@@- A
+,@@A B
+authorizationToken@@C U
+)@@U V
+;@@V W
+varAA !
 responseAuthorizationAA %
-.AA% &
+=AA& '
+awaitAA( -
+clientAA. 4
+.AA4 5
+GetAsyncAA5 =
+(AA= >*
+usersManagementMicroserviceUriAA> \
++AA] ^
+$strAA_ n
+)AAn o
+;AAo p
+ifBB 
+(BB !
+responseAuthorizationBB %
+.BB% &
 
-StatusCodeAA& 0
-==AA1 3
-SystemAA4 :
-.AA: ;
-NetAA; >
-.AA> ?
-HttpStatusCodeAA? M
-.AAM N
-UnauthorizedAAN Z
-)AAZ [
-{BB 
-returnCC 
-UnauthorizedCC #
-(CC# $!
-responseAuthorizationCC$ 9
-.CC9 :
-ContentCC: A
-.CCA B
-ReadAsStringAsyncCCB S
-(CCS T
-)CCT U
-.CCU V
-ResultCCV \
-)CC\ ]
-;CC] ^
-}DD 
-varEE 
-resultEE 
-=EE 
-awaitEE 
-_repositoryEE *
-.EE* +
-GetBookingByIdAsyncEE+ >
-(EE> ?
-idEE? A
-)EEA B
-;EEB C
-ifFF 
-(FF 
-resultFF 
-==FF 
-nullFF 
-)FF 
-{GG 
-returnHH 
-NotFoundHH 
-(HH  
-newHH  #
-ErrorHH$ )
-(HH) *
-$"HH* ,
-Booking with id HH, <
-{HH< =
-idHH= ?
-}HH? @
- does not exist.HH@ P
-"HHP Q
-)HHQ R
-)HHR S
-;HHS T
-}II 
-returnJJ 
-OkJJ 
-(JJ 
-JsonConvertJJ !
-.JJ! "
-SerializeObjectJJ" 1
-(JJ1 2
-newJJ2 5
-{KK 
-IdLL 
-=LL 
-resultLL 
-.LL 
-IdLL 
-,LL 
+StatusCodeBB& 0
+==BB1 3
+SystemBB4 :
+.BB: ;
+NetBB; >
+.BB> ?
+HttpStatusCodeBB? M
+.BBM N
+UnauthorizedBBN Z
+)BBZ [
+{CC 
+returnDD 
+UnauthorizedDD #
+(DD# $!
+responseAuthorizationDD$ 9
+.DD9 :
+ContentDD: A
+.DDA B
+ReadAsStringAsyncDDB S
+(DDS T
+)DDT U
+.DDU V
+ResultDDV \
+)DD\ ]
+;DD] ^
+}EE 
+varFF 
+resultFF 
+=FF 
+awaitFF 
+_repositoryFF *
+.FF* +
+GetBookingByIdAsyncFF+ >
+(FF> ?
+idFF? A
+)FFA B
+;FFB C
+ifGG 
+(GG 
+resultGG 
+==GG 
+nullGG 
+)GG 
+{HH 
+returnII 
+NotFoundII 
+(II  
+newII  #
+ErrorII$ )
+(II) *
+$"II* ,
+Booking with id II, <
+{II< =
+idII= ?
+}II? @
+ does not exist.II@ P
+"IIP Q
+)IIQ R
+)IIR S
+;IIS T
+}JJ 
+returnKK 
+OkKK 
+(KK 
+JsonConvertKK !
+.KK! "
+SerializeObjectKK" 1
+(KK1 2
+newKK2 5
+{LL 
+IdMM 
+=MM 
+resultMM 
+.MM 
+IdMM 
+,MM 
 
-RoomNumberMM 
-=MM 
-resultMM #
-.MM# $
+RoomNumberNN 
+=NN 
+resultNN #
+.NN# $
 
-RoomNumberMM$ .
-,MM. /
-CheckInNN 
-=NN 
-resultNN  
-.NN  !
-CheckInNN! (
-,NN( )
-CheckOutOO 
-=OO 
-resultOO !
-.OO! "
-CheckOutOO" *
-,OO* +
-TotalPayPP 
+RoomNumberNN$ .
+,NN. /
+CheckInOO 
+=OO 
+resultOO  
+.OO  !
+CheckInOO! (
+,OO( )
+CheckOutPP 
 =PP 
 resultPP !
 .PP! "
-TotalPayPP" *
-,PP* +
-StatusQQ 
-=QQ 
-resultQQ 
-.QQ  
-StatusQQ  &
-}RR 
-)RR 
-)RR 
-;RR 
-}SS 	
-[TT 	
-RouteTT	 
-(TT 
-$strTT 
-)TT 
-]TT 
-[UU 	
-HttpGetUU	 
-]UU 
-publicVV 
-asyncVV 
-TaskVV 
-<VV 
-IActionResultVV '
->VV' (%
-SearchAvailableRoomsAsyncVV) B
-(VVB C
-[VVC D
-	FromQueryVVD M
-]VVM N
-RoomSearchDtoVVO \
-roomSearchDTOVV] j
-)VVj k
-{WW 	
-varXX 
-httpResultContentXX !
-=XX" #
-awaitXX$ )
-clientXX* 0
-.XX0 1
-GetStringAsyncXX1 ?
-(XX? @*
-roomsManagementMicroserviceUriXX@ ^
-)XX^ _
-;XX_ `
+CheckOutPP" *
+,PP* +
+TotalPayQQ 
+=QQ 
+resultQQ !
+.QQ! "
+TotalPayQQ" *
+,QQ* +
+StatusRR 
+=RR 
+resultRR 
+.RR  
+StatusRR  &
+}SS 
+)SS 
+)SS 
+;SS 
+}TT 	
+[UU 	
+RouteUU	 
+(UU 
+$strUU 
+)UU 
+]UU 
+[VV 	
+HttpGetVV	 
+]VV 
+publicWW 
+asyncWW 
+TaskWW 
+<WW 
+IActionResultWW '
+>WW' (%
+SearchAvailableRoomsAsyncWW) B
+(WWB C
+[WWC D
+	FromQueryWWD M
+]WWM N
+RoomSearchDtoWWO \
+roomSearchDTOWW] j
+)WWj k
+{XX 	
 ifYY 
-(YY 
-httpResultContentYY  
-!=YY  "
-nullYY" &
-)YY& '
-{ZZ 
-List[[ 
-<[[ 
-RoomDescriptionDto[[ '
->[[' (
-?[[( )
-rooms[[* /
-=[[0 1
-JsonConvert[[2 =
-.[[= >
-DeserializeObject[[> O
-<[[O P
-List[[P T
-<[[T U
-RoomDescriptionDto[[U g
->[[g h
->[[h i
-([[i j
-httpResultContent[[j {
-)[[{ |
-;[[| }
-if\\ 
-(\\ 
-rooms\\ 
-!=\\ 
-null\\ 
-)\\ 
-{]] 
-var^^ 
-result^^ 
-=^^  
-_repository^^! ,
-.^^, -%
-SearchAvailableRoomsAsync^^- F
-(^^F G
-roomSearchDTO^^G T
-,^^T U
-rooms^^V [
-)^^[ \
-;^^\ ]
-if__ 
-(__ 
-result__ 
-==__ !
-null__" &
-)__& '
-{`` 
-returnaa 
-NotFoundaa '
-(aa' (
-newaa( +
-Erroraa, 1
-(aa1 2
-$straa2 F
-)aaF G
-)aaG H
-;aaH I
-}bb 
-returncc 
-Okcc 
-(cc 
-JsonConvertcc )
-.cc) *
-SerializeObjectcc* 9
-(cc9 :
-newcc: =
-{dd 
-roomsee 
-=ee 
-resultee  &
-.ee& '
-Resultee' -
-}ff 
-)ff 
-)ff 
-;ff 
-}gg 
-}ii 
-returnjj 
-NotFoundjj 
-(jj 
-newjj 
-Errorjj  %
-(jj% &
-$strjj& 7
-)jj7 8
-)jj8 9
-;jj9 :
-}kk 	
-[mm 	
-HttpPostmm	 
-]mm 
-publicnn 
-asyncnn 
-Tasknn 
-<nn 
-IActionResultnn '
->nn' (
-AddBookingAsyncnn) 8
-(nn8 9
-[nn9 :
-FromBodynn: B
-]nnB C
-PostBookingDtonnD R
-postBookingnnS ^
-,nn^ _
-[nn` a
+(YY 
+!YY 
 
-FromHeadernna k
-]nnk l
-stringnnm s
-authorizationToken	nnt Ü
+ValidationYY 
+.YY 
+CheckValidDatesYY +
+(YY+ ,
+roomSearchDTOYY, 9
+.YY9 :
+CheckInYY: A
+,YYA B
+roomSearchDTOYYC P
+.YYP Q
+CheckOutYYQ Y
+)YYY Z
+)YYZ [
+{ZZ 
+return[[ 
+
+BadRequest[[ !
+([[! "
+new[[" %
+Error[[& +
+([[+ ,
+$str[[, O
+)[[O P
+)[[P Q
+;[[Q R
+}\\ 
+var]] 
+httpResultContent]] !
+=]]" #
+await]]$ )
+client]]* 0
+.]]0 1
+GetStringAsync]]1 ?
+(]]? @*
+roomsManagementMicroserviceUri]]@ ^
+)]]^ _
+;]]_ `
+if^^ 
+(^^ 
+httpResultContent^^  
+!=^^  "
+null^^" &
+)^^& '
+{__ 
+List`` 
+<`` 
+RoomDescriptionDto`` '
+>``' (
+?``( )
+rooms``* /
+=``0 1
+JsonConvert``2 =
+.``= >
+DeserializeObject``> O
+<``O P
+List``P T
+<``T U
+RoomDescriptionDto``U g
+>``g h
+>``h i
+(``i j
+httpResultContent``j {
+)``{ |
+;``| }
+ifaa 
+(aa 
+roomsaa 
+!=aa 
+nullaa 
+)aa 
+{bb 
+varcc 
+resultcc 
+=cc  
+_repositorycc! ,
+.cc, -%
+SearchAvailableRoomsAsynccc- F
+(ccF G
+roomSearchDTOccG T
+,ccT U
+roomsccV [
+)cc[ \
+;cc\ ]
+ifdd 
+(dd 
+resultdd 
+==dd !
+nulldd" &
+)dd& '
+{ee 
+returnff 
+NotFoundff '
+(ff' (
+newff( +
+Errorff, 1
+(ff1 2
+$strff2 F
+)ffF G
+)ffG H
+;ffH I
+}gg 
+returnhh 
+Okhh 
+(hh 
+JsonConverthh )
+.hh) *
+SerializeObjecthh* 9
+(hh9 :
+newhh: =
+{ii 
+roomsjj 
+=jj 
+resultjj  &
+.jj& '
+Resultjj' -
+}kk 
+)kk 
+)kk 
+;kk 
+}ll 
+}nn 
+returnoo 
+NotFoundoo 
+(oo 
+newoo 
+Erroroo  %
+(oo% &
+$stroo& 7
+)oo7 8
+)oo8 9
+;oo9 :
+}pp 	
+[rr 	
+HttpPostrr	 
+]rr 
+publicss 
+asyncss 
+Taskss 
+<ss 
+IActionResultss '
+>ss' (
+AddBookingAsyncss) 8
+(ss8 9
+[ss9 :
+FromBodyss: B
+]ssB C
+PostBookingDtossD R
+postBookingssS ^
+,ss^ _
+[ss` a
+
+FromHeaderssa k
+]ssk l
+stringssm s
+authorizationToken	sst Ü
 )
-nnÜ á
-{oo 	
-clientpp 
-.pp !
-DefaultRequestHeaderspp (
-.pp( )
-Addpp) ,
-(pp, -
-$strpp- A
-,ppA B
-authorizationTokenppC U
-)ppU V
-;ppV W
-varqq !
-responseAuthorizationqq %
-=qq& '
-awaitqq( -
-clientqq. 4
-.qq4 5
-GetAsyncqq5 =
-(qq= >*
-usersManagementMicroserviceUriqq> \
-+qq] ^
-$strqq_ n
-)qqn o
-;qqo p
-ifrr 
-(rr !
-responseAuthorizationrr %
-.rr% &
-
-StatusCoderr& 0
-==rr1 3
-Systemrr4 :
-.rr: ;
-Netrr; >
-.rr> ?
-HttpStatusCoderr? M
-.rrM N
-UnauthorizedrrN Z
-)rrZ [
-{ss 
-returntt 
-Unauthorizedtt #
-(tt# $!
-responseAuthorizationtt$ 9
-.tt9 :
-Contenttt: A
-.ttA B
-ReadAsStringAsyncttB S
-(ttS T
-)ttT U
-.ttU V
-ResultttV \
-)tt\ ]
-;tt] ^
-}uu 
-varvv 
-resultvv 
-=vv 
-awaitvv 
-_repositoryvv *
-.vv* +
-AddBookingAsyncvv+ :
-(vv: ;
-postBookingvv; F
-)vvF G
-;vvG H
+ssÜ á
+{tt 	
+clientuu 
+.uu !
+DefaultRequestHeadersuu (
+.uu( )
+Adduu) ,
+(uu, -
+$struu- A
+,uuA B
+authorizationTokenuuC U
+)uuU V
+;uuV W
+varvv !
+responseAuthorizationvv %
+=vv& '
+awaitvv( -
+clientvv. 4
+.vv4 5
+GetAsyncvv5 =
+(vv= >*
+usersManagementMicroserviceUrivv> \
++vv] ^
+$strvv_ n
+)vvn o
+;vvo p
 ifww 
-(ww 
-resultww 
-==ww 
--ww 
-$numww 
-)ww 
+(ww !
+responseAuthorizationww %
+.ww% &
+
+StatusCodeww& 0
+==ww1 3
+Systemww4 :
+.ww: ;
+Netww; >
+.ww> ?
+HttpStatusCodeww? M
+.wwM N
+UnauthorizedwwN Z
+)wwZ [
 {xx 
-returnyy 
+returnyy 
+Unauthorizedyy #
+(yy# $!
+responseAuthorizationyy$ 9
+.yy9 :
+Contentyy: A
+.yyA B
+ReadAsStringAsyncyyB S
+(yyS T
+)yyT U
+.yyU V
+ResultyyV \
+)yy\ ]
+;yy] ^
+}zz 
+var{{ 
+userId{{ 
+={{ 
+	ExtractId{{ "
+.{{" #
+ExtractUserId{{# 0
+({{0 1!
+responseAuthorization{{1 F
+.{{F G
+Content{{G N
+.{{N O
+ReadAsStringAsync{{O `
+({{` a
+){{a b
+.{{b c
+Result{{c i
+){{i j
+;{{j k
+var|| 
+responseRoomNumber|| "
+=||# $
+await||% *
+client||+ 1
+.||1 2
+GetAsync||2 :
+(||: ;*
+roomsManagementMicroserviceUri||; Y
++||Z [
+$"||\ ^
+/||^ _
+{||_ `
+postBooking||` k
+.||k l
 
-BadRequestyy !
-(yy! "
-newyy" %
-Erroryy& +
-(yy+ ,
-$stryy, E
-)yyE F
-)yyF G
-;yyG H
-}zz 
-if{{ 
-({{ 
-result{{ 
-=={{ 
--{{ 
-$num{{ 
-){{ 
-{|| 
-return}} 
+RoomNumber||l v
+}||v w
+"||w x
+)||x y
+;||y z
+if}} 
+(}} 
+responseRoomNumber}} !
+.}}! "
 
-BadRequest}} !
-(}}! "
-new}}" %
-Error}}& +
-(}}+ ,
-$str}}, i
-)}}i j
-)}}j k
-;}}k l
-}~~ 
-return 
-CreatedAtAction "
-(" #
-$str# /
-,/ 0
-postBooking1 <
-)< =
-;= >
+StatusCode}}" ,
+==}}- /
+System}}0 6
+.}}6 7
+Net}}7 :
+.}}: ;
+HttpStatusCode}}; I
+.}}I J
+NotFound}}J R
+)}}R S
+{~~ 
+return 
+
+BadRequest !
+(! "
+new" %
+Error& +
+(+ ,
+$", ."
+Room with room number . D
+{D E
+postBookingE P
+.P Q
+
+RoomNumberQ [
+}[ \
+ does not exist.\ l
+"l m
+)m n
+)n o
+;o p
 }
-ÄÄ 	
-[
-ÇÇ 	
-	HttpPatch
-ÇÇ	 
-]
-ÇÇ 
-public
-ÉÉ 
-async
-ÉÉ 
-Task
-ÉÉ 
-<
-ÉÉ 
-IActionResult
-ÉÉ '
->
-ÉÉ' ( 
-UpdateBookingAsync
-ÉÉ) ;
+ÄÄ 
+if
+ÅÅ 
 (
-ÉÉ; <
-[
-ÉÉ< =
-FromBody
-ÉÉ= E
-]
-ÉÉE F
-PatchBookingDto
-ÉÉG V
-patchBooking
-ÉÉW c
+ÅÅ 
+!
+ÅÅ 
+
+Validation
+ÅÅ 
+.
+ÅÅ 
+CheckValidDates
+ÅÅ +
+(
+ÅÅ+ ,
+postBooking
+ÅÅ, 7
+.
+ÅÅ7 8
+CheckIn
+ÅÅ8 ?
 ,
-ÉÉc d
-[
-ÉÉe f
-
-FromHeader
-ÉÉf p
-]
-ÉÉp q
-string
-ÉÉr x!
-authorizationTokenÉÉy ã
-)ÉÉã å
+ÅÅ? @
+postBooking
+ÅÅA L
+.
+ÅÅL M
+CheckOut
+ÅÅM U
+)
+ÅÅU V
+)
+ÅÅV W
 {
-ÑÑ 	
-client
-ÖÖ 
-.
-ÖÖ #
-DefaultRequestHeaders
-ÖÖ (
-.
-ÖÖ( )
-Add
-ÖÖ) ,
-(
-ÖÖ, -
-$str
-ÖÖ- A
-,
-ÖÖA B 
-authorizationToken
-ÖÖC U
-)
-ÖÖU V
-;
-ÖÖV W
-var
-ÜÜ #
-responseAuthorization
-ÜÜ %
-=
-ÜÜ& '
-await
-ÜÜ( -
-client
-ÜÜ. 4
-.
-ÜÜ4 5
-GetAsync
-ÜÜ5 =
-(
-ÜÜ= >,
-usersManagementMicroserviceUri
-ÜÜ> \
-+
-ÜÜ] ^
-$str
-ÜÜ_ n
-)
-ÜÜn o
-;
-ÜÜo p
-if
-áá 
-(
-áá #
-responseAuthorization
-áá %
-.
-áá% &
-
-StatusCode
-áá& 0
-==
-áá1 3
-System
-áá4 :
-.
-áá: ;
-Net
-áá; >
-.
-áá> ?
-HttpStatusCode
-áá? M
-.
-ááM N
-Unauthorized
-ááN Z
-)
-ááZ [
-{
-àà 
+ÇÇ 
 return
-ââ 
-Unauthorized
-ââ #
-(
-ââ# $#
-responseAuthorization
-ââ$ 9
-.
-ââ9 :
-Content
-ââ: A
-.
-ââA B
-ReadAsStringAsync
-ââB S
-(
-ââS T
-)
-ââT U
-.
-ââU V
-Result
-ââV \
-)
-ââ\ ]
-;
-ââ] ^
-}
-ää 
-var
-ãã 
-result
-ãã 
-=
-ãã 
-await
-ãã 
-_repository
-ãã *
-.
-ãã* + 
-UpdateBookingAsync
-ãã+ =
-(
-ãã= >
-patchBooking
-ãã> J
-)
-ããJ K
-;
-ããK L
-if
-åå 
-(
-åå 
-result
-åå 
-==
-åå 
--
-åå 
-$num
-åå 
-)
-åå 
-{
-çç 
-return
-éé 
-NotFound
-éé 
-(
-éé  
-new
-éé  #
-Error
-éé$ )
-(
-éé) *
-$"
-éé* ,
-Booking with id 
-éé, <
-{
-éé< =
-patchBooking
-éé= I
-.
-ééI J
-Id
-ééJ L
-}
-ééL M
- does not exist.
-ééM ]
-"
-éé] ^
-)
-éé^ _
-)
-éé_ `
-;
-éé` a
-}
-èè 
-if
-êê 
-(
-êê 
-result
-êê 
-==
-êê 
--
-êê 
-$num
-êê 
-)
-êê 
-{
-ëë 
-return
-íí 
+ÉÉ 
 
 BadRequest
-íí !
+ÉÉ !
 (
-íí! "
+ÉÉ! "
 new
-íí" %
+ÉÉ" %
 Error
-íí& +
+ÉÉ& +
 (
-íí+ ,
+ÉÉ+ ,
 $str
-íí, i
+ÉÉ, O
 )
-ííi j
+ÉÉO P
 )
-ííj k
+ÉÉP Q
 ;
-íík l
+ÉÉQ R
 }
-ìì 
-return
-îî 
-	NoContent
-îî 
+ÑÑ 
+var
+ÖÖ 
+result
+ÖÖ 
+=
+ÖÖ 
+await
+ÖÖ 
+_repository
+ÖÖ *
+.
+ÖÖ* +
+AddBookingAsync
+ÖÖ+ :
 (
-îî 
+ÖÖ: ;
+postBooking
+ÖÖ; F
+,
+ÖÖF G
+userId
+ÖÖH N
 )
-îî 
+ÖÖN O
 ;
-îî 
+ÖÖO P
+if
+ÜÜ 
+(
+ÜÜ 
+result
+ÜÜ 
+==
+ÜÜ 
+-
+ÜÜ 
+$num
+ÜÜ 
+)
+ÜÜ 
+{
+áá 
+return
+àà 
+
+BadRequest
+àà !
+(
+àà! "
+new
+àà" %
+Error
+àà& +
+(
+àà+ ,
+$str
+àà, E
+)
+ààE F
+)
+ààF G
+;
+ààG H
 }
-ïï 	
+ââ 
+if
+ää 
+(
+ää 
+result
+ää 
+==
+ää 
+-
+ää 
+$num
+ää 
+)
+ää 
+{
+ãã 
+return
+åå 
+
+BadRequest
+åå !
+(
+åå! "
+new
+åå" %
+Error
+åå& +
+(
+åå+ ,
+$str
+åå, i
+)
+ååi j
+)
+ååj k
+;
+ååk l
 }
-ññ 
-}óó ær
+çç 
+return
+èè 
+CreatedAtAction
+èè "
+(
+èè" #
+$str
+èè# /
+,
+èè/ 0
+postBooking
+èè1 <
+)
+èè< =
+;
+èè= >
+}
+êê 	
+[
+íí 	
+	HttpPatch
+íí	 
+]
+íí 
+public
+ìì 
+async
+ìì 
+Task
+ìì 
+<
+ìì 
+IActionResult
+ìì '
+>
+ìì' ( 
+UpdateBookingAsync
+ìì) ;
+(
+ìì; <
+[
+ìì< =
+FromBody
+ìì= E
+]
+ììE F
+PatchBookingDto
+ììG V
+patchBooking
+ììW c
+,
+ììc d
+[
+ììe f
+
+FromHeader
+ììf p
+]
+ììp q
+string
+ììr x!
+authorizationTokenììy ã
+)ììã å
+{
+îî 	
+client
+ïï 
+.
+ïï #
+DefaultRequestHeaders
+ïï (
+.
+ïï( )
+Add
+ïï) ,
+(
+ïï, -
+$str
+ïï- A
+,
+ïïA B 
+authorizationToken
+ïïC U
+)
+ïïU V
+;
+ïïV W
+var
+ññ #
+responseAuthorization
+ññ %
+=
+ññ& '
+await
+ññ( -
+client
+ññ. 4
+.
+ññ4 5
+GetAsync
+ññ5 =
+(
+ññ= >,
+usersManagementMicroserviceUri
+ññ> \
++
+ññ] ^
+$str
+ññ_ n
+)
+ññn o
+;
+ñño p
+if
+óó 
+(
+óó #
+responseAuthorization
+óó %
+.
+óó% &
+
+StatusCode
+óó& 0
+==
+óó1 3
+System
+óó4 :
+.
+óó: ;
+Net
+óó; >
+.
+óó> ?
+HttpStatusCode
+óó? M
+.
+óóM N
+Unauthorized
+óóN Z
+)
+óóZ [
+{
+òò 
+return
+ôô 
+Unauthorized
+ôô #
+(
+ôô# $#
+responseAuthorization
+ôô$ 9
+.
+ôô9 :
+Content
+ôô: A
+.
+ôôA B
+ReadAsStringAsync
+ôôB S
+(
+ôôS T
+)
+ôôT U
+.
+ôôU V
+Result
+ôôV \
+)
+ôô\ ]
+;
+ôô] ^
+}
+öö 
+var
+õõ 
+userId
+õõ 
+=
+õõ 
+	ExtractId
+õõ "
+.
+õõ" #
+ExtractUserId
+õõ# 0
+(
+õõ0 1#
+responseAuthorization
+õõ1 F
+.
+õõF G
+Content
+õõG N
+.
+õõN O
+ReadAsStringAsync
+õõO `
+(
+õõ` a
+)
+õõa b
+.
+õõb c
+Result
+õõc i
+)
+õõi j
+;
+õõj k
+var
+úú 
+result
+úú 
+=
+úú 
+await
+úú 
+_repository
+úú *
+.
+úú* + 
+UpdateBookingAsync
+úú+ =
+(
+úú= >
+patchBooking
+úú> J
+,
+úúJ K
+userId
+úúL R
+)
+úúR S
+;
+úúS T
+if
+ùù 
+(
+ùù 
+!
+ùù 
+
+Validation
+ùù 
+.
+ùù 
+CheckValidDates
+ùù +
+(
+ùù+ ,
+patchBooking
+ùù, 8
+.
+ùù8 9
+CheckIn
+ùù9 @
+,
+ùù@ A
+patchBooking
+ùùB N
+.
+ùùN O
+CheckOut
+ùùO W
+)
+ùùW X
+)
+ùùX Y
+{
+ûû 
+return
+üü 
+
+BadRequest
+üü !
+(
+üü! "
+new
+üü" %
+Error
+üü& +
+(
+üü+ ,
+$str
+üü, O
+)
+üüO P
+)
+üüP Q
+;
+üüQ R
+}
+†† 
+if
+°° 
+(
+°° 
+result
+°° 
+==
+°° 
+-
+°° 
+$num
+°° 
+)
+°° 
+{
+¢¢ 
+return
+££ 
+NotFound
+££ 
+(
+££  
+new
+££  #
+Error
+££$ )
+(
+££) *
+$"
+££* ,
+Booking with id 
+££, <
+{
+££< =
+patchBooking
+££= I
+.
+££I J
+Id
+££J L
+}
+££L M
+ does not exist.
+££M ]
+"
+££] ^
+)
+££^ _
+)
+££_ `
+;
+££` a
+}
+§§ 
+if
+•• 
+(
+•• 
+result
+•• 
+==
+•• 
+-
+•• 
+$num
+•• 
+)
+•• 
+{
+¶¶ 
+return
+ßß 
+
+BadRequest
+ßß !
+(
+ßß! "
+new
+ßß" %
+Error
+ßß& +
+(
+ßß+ ,
+$str
+ßß, i
+)
+ßßi j
+)
+ßßj k
+;
+ßßk l
+}
+®® 
+return
+©© 
+	NoContent
+©© 
+(
+©© 
+)
+©© 
+;
+©© 
+}
+™™ 	
+[
+¨¨ 	
+Route
+¨¨	 
+(
+¨¨ 
+$str
+¨¨ 
+)
+¨¨ 
+]
+¨¨ 
+[
+≠≠ 	
+HttpGet
+≠≠	 
+]
+≠≠ 
+public
+ÆÆ 
+async
+ÆÆ 
+Task
+ÆÆ 
+<
+ÆÆ 
+IActionResult
+ÆÆ '
+>
+ÆÆ' (#
+CheckRoomAvailability
+ÆÆ) >
+(
+ÆÆ> ?
+int
+ÆÆ? B
+
+roomNumber
+ÆÆC M
+,
+ÆÆM N
+DateTime
+ÆÆO W
+checkIn
+ÆÆX _
+,
+ÆÆ_ `
+DateTime
+ÆÆa i
+checkOut
+ÆÆj r
+)
+ÆÆr s
+{
+ØØ 	
+var
+∞∞  
+responseRoomNumber
+∞∞ "
+=
+∞∞# $
+await
+∞∞% *
+client
+∞∞+ 1
+.
+∞∞1 2
+GetAsync
+∞∞2 :
+(
+∞∞: ;,
+roomsManagementMicroserviceUri
+∞∞; Y
++
+∞∞Z [
+$"
+∞∞\ ^
+/
+∞∞^ _
+{
+∞∞_ `
+
+roomNumber
+∞∞` j
+}
+∞∞j k
+"
+∞∞k l
+)
+∞∞l m
+;
+∞∞m n
+if
+±± 
+(
+±±  
+responseRoomNumber
+±± "
+.
+±±" #
+
+StatusCode
+±±# -
+==
+±±. 0
+System
+±±1 7
+.
+±±7 8
+Net
+±±8 ;
+.
+±±; <
+HttpStatusCode
+±±< J
+.
+±±J K
+NotFound
+±±K S
+)
+±±S T
+{
+≤≤ 
+return
+≥≥ 
+
+BadRequest
+≥≥ !
+(
+≥≥! "
+new
+≥≥" %
+Error
+≥≥& +
+(
+≥≥+ ,
+$"
+≥≥, .$
+Room with room number 
+≥≥. D
+{
+≥≥D E
+
+roomNumber
+≥≥E O
+}
+≥≥O P
+ does not exist.
+≥≥P `
+"
+≥≥` a
+)
+≥≥a b
+)
+≥≥b c
+;
+≥≥c d
+}
+¥¥ 
+if
+µµ 
+(
+µµ 
+!
+µµ 
+
+Validation
+µµ 
+.
+µµ 
+CheckValidDates
+µµ +
+(
+µµ+ ,
+checkIn
+µµ, 3
+,
+µµ3 4
+checkOut
+µµ5 =
+)
+µµ= >
+)
+µµ> ?
+{
+∂∂ 
+return
+∑∑ 
+
+BadRequest
+∑∑ !
+(
+∑∑! "
+new
+∑∑" %
+Error
+∑∑& +
+(
+∑∑+ ,
+$str
+∑∑, O
+)
+∑∑O P
+)
+∑∑P Q
+;
+∑∑Q R
+}
+∏∏ 
+var
+ππ 
+isAvailable
+ππ 
+=
+ππ 
+await
+ππ #
+_repository
+ππ$ /
+.
+ππ/ 0(
+CheckRoomAvailabilityAsync
+ππ0 J
+(
+ππJ K
+
+roomNumber
+ππK U
+,
+ππU V
+checkIn
+ππW ^
+,
+ππ^ _
+checkOut
+ππ` h
+)
+ππh i
+;
+ππi j
+return
+∫∫ 
+Ok
+∫∫ 
+(
+∫∫ 
+JsonConvert
+∫∫ !
+.
+∫∫! "
+SerializeObject
+∫∫" 1
+(
+∫∫1 2
+new
+∫∫2 5
+{
+ªª 
+	available
+ºº 
+=
+ºº 
+isAvailable
+ºº '
+}
+ΩΩ 
+)
+ΩΩ 
+)
+ΩΩ 
+;
+ΩΩ 
+}
+ææ 	
+}
+¡¡ 
+}¬¬ ∆q
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\BookingsRepository.cs
-	namespace 	
-BookingMicroservice
+	namespace		 	
+BookingMicroservice		
  
-. 
-Data "
-{		 
-public
+.		 
+Data		 "
+{
 
- 
+ 
+public 
 
-class
-
- 
-BookingsRepository
-
- #
-:
-
-$ %
-IBookingsRepository
-
-& 9
-{ 
-private 
-readonly 
-DataContext $
-_context% -
-;- .
-public 
-BookingsRepository !
-(! "
-DataContext" -
-context. 5
-)5 6
-{ 	
-_context 
-= 
-context 
-; 
-} 	
-public 
-async 
-Task 
-< 
-IEnumerable %
-<% &
-Booking& -
->- .
->. /
-GetBookings0 ;
-(; <
-)< =
-{ 	
-return 
-await 
-_context !
-.! "
-Bookings" *
-.* +
-ToListAsync+ 6
-(6 7
-)7 8
-;8 9
-} 	
-public 
-async 
-Task 
-< 
-IEnumerable %
-<% &
-Booking& -
->- .
->. /
-GetBookingsByUserId0 C
-(C D
-intD G
-userIdH N
-)N O
-{ 	
-return 
-await 
-_context !
-.! "
-Bookings" *
-.* +
-Where+ 0
-(0 1
-booking1 8
-=>9 ;
-booking< C
-.C D
-UserIdD J
-==J L
-userIdL R
-)R S
-.S T
-ToListAsyncT _
-(_ `
-)` a
-;a b
-} 	
-public 
-async 
-Task 
-< 
-GetBookingDto '
-?' (
->( )
-GetBookingByIdAsync* =
-(= >
-int> A
-idB D
-)D E
-{ 	
-var 
-result 
-= 
-await 
-_context '
-.' (
-Bookings( 0
-.0 1
-Where1 6
-(6 7
-booking7 >
-=>? A
-bookingB I
-.I J
-IdJ L
-==M O
-idP R
-)R S
-.S T
-FirstOrDefaultAsyncT g
-(g h
-)h i
-;i j
-if 
-( 
-result 
-== 
-null 
-) 
-{ 
-return   
-null   
-;   
-}!! 
-return"" 
-new"" 
-GetBookingDto"" $
-(""$ %
-)""% &
-{## 
-Id$$ 
-=$$ 
-result$$ 
-.$$ 
-Id$$ 
-,$$ 
+class 
+BookingsRepository #
+:$ %
+IBookingsRepository& 9
+{ 
+private 
+readonly 
+DataContext $
+_context% -
+;- .
+public 
+BookingsRepository !
+(! "
+DataContext" -
+context. 5
+)5 6
+{ 	
+_context 
+= 
+context 
+; 
+} 	
+public 
+async 
+Task 
+< 
+IEnumerable %
+<% &
+Booking& -
+>- .
+>. /
+GetBookingsAsync0 @
+(@ A
+)A B
+{ 	
+return 
+await 
+_context !
+.! "
+Bookings" *
+.* +
+ToListAsync+ 6
+(6 7
+)7 8
+;8 9
+} 	
+public 
+async 
+Task 
+< 
+IEnumerable %
+<% &
+Booking& -
+>- .
+>. /$
+GetBookingsByUserIdAsync0 H
+(H I
+intI L
+userIdM S
+)S T
+{ 	
+return 
+await 
+_context !
+.! "
+Bookings" *
+.* +
+Where+ 0
+(0 1
+booking1 8
+=>9 ;
+booking< C
+.C D
+UserIdD J
+==J L
+userIdL R
+)R S
+.S T
+ToListAsyncT _
+(_ `
+)` a
+;a b
+} 	
+public 
+async 
+Task 
+< 
+GetBookingDto '
+?' (
+>( )
+GetBookingByIdAsync* =
+(= >
+int> A
+idB D
+)D E
+{ 	
+var 
+result 
+= 
+await 
+_context '
+.' (
+Bookings( 0
+.0 1
+Where1 6
+(6 7
+booking7 >
+=>? A
+bookingB I
+.I J
+IdJ L
+==M O
+idP R
+)R S
+.S T
+FirstOrDefaultAsyncT g
+(g h
+)h i
+;i j
+if 
+( 
+result 
+== 
+null 
+) 
+{   
+return!! 
+null!! 
+;!! 
+}"" 
+return## 
+new## 
+GetBookingDto## $
+(##$ %
+)##% &
+{$$ 
+Id%% 
+=%% 
+result%% 
+.%% 
+Id%% 
+,%% 
 
-RoomNumber%% 
-=%% 
-result%% #
-.%%# $
+RoomNumber&& 
+=&& 
+result&& #
+.&&# $
 
-RoomNumber%%$ .
-,%%. /
-CheckIn&& 
-=&& 
-result&&  
-.&&  !
-CheckIn&&! (
-,&&( )
-CheckOut'' 
-='' 
-result'' !
-.''! "
-CheckOut''" *
-,''* +
-TotalPay(( 
+RoomNumber&&$ .
+,&&. /
+CheckIn'' 
+='' 
+result''  
+.''  !
+CheckIn''! (
+,''( )
+CheckOut(( 
 =(( 
 result(( !
 .((! "
-TotalPay((" *
-,((* +
-Status)) 
-=)) 
-result)) 
-.))  
-Status))  &
-}** 
-;** 
-}++ 	
-public-- 
-async-- 
-Task-- 
-<-- 
-int-- 
->-- 
-AddBookingAsync-- .
-(--. /
-PostBookingDto--/ =
-postBooking--> I
-)--I J
-{.. 	
-var// 
-result// 
-=// 
-await// 
-_context// '
-.//' (
-Bookings//( 0
-.//0 1
-AnyAsync//1 9
-(//9 :
-booking//: A
-=>//B D
-booking//E L
-.//L M
+CheckOut((" *
+,((* +
+TotalPay)) 
+=)) 
+result)) !
+.))! "
+TotalPay))" *
+,))* +
+Status** 
+=** 
+result** 
+.**  
+Status**  &
+}++ 
+;++ 
+},, 	
+public.. 
+async.. 
+Task.. 
+<.. 
+int.. 
+>.. 
+AddBookingAsync.. .
+(... /
+PostBookingDto../ =
+postBooking..> I
+,..I J
+int..K N
+userId..O U
+)..U V
+{// 	
+var11 
+result11 
+=11 
+await11 
+_context11 '
+.11' (
+Bookings11( 0
+.110 1
+AnyAsync111 9
+(119 :
+booking11: A
+=>11B D
+booking11E L
+.11L M
 
-RoomNumber//M W
-==//X Z
-postBooking//[ f
-.//f g
+RoomNumber11M W
+==11X Z
+postBooking11[ f
+.11f g
 
-RoomNumber//g q
-&&//r t
-booking//u |
-.//| }
-CheckIn	//} Ñ
+RoomNumber11g q
+&&11r t
+booking11u |
+.11| }
+CheckIn	11} Ñ
 ==
-//Ö á
+11Ö á
 postBooking
-//à ì
+11à ì
 .
-//ì î
+11ì î
 CheckIn
-//î õ
-&&00: <
-booking00= D
-.00D E
-CheckOut00E M
-==00N P
-postBooking00Q \
-.00\ ]
-CheckOut00] e
-&&00f h
-booking00i p
-.00p q
-UserId00q w
-==00x z
-postBooking	00{ Ü
-.
-00Ü á
-UserId
-00á ç
+11î õ
+&&22: <
+booking22= D
+.22D E
+CheckOut22E M
+==22N P
+postBooking22Q \
+.22\ ]
+CheckOut22] e
+&&22f h
+booking22i p
+.22p q
+UserId22q w
+==22x z
+userId	22{ Å
 )
-00ç é
+22Å Ç
 ;
-00é è
-if11 
-(11 
-result11 
-)11 
-{22 
-return33 
--33 
-$num33 
-;33 
-}44 
-var55 
-isAddingPossible55  
-=55! "
-await55# (
-_context55) 1
-.551 2
-Bookings552 :
-.55: ;
-AnyAsync55; C
-(55C D
-booking55D K
-=>55L N
-(55O P
-booking55P W
-.55W X
+22Ç É
+if33 
+(33 
+result33 
+)33 
+{44 
+return55 
+-55 
+$num55 
+;55 
+}66 
+var77 
+isAddingPossible77  
+=77! "
+await77# (&
+CheckRoomAvailabilityAsync77) C
+(77C D
+postBooking77D O
+.77O P
 
-RoomNumber55X b
-==55c e
-postBooking55f q
-.55q r
-
-RoomNumber55r |
-&&55} 
-(665 6
-(666 7
-booking667 >
-.66> ?
-CheckIn66? F
->66G H
-postBooking66I T
-.66T U
-CheckIn66U \
-&&66] _
-booking66` g
-.66g h
-CheckOut66h p
-<66q r
-postBooking66s ~
-.66~ 
-CheckOut	66 á
+RoomNumber77P Z
+,77Z [
+postBooking77\ g
+.77g h
+CheckIn77h o
+,77o p
+postBooking77q |
+.77| }
+CheckOut	77} Ö
 )
-66á à
-||
-66â ã
-(776 7
-booking777 >
-.77> ?
-CheckIn77? F
-<77G H
-postBooking77I T
-.77T U
-CheckIn77U \
-&&77] _
-booking77` g
-.77g h
-CheckOut77h p
-<77q r
-postBooking77s ~
-.77~ 
-CheckOut	77 á
-)
-77á à
-||
-77â ã
-(886 7
-booking887 >
-.88> ?
-CheckIn88? F
->88G H
-postBooking88I T
-.88T U
-CheckIn88U \
-&&88] _
-booking88` g
-.88g h
-CheckOut88h p
->88q r
-postBooking88s ~
-.88~ 
-CheckOut	88 á
-)
-88á à
-||
-88â ã
-(996 7
-booking997 >
-.99> ?
-CheckIn99? F
-<99G H
-postBooking99I T
-.99T U
-CheckIn99U \
-&&99] _
-booking99` g
-.99g h
-CheckOut99h p
->99q r
-postBooking99s ~
-.99~ 
-CheckOut	99 á
-)
-99á à
-)
-99à â
-)
-99â ä
-)
-99ä ã
+77Ö Ü
 ;
-99ã å
-if:: 
-(:: 
-!:: 
-isAddingPossible:: !
-)::! "
-{;; 
-_context<< 
-.<< 
-Add<< 
-(<< 
-new<<  
-Booking<<! (
-(<<( )
-)<<) *
-{== 
-Id>> 
-=>> 
-$num>> 
-,>> 
+77Ü á
+if88 
+(88 
+isAddingPossible88  
+)88  !
+{99 
+_context:: 
+.:: 
+Add:: 
+(:: 
+new::  
+Booking::! (
+(::( )
+)::) *
+{;; 
+Id<< 
+=<< 
+$num<< 
+,<< 
 
-RoomNumber?? 
-=??  
-postBooking??! ,
-.??, -
+RoomNumber== 
+===  
+postBooking==! ,
+.==, -
 
-RoomNumber??- 7
-,??7 8
-CheckIn@@ 
-=@@ 
-postBooking@@ )
-.@@) *
-CheckIn@@* 1
-,@@1 2
-CheckOutAA 
-=AA 
-postBookingAA *
-.AA* +
-CheckOutAA+ 3
-,AA3 4
-UserIdBB 
-=BB 
-postBookingBB (
-.BB( )
-UserIdBB) /
-,BB/ 0
-TotalPayCC 
-=CC 
-$numCC "
-,CC" #
-StatusDD 
-=DD 
-$strDD )
-}FF 
-)FF 
-;FF 
-awaitGG 
-_contextGG 
-.GG 
-SaveChangesAsyncGG /
-(GG/ 0
-)GG0 1
-;GG1 2
-returnHH 
-$numHH 
-;HH 
-}II 
-returnJJ 
--JJ 
-$numJJ 
-;JJ 
-}KK 	
-publicMM 
-asyncMM 
-TaskMM 
-<MM 
-intMM 
->MM 
-UpdateBookingAsyncMM 1
-(MM1 2
-PatchBookingDtoMM2 A
-patchBookingMMB N
-)MMN O
-{NN 	
-varOO 
-resultOO 
-=OO 
-awaitOO 
-_contextOO '
-.OO' (
-BookingsOO( 0
-.OO0 1
-WhereOO1 6
-(OO6 7
-bookingOO7 >
-=>OO? A
-bookingOOB I
-.OOI J
-IdOOJ L
-==OOM O
-patchBookingOOP \
-.OO\ ]
-IdOO] _
-)OO_ `
-.OO` a
-FirstOrDefaultAsyncOOa t
-(OOt u
-)OOu v
-;OOv w
-ifPP 
-(PP 
-resultPP 
-==PP 
-nullPP 
-)PP 
-{QQ 
-returnRR 
--RR 
-$numRR 
-;RR 
-}SS 
-intTT 
+RoomNumber==- 7
+,==7 8
+CheckIn>> 
+=>> 
+postBooking>> )
+.>>) *
+CheckIn>>* 1
+,>>1 2
+CheckOut?? 
+=?? 
+postBooking?? *
+.??* +
+CheckOut??+ 3
+,??3 4
+UserId@@ 
+=@@ 
+userId@@ #
+,@@# $
+TotalPayAA 
+=AA 
+$numAA "
+,AA" #
+StatusBB 
+=BB 
+$strBB )
+}DD 
+)DD 
+;DD 
+awaitEE 
+_contextEE 
+.EE 
+SaveChangesAsyncEE /
+(EE/ 0
+)EE0 1
+;EE1 2
+returnFF 
+$numFF 
+;FF 
+}GG 
+returnHH 
+-HH 
+$numHH 
+;HH 
+}II 	
+publicKK 
+asyncKK 
+TaskKK 
+<KK 
+intKK 
+>KK 
+UpdateBookingAsyncKK 1
+(KK1 2
+PatchBookingDtoKK2 A
+patchBookingKKB N
+,KKN O
+intKKP S
+userIdKKT Z
+)KKZ [
+{LL 	
+varMM 
+resultMM 
+=MM 
+awaitMM 
+_contextMM '
+.MM' (
+BookingsMM( 0
+.MM0 1
+WhereMM1 6
+(MM6 7
+bookingMM7 >
+=>MM? A
+bookingMMB I
+.MMI J
+IdMMJ L
+==MMM O
+patchBookingMMP \
+.MM\ ]
+IdMM] _
+&&MM` b
+bookingMMc j
+.MMj k
+UserIdMMk q
+==MMr t
+userIdMMu {
+)MM{ |
+.MM| } 
+FirstOrDefaultAsync	MM} ê
+(
+MMê ë
+)
+MMë í
+;
+MMí ì
+ifNN 
+(NN 
+resultNN 
+==NN 
+nullNN 
+)NN 
+{OO 
+returnPP 
+-PP 
+$numPP 
+;PP 
+}QQ 
+intRR 
 
-roomNumberTT 
-=TT 
-resultTT #
-.TT# $
+roomNumberRR 
+=RR 
+resultRR #
+.RR# $
 
-RoomNumberTT$ .
-;TT. /
-varUU 
-isUpdatePossibleUU  
-=UU! "
-awaitUU# (
-_contextUU) 1
-.UU1 2
-BookingsUU2 :
-.UU: ;
-AnyAsyncUU; C
-(UUC D
-bookingUUD K
-=>UUL N
-!UUO P
-(UUP Q
-bookingUUQ X
-.UUX Y
+RoomNumberRR$ .
+;RR. /
+varSS 
+isUpdateNotPossibleSS #
+=SS$ %
+awaitSS& +
+_contextSS, 4
+.SS4 5
+BookingsSS5 =
+.SS= >
+AnyAsyncSS> F
+(SSF G
+bookingSSG N
+=>SSO Q
+bookingSSR Y
+.SSY Z
+IdSSZ \
+!=SS] _
+patchBookingSS` l
+.SSl m
+IdSSm o
+&&SSp r
+bookingSSs z
+.SSz {
 
-RoomNumberUUY c
-==UUd f
+RoomNumber	SS{ Ö
+==
+SSÜ à
 
-roomNumberUUg q
-&&UUr t
-bookingUUu |
-.UU| }
-IdUU} 
-!=
-UUÄ Ç
-patchBooking
-UUÉ è
-.
-UUè ê
-Id
-UUê í
+roomNumber
+SSâ ì
 &&
-UUì ï
-(VV5 6
+SSî ñ
+(TT5 6
+(TT6 7
+bookingTT7 >
+.TT> ?
+CheckInTT? F
+>TTG H
+patchBookingTTI U
+.TTU V
+CheckInTTV ]
+&&TT^ `
+bookingTTa h
+.TTh i
+CheckOutTTi q
+<TTr s
+patchBooking	TTt Ä
+.
+TTÄ Å
+CheckOut
+TTÅ â
+)
+TTâ ä
+||
+TTã ç
+(UU6 7
+bookingUU7 >
+.UU> ?
+CheckInUU? F
+<UUG H
+patchBookingUUI U
+.UUU V
+CheckInUUV ]
+&&UU^ `
+patchBookingUUa m
+.UUm n
+CheckInUUn u
+<UUv w
+bookingUUx 
+.	UU Ä
+CheckOut
+UUÄ à
+&&
+UUâ ã
+patchBooking
+UUå ò
+.
+UUò ô
+CheckOut
+UUô °
+>
+UU¢ £
+booking
+UU§ ´
+.
+UU´ ¨
+CheckOut
+UU¨ ¥
+)
+UU¥ µ
+||
+UU∂ ∏
 (VV6 7
 bookingVV7 >
 .VV> ?
@@ -1580,18 +2145,33 @@ roomNumberUUg q
 CheckInVVV ]
 &&VV^ `
 bookingVVa h
-.VVh i
-CheckOutVVi q
-<VVr s
-patchBooking	VVt Ä
-.
-VVÄ Å
+.VVh i
+CheckInVVi p
+<VVq r
+patchBookingVVs 
+.	VV Ä
 CheckOut
-VVÅ â
+VVÄ à
+&&
+VVâ ã
+patchBooking
+VVå ò
+.
+VVò ô
+CheckOut
+VVô °
+<
+VV¢ £
+booking
+VV§ ´
+.
+VV´ ¨
+CheckOut
+VV¨ ¥
 )
-VVâ ä
+VV¥ µ
 ||
-VVã ç
+VV∂ ∏
 (WW6 7
 bookingWW7 >
 .WW> ?
@@ -1604,306 +2184,305 @@ roomNumberUUg q
 bookingWWa h
 .WWh i
 CheckOutWWi q
-<WWr s
+>WWr s
 patchBooking	WWt Ä
 .
 WWÄ Å
 CheckOut
 WWÅ â
 )
-WWâ ä
-||
-WWã ç
-(XX6 7
-bookingXX7 >
-.XX> ?
-CheckInXX? F
->XXG H
-patchBookingXXI U
-.XXU V
-CheckInXXV ]
-&&XX^ `
-bookingXXa h
-.XXh i
-CheckOutXXi q
->XXr s
-patchBooking	XXt Ä
-.
-XXÄ Å
-CheckOut
-XXÅ â
+WWâ ä
 )
-XXâ ä
-||
-XXã ç
-(YY6 7
-bookingYY7 >
-.YY> ?
-CheckInYY? F
-<YYG H
-patchBookingYYI U
-.YYU V
-CheckInYYV ]
-&&YY^ `
-bookingYYa h
-.YYh i
-CheckOutYYi q
->YYr s
-patchBooking	YYt Ä
-.
-YYÄ Å
-CheckOut
-YYÅ â
+WWä ã
 )
-YYâ ä
-)
-YYä ã
-)
-YYã å
-)
-YYå ç
+WWã å
 ;
-YYç é
-ifZZ 
-(ZZ 
-!ZZ 
-isUpdatePossibleZZ  
-)ZZ  !
-{[[ 
-return\\ 
--\\ 
-$num\\ 
-;\\ 
-}]] 
+WWå ç
+ifXX 
+(XX 
+isUpdateNotPossibleXX #
+)XX# $
+{YY 
+returnZZ 
+-ZZ 
+$numZZ 
+;ZZ 
+}[[ 
+result\\ 
+.\\ 
+CheckIn\\ 
+=\\ 
+patchBooking\\ )
+.\\) *
+CheckIn\\* 1
+;\\1 2
+result]] 
+.]] 
+CheckOut]] 
+=]] 
+patchBooking]] *
+.]]* +
+CheckOut]]+ 3
+;]]3 4
 result^^ 
-.^^ 
-CheckIn^^ 
-=^^ 
-patchBooking^^ )
-.^^) *
-CheckIn^^* 1
-;^^1 2
-result__ 
-.__ 
-CheckOut__ 
-=__ 
-patchBooking__ *
-.__* +
-CheckOut__+ 3
-;__3 4
-await`` 
-_context`` 
-.`` 
-SaveChangesAsync`` +
-(``+ ,
-)``, -
-;``- .
-returnaa 
-$numaa 
-;aa 
-}dd 	
-publicff 
-asyncff 
-Taskff 
-<ff 
-IEnumerableff %
-<ff% &
-RoomDescriptionDtoff& 8
->ff8 9
->ff9 :%
-SearchAvailableRoomsAsyncff; T
-(ffT U
-RoomSearchDtoffU b
-roomSearchDTOffc p
-,ffp q
-Listffr v
-<ffv w
-RoomDescriptionDto	ffw â
+.^^ 
+Status^^ 
+=^^ 
+$str^^ %
+;^^% &
+await__ 
+_context__ 
+.__ 
+SaveChangesAsync__ +
+(__+ ,
+)__, -
+;__- .
+return`` 
+$num`` 
+;`` 
+}cc 	
+publicee 
+asyncee 
+Taskee 
+<ee 
+IEnumerableee %
+<ee% &
+RoomDescriptionDtoee& 8
+>ee8 9
+>ee9 :%
+SearchAvailableRoomsAsyncee; T
+(eeT U
+RoomSearchDtoeeU b
+roomSearchDTOeec p
+,eep q
+Listeer v
+<eev w
+RoomDescriptionDto	eew â
 >
-ffâ ä
+eeâ ä
 rooms
-ffã ê
+eeã ê
 )
-ffê ë
-{gg 	
-Listhh 
-<hh 
-RoomDescriptionDtohh #
->hh# $
-returnValuehh% 0
-=hh1 2
-newhh3 6
-Listhh7 ;
-<hh; <
-RoomDescriptionDtohh< N
->hhN O
-(hhO P
-)hhP Q
-;hhQ R
-foreachii 
-(ii 
-varii 
-roomii 
-inii 
-roomsii  %
-)ii% &
-{jj 
-ifkk 
-(kk 
-roomkk 
-.kk 
-PersonsNumberkk %
-!=kk& (
-roomSearchDTOkk) 6
-.kk6 7
-PersonsNumberkk7 D
-)kkD E
-{ll 
-continuemm 
-;mm 
-}nn 
-varoo 
-isAvailableoo 
-=oo  !
-awaitoo" '
-_contextoo( 0
-.oo0 1
-Bookingsoo1 9
-.oo9 :
-AnyAsyncoo: B
-(ooB C
-bookingooC J
-=>ooK M
-!ooN O
-(ooO P
-bookingooP W
-.ooW X
+eeê ë
+{ff 	
+Listgg 
+<gg 
+RoomDescriptionDtogg #
+>gg# $
+returnValuegg% 0
+=gg1 2
+newgg3 6
+Listgg7 ;
+<gg; <
+RoomDescriptionDtogg< N
+>ggN O
+(ggO P
+)ggP Q
+;ggQ R
+foreachhh 
+(hh 
+varhh 
+roomhh 
+inhh 
+roomshh  %
+)hh% &
+{ii 
+ifjj 
+(jj 
+roomjj 
+.jj 
+PersonsNumberjj %
+!=jj& (
+roomSearchDTOjj) 6
+.jj6 7
+PersonsNumberjj7 D
+||jjE G
+roomjjH L
+.jjL M
+RoomCategoryjjM Y
+!=jjZ \
+roomSearchDTOjj] j
+.jjj k
+RoomCategoryjjk w
+)jjw x
+{kk 
+continuell 
+;ll 
+}mm 
+varnn 
+isAvailablenn 
+=nn  !
+awaitnn" '&
+CheckRoomAvailabilityAsyncnn( B
+(nnB C
+roomnnC G
+.nnG H
 
-RoomNumberooX b
-==ooc e
-roomoof j
-.ooj k
-
-RoomNumberook u
-&&oov x
-(pp5 6
-(pp6 7
-bookingpp7 >
-.pp> ?
-CheckInpp? F
->ppG H
-roomSearchDTOppI V
-.ppV W
-CheckInppW ^
-&&pp_ a
-bookingppb i
-.ppi j
-CheckOutppj r
-<pps t
-roomSearchDTO	ppu Ç
-.
-ppÇ É
-CheckOut
-ppÉ ã
+RoomNumbernnH R
+,nnR S
+roomSearchDTOnnT a
+.nna b
+CheckInnnb i
+,nni j
+roomSearchDTOnnk x
+.nnx y
+CheckOut	nny Å
 )
-ppã å
-||
-ppç è
-(qq6 7
-bookingqq7 >
-.qq> ?
-CheckInqq? F
-<qqG H
-roomSearchDTOqqI V
-.qqV W
-CheckInqqW ^
-&&qq_ a
-bookingqqb i
-.qqi j
-CheckOutqqj r
-<qqs t
-roomSearchDTO	qqu Ç
-.
-qqÇ É
-CheckOut
-qqÉ ã
-)
-qqã å
-||
-qqç è
-(rr6 7
-bookingrr7 >
-.rr> ?
-CheckInrr? F
->rrG H
-roomSearchDTOrrI V
-.rrV W
-CheckInrrW ^
-&&rr_ a
-bookingrrb i
-.rri j
-CheckOutrrj r
->rrs t
-roomSearchDTO	rru Ç
-.
-rrÇ É
-CheckOut
-rrÉ ã
-)
-rrã å
-||
-rrç è
-(ss6 7
-bookingss7 >
-.ss> ?
-CheckInss? F
-<ssG H
-roomSearchDTOssI V
-.ssV W
-CheckInssW ^
-&&ss_ a
-bookingssb i
-.ssi j
-CheckOutssj r
->sss t
-roomSearchDTO	ssu Ç
-.
-ssÇ É
-CheckOut
-ssÉ ã
-)
-ssã å
-)
-sså ç
-)
-ssç é
-)
-ssé è
+nnÅ Ç
 ;
-ssè ê
-iftt 
-(tt 
-!tt 
-isAvailablett 
-)tt  
-{uu 
-continuevv 
-;vv 
-}ww 
-returnValuexx 
-.xx 
-Addxx 
-(xx  
-roomxx  $
-)xx$ %
-;xx% &
-}yy 
-returnzz 
-returnValuezz 
-;zz 
-}{{ 	
-}~~ 
-} ≠
+nnÇ É
+ifoo 
+(oo 
+!oo 
+isAvailableoo  
+)oo  !
+{pp 
+continueqq 
+;qq 
+}rr 
+returnValuess 
+.ss 
+Addss 
+(ss  
+roomss  $
+)ss$ %
+;ss% &
+}tt 
+returnuu 
+returnValueuu 
+;uu 
+}vv 	
+publicxx 
+asyncxx 
+Taskxx 
+<xx 
+boolxx 
+>xx &
+CheckRoomAvailabilityAsyncxx  :
+(xx: ;
+intxx; >
+
+roomNumberxx? I
+,xxI J
+DateTimexxK S
+?xxS T
+checkInxxU \
+,xx\ ]
+DateTimexx^ f
+?xxf g
+checkOutxxh p
+)xxp q
+{yy 	
+varzz 
+
+isReservedzz 
+=zz 
+awaitzz "
+_contextzz# +
+.zz+ ,
+Bookingszz, 4
+.zz4 5
+AnyAsynczz5 =
+(zz= >
+bookingzz> E
+=>zzF H
+bookingzzI P
+.zzP Q
+
+RoomNumberzzQ [
+==zz\ ^
+
+roomNumberzz_ i
+&&zzj l
+({{5 6
+({{6 7
+booking{{7 >
+.{{> ?
+CheckIn{{? F
+>{{G H
+checkIn{{I P
+&&{{Q S
+booking{{T [
+.{{[ \
+CheckOut{{\ d
+<{{e f
+checkOut{{g o
+){{o p
+||{{q s
+(||6 7
+booking||7 >
+.||> ?
+CheckIn||? F
+<||G H
+checkIn||I P
+&&||Q S
+checkIn||T [
+<||\ ]
+booking||^ e
+.||e f
+CheckOut||f n
+&&||o q
+checkOut||r z
+>||{ |
+booking	||} Ñ
+.
+||Ñ Ö
+CheckOut
+||Ö ç
+)
+||ç é
+||
+||è ë
+(}}6 7
+booking}}7 >
+.}}> ?
+CheckIn}}? F
+>}}G H
+checkIn}}I P
+&&}}Q S
+booking}}T [
+.}}[ \
+CheckIn}}\ c
+<}}d e
+checkOut}}f n
+&&}}o q
+checkOut}}r z
+<}}{ |
+booking	}}} Ñ
+.
+}}Ñ Ö
+CheckOut
+}}Ö ç
+)
+}}ç é
+||
+}}è ë
+(~~6 7
+booking~~7 >
+.~~> ?
+CheckIn~~? F
+<~~G H
+checkIn~~I P
+&&~~Q S
+booking~~T [
+.~~[ \
+CheckOut~~\ d
+>~~e f
+checkOut~~g o
+)~~o p
+)~~p q
+)~~q r
+;~~r s
+return 
+! 
+
+isReserved 
+; 
+}
+ÄÄ 	
+}
+ÅÅ 
+}ÇÇ ≠
 
 lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\DataContext.cs
 	namespace 	
@@ -1973,98 +2552,129 @@ lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ;O P
 } 	
 } 
-} ÿ
+} ù
 tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\IBookingsRepository.cs
-	namespace 	
-BookingMicroservice
+	namespace 	
+BookingMicroservice
  
-. 
-Data "
-{ 
-public 
+. 
+Data "
+{		 
+public
+
+ 
 
-	interface 
-IBookingsRepository (
-{		 
-Task 
-< 
-IEnumerable 
-< 
-Booking  
->  !
->! "
-GetBookings# .
-(. /
-)/ 0
-;0 1
-Task 
-< 
-IEnumerable 
-< 
-Booking  
->  !
->! "
-GetBookingsByUserId# 6
-(6 7
-int7 :
-userId; A
-)A B
-;B C
+	interface
+
+ 
+IBookingsRepository
+
+ (
+{ 
 Task 
-< 
-GetBookingDto 
-? 
-> 
-GetBookingByIdAsync 0
-(0 1
-int1 4
-id5 7
-)7 8
-;8 9
+< 
+IEnumerable 
+< 
+Booking  
+>  !
+>! "
+GetBookingsAsync# 3
+(3 4
+)4 5
+;5 6
 Task 
-< 
-int 
-> 
-AddBookingAsync !
-(! "
-PostBookingDto" 0
-postBooking1 <
-)< =
-;= >
+< 
+IEnumerable 
+< 
+Booking  
+>  !
+>! "$
+GetBookingsByUserIdAsync# ;
+(; <
+int< ?
+userId@ F
+)F G
+;G H
 Task 
-< 
-int 
-> 
-UpdateBookingAsync $
-($ %
-PatchBookingDto% 4
-patchBooking5 A
-)A B
-;B C
+< 
+GetBookingDto 
+? 
+> 
+GetBookingByIdAsync 0
+(0 1
+int1 4
+id5 7
+)7 8
+;8 9
 Task 
-< 
-IEnumerable 
-< 
-RoomDescriptionDto +
->+ ,
->, -%
-SearchAvailableRoomsAsync. G
-(G H
-RoomSearchDtoH U
-roomSearchDTOV c
-,c d
-Liste i
-<i j
-RoomDescriptionDtoj |
->| }
-rooms	~ É
+< 
+int 
+> 
+AddBookingAsync !
+(! "
+PostBookingDto" 0
+postBooking1 <
+,< =
+int> A
+userIdB H
+)H I
+;I J
+Task 
+< 
+int 
+> 
+UpdateBookingAsync $
+($ %
+PatchBookingDto% 4
+patchBooking5 A
+,A B
+intC F
+userIdG M
+)M N
+;N O
+Task 
+< 
+IEnumerable 
+< 
+RoomDescriptionDto +
+>+ ,
+>, -%
+SearchAvailableRoomsAsync. G
+(G H
+RoomSearchDtoH U
+roomSearchDTOV c
+,c d
+Liste i
+<i j
+RoomDescriptionDtoj |
+>| }
+rooms	~ É
 )
-É Ñ
+É Ñ
 ;
-Ñ Ö
-} 
-} ≠
-àC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\Migrations\20210420162326_InitialCreate.cs
+Ñ Ö
+Task 
+< 
+bool 
+> &
+CheckRoomAvailabilityAsync -
+(- .
+int. 1
+
+roomNumber2 <
+,< =
+DateTime> F
+?F G
+checkInH O
+,O P
+DateTimeQ Y
+?Y Z
+checkOut[ c
+)c d
+;d e
+} 
+} ≠
+àC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\Migrations\20210512081254_InitialCreate.cs
 	namespace 	
 BookingMicroservice
  
@@ -2485,8 +3095,8 @@ pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 
 - .
 } 
-} ∞
-oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PostBookingDto.cs
+} ô
+oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PostBookingDTO.cs
 	namespace 	
 BookingMicroservice
  
@@ -2525,36 +3135,11 @@ RoomNumber 
 ;		& '
 set		( +
 ;		+ ,
-}		- .
-public
-
- 
-int
-
- 
-UserId
-
- 
-{
-
- 
-get
-
- 
-;
-
-  
-set
-
-! $
-;
-
-$ %
+}		- .
 }
 
-& '
-} 
-} §
+ 
+} §
 
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomDescriptionDto.cs
 	namespace 	
@@ -2646,8 +3231,8 @@ Facilities !
 ;+ ,
 }- .
 } 
-} Á
-nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomSearchDto.cs
+} …
+nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomSearchDTO.cs
 	namespace 	
 BookingMicroservice
  
@@ -2670,45 +3255,41 @@ nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ;. /
 }0 1
 public		 
-DateTime		 
-?		 
-CheckIn		  
-{		! "
-get		# &
-;		& '
-set		( +
-;		+ ,
-}		- .
+DateTime		 
+CheckIn		 
+{		  !
+get		" %
+;		% &
+set		' *
+;		* +
+}		, -
 public
 
  
 DateTime
 
- 
-?
-
- 
+ 
 CheckOut
 
- !
+  
 {
 
-" #
+! "
 get
 
-$ '
+# &
 ;
 
-' (
+& '
 set
 
-) ,
+( +
 ;
 
-, -
++ ,
 }
 
-. /
+- .
 public 
 int 
 PersonsNumber  
@@ -3181,7 +3762,7 @@ UseRouting?? 
 ;FF 
 }GG 	
 }HH 
-}II ˆ.
+}II ç-
 rC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Utils\DataForUnitTests.cs
 	namespace 	
 BookingMicroservice
@@ -3222,7 +3803,7 @@ rC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 string
 
  
-jwtValid
+JwtValid
 
  
 {
@@ -3256,7 +3837,7 @@ rC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 public 
 string 
 
-jwtInvalid  
+JwtInvalid  
 {! "
 get# &
 ;& '
@@ -3277,292 +3858,278 @@ ReturnList '
 (' (
 )( )
 { 	
-Bookings 
-. 
-Add 
-( 
-new 
-Booking $
-($ %
-)% &
-{ 
-Id 
-= 
-$num 
-, 
+Bookings 
+. 
+AddRange 
+( 
+new !
+Booking" )
+[) *
+]* +
+{+ ,
+new, /
+Booking0 7
+(7 8
+)8 9
+{ 
+Id 
+= 
+$num 
+, 
 
-RoomNumber 
-= 
-$num 
-, 
-CheckIn 
-= 
-new 
-DateTime %
-(% &
-$num& *
-,* +
-$num, .
-,. /
-$num0 2
-)2 3
-,3 4
-CheckOut 
-= 
-new 
-DateTime &
-(& '
-$num' +
-,+ ,
-$num- /
-,/ 0
-$num1 3
-)3 4
-,4 5
-UserId 
-= 
-$num 
-, 
-TotalPay 
-= 
-$num 
-, 
-Status 
-= 
-$str #
-} 
-) 
-; 
-Bookings 
-. 
-Add 
-( 
-new 
-Booking $
-($ %
-)% &
-{ 
-Id 
-= 
-$num 
-, 
+RoomNumber "
+=# $
+$num% (
+,( )
+CheckIn* 1
+=2 3
+new4 7
+DateTime8 @
+(@ A
+$numA E
+,E F
+$numG I
+,I J
+$numK M
+)M N
+,N O
+CheckOutP X
+=Y Z
+new[ ^
+DateTime_ g
+(g h
+$numh l
+,l m
+$numn p
+,p q
+$numr t
+)t u
+,u v
+UserId 
+= 
+$num 
+, 
+TotalPay %
+=& '
+$num( +
+,+ ,
+Status- 3
+=4 5
+$str6 B
+} 
+, 
+new 
+Booking 
+( 
+) 
+{ 
+Id 
+= 
+$num 
+, 
 
-RoomNumber 
-= 
-$num  
-,  !
-CheckIn 
-= 
-new 
-DateTime &
-(& '
-$num' +
-,+ ,
-$num- /
-,/ 0
-$num1 3
-)3 4
-,4 5
-CheckOut 
-= 
-new 
-DateTime '
-(' (
-$num( ,
-,, -
-$num. 0
-,0 1
-$num2 4
-)4 5
-,5 6
-UserId 
-= 
-$num 
-, 
-TotalPay 
-= 
-$num 
-, 
-Status   
-=   
-$str   %
-}!! 
-)!! 
-;!! 
-Bookings"" 
-."" 
-Add"" 
-("" 
-new"" 
-Booking"" $
-(""$ %
-)""% &
-{## 
-Id$$ 
-=$$ 
-$num$$ 
-,$$ 
+RoomNumber "
+=# $
+$num% (
+,( )
+CheckIn* 1
+=2 3
+new4 7
+DateTime8 @
+(@ A
+$numA E
+,E F
+$numG I
+,I J
+$numK M
+)M N
+,N O
+CheckOutP X
+=Y Z
+new[ ^
+DateTime_ g
+(g h
+$numh l
+,l m
+$numn p
+,p q
+$numr t
+)t u
+,u v
+UserId 
+= 
+$num 
+, 
+TotalPay %
+=& '
+$num( +
+,+ ,
+Status- 3
+=4 5
+$str6 B
+} 
+, 
+new 
+Booking 
+( 
+) 
+{ 
+Id 
+= 
+$num 
+, 
 
-RoomNumber%% 
-=%% 
-$num%%  
-,%%  !
-CheckIn&& 
-=&& 
-new&& 
-DateTime&& &
-(&&& '
-$num&&' +
-,&&+ ,
-$num&&- /
-,&&/ 0
-$num&&1 3
-)&&3 4
-,&&4 5
-CheckOut'' 
-='' 
-new'' 
-DateTime'' '
-(''' (
-$num''( ,
-,'', -
-$num''. 0
-,''0 1
-$num''2 4
-)''4 5
-,''5 6
-UserId(( 
-=(( 
-$num(( 
-,(( 
-TotalPay)) 
-=)) 
-$num)) 
-,)) 
-Status** 
-=** 
-$str** %
-}++ 
-)++ 
-;++ 
-Bookings,, 
-.,, 
-Add,, 
-(,, 
-new,, 
-Booking,, $
-(,,$ %
-),,% &
-{-- 
-Id.. 
-=.. 
-$num.. 
-,.. 
+RoomNumber "
+=# $
+$num% (
+,( )
+CheckIn* 1
+=2 3
+new4 7
+DateTime8 @
+(@ A
+$numA E
+,E F
+$numG I
+,I J
+$numK M
+)M N
+,N O
+CheckOutP X
+=Y Z
+new[ ^
+DateTime_ g
+(g h
+$numh l
+,l m
+$numn p
+,p q
+$numr t
+)t u
+,u v
+UserId 
+= 
+$num 
+, 
+TotalPay %
+=& '
+$num( +
+,+ ,
+Status- 3
+=4 5
+$str6 B
+} 
+, 
+new 
+Booking 
+( 
+) 
+{ 
+Id   
+=   
+$num   
+,   
 
-RoomNumber// 
-=// 
-$num//  
-,//  !
-CheckIn00 
-=00 
-new00 
-DateTime00 &
-(00& '
-$num00' +
-,00+ ,
-$num00- /
-,00/ 0
-$num001 3
-)003 4
-,004 5
-CheckOut11 
-=11 
-new11 
-DateTime11 '
-(11' (
-$num11( ,
-,11, -
-$num11. 0
-,110 1
-$num112 4
-)114 5
-,115 6
-UserId22 
-=22 
-$num22 
-,22 
-TotalPay33 
-=33 
-$num33 
-,33 
-Status44 
-=44 
-$str44 %
-}55 
-)55 
-;55 
-Bookings66 
-.66 
-Add66 
-(66 
-new66 
-Booking66 $
-(66$ %
-)66% &
-{77 
-Id88 
-=88 
-$num88 
-,88 
+RoomNumber   "
+=  # $
+$num  % (
+,  ( )
+CheckIn  * 1
+=  2 3
+new  4 7
+DateTime  8 @
+(  @ A
+$num  A E
+,  E F
+$num  G I
+,  I J
+$num  K M
+)  M N
+,  N O
+CheckOut  P X
+=  Y Z
+new  [ ^
+DateTime  _ g
+(  g h
+$num  h l
+,  l m
+$num  n p
+,  p q
+$num  r t
+)  t u
+,  u v
+UserId!! 
+=!! 
+$num!! 
+,!! 
+TotalPay!! %
+=!!& '
+$num!!( +
+,!!+ ,
+Status!!- 3
+=!!4 5
+$str!!6 B
+}"" 
+,"" 
+new## 
+Booking## 
+(## 
+)## 
+{$$ 
+Id%% 
+=%% 
+$num%% 
+,%% 
 
-RoomNumber99 
-=99 
-$num99  
-,99  !
-CheckIn:: 
-=:: 
-new:: 
-DateTime:: &
-(::& '
-$num::' +
-,::+ ,
-$num::- /
-,::/ 0
-$num::1 3
-)::3 4
-,::4 5
-CheckOut;; 
-=;; 
-new;; 
-DateTime;; '
-(;;' (
-$num;;( ,
-,;;, -
-$num;;. 0
-,;;0 1
-$num;;2 4
-);;4 5
-,;;5 6
-UserId<< 
-=<< 
-$num<< 
-,<< 
-TotalPay== 
-=== 
-$num== 
-,== 
-Status>> 
-=>> 
-$str>> %
-}?? 
-)?? 
-;?? 
-return@@ 
-Bookings@@ 
-;@@ 
-}AA 	
-}BB 
-}CC ◊
+RoomNumber%% "
+=%%# $
+$num%%% (
+,%%( )
+CheckIn%%* 1
+=%%2 3
+new%%4 7
+DateTime%%8 @
+(%%@ A
+$num%%A E
+,%%E F
+$num%%G I
+,%%I J
+$num%%K M
+)%%M N
+,%%N O
+CheckOut%%P X
+=%%Y Z
+new%%[ ^
+DateTime%%_ g
+(%%g h
+$num%%h l
+,%%l m
+$num%%n p
+,%%p q
+$num%%r t
+)%%t u
+,%%u v
+UserId&& 
+=&& 
+$num&& 
+,&& 
+TotalPay&& %
+=&&& '
+$num&&( +
+,&&+ ,
+Status&&- 3
+=&&4 5
+$str&&6 B
+}'' 
+}'' 
+)'' 
+;'' 
+return(( 
+Bookings(( 
+;(( 
+})) 	
+}** 
+}++ ◊
 gC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Utils\Error.cs
 	namespace 	
 BookingMicroservice
@@ -3868,7 +4435,7 @@ ReturnList2 <
 return 
 dataList 
 .  
-jwtValid  (
+JwtValid  (
 ;( )
 } 
 else 
@@ -3877,9 +4444,93 @@ ReturnList2 <
 dataList!! 
 .!!  
 
-jwtInvalid!!  *
+JwtInvalid!!  *
 ;!!* +
 }"" 
 }## 	
 }$$ 
-}%% 
+}%% ¯
+lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Utils\Validation.cs
+	namespace 	
+BookingMicroservice
+ 
+. 
+Utils #
+{ 
+public 
+
+static 
+class 
+
+Validation "
+{		 
+public
+
+ 
+static
+
+ 
+bool
+
+ 
+CheckValidDates
+
+ *
+(
+
+* +
+DateTime
+
++ 3
+checkIn
+
+4 ;
+,
+
+; <
+DateTime
+
+= E
+checkOut
+
+F N
+)
+
+N O
+{ 	
+if 
+( 
+( 
+checkOut 
+- 
+checkIn #
+)# $
+.$ %
+Days% )
+<* +
+$num, -
+)- .
+{ 
+return 
+false 
+; 
+} 
+if 
+( 
+checkOut 
+< 
+DateTime #
+.# $
+Now$ '
+)' (
+{ 
+return 
+false 
+; 
+} 
+return 
+true 
+; 
+} 	
+} 
+} 

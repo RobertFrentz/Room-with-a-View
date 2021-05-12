@@ -5,5 +5,5 @@
   <FilesToAnalyzePath>C:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\.sonarqube\conf\0\FilesToAnalyze.txt</FilesToAnalyzePath>
   <OutPath>C:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\.sonarqube\out\0</OutPath>
   <ProjectType>Product</ProjectType>
-  <TargetFramework>net5.0</TargetFramework>
+  <TargetFramework>net6.0</TargetFramework>
 </SonarProjectConfig>

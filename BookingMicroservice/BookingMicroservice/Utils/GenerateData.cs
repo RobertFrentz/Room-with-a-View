@@ -26,11 +26,11 @@ namespace BookingMicroservice.Utils
             }
             if (valid == "Valid")
             {
-                return dataList.jwtValid;
+                return dataList.JwtValid;
             }
             else
             {
-                return dataList.jwtInvalid;
+                return dataList.JwtInvalid;
             }
         }
     }
