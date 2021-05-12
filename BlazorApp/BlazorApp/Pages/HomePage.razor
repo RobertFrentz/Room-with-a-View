@@ -43,17 +43,19 @@
     @if (searchResultRooms != null)
     {
         <div class="container">
-            <h3 class="mt-3">Rooms that match your search</h3>
+            <h3 class="mt-3">Rooms that match your search:</h3>
 
             <div class="row">
                 @foreach (var room in searchResultRooms)
                 {
+                    string imageUrl = StaticImagesEndpoint + room.Image;
+
                     <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
                         <div class="card shadow-sm">
-                            <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src="images/109169996.jpg" alt="Room name">
+                            <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src=@imageUrl alt="Room name">
                             <div class="card-body">
                                 <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.RoomNumber</p>
-                                <p class="my-1">Starting from @room.Price lei</p>
+                                <p class="my-1">Starting from @room.Price RON</p>
                                 <p class="my-1 mt-2 btn btn-primary btn-sm" style="border-radius: 0">Show more</p>
                             </div>
                         </div>
@@ -63,31 +65,38 @@
         </div>
     }
 
-    <div class="container">
-        <h3 class="mt-3">Rooms clients love</h3>
+    @if (allHotelRooms != null)
+    {
+        <div class="container">
+            <h3 class="mt-3">Hotel rooms:</h3>
 
-        <div class="row">
-            @for (int i = 0; i < 10; i++)
-            {
-                <a href="/room/@i" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src="images/109169996.jpg" alt="Room name">
-                        <div class="card-body">
-                            <p class="font-weight-bold text-primary mb-2">Room name</p>
-                            <p class="my-1">Starting from 120 lei</p>
-                            <p class="my-1 mt-2 btn btn-primary btn-sm" style="border-radius: 0">Show more</p>
+            <div class="row">
+                @foreach (var room in allHotelRooms)
+                {
+                    string imageUrl = StaticImagesEndpoint + room.Image;
+
+                    <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
+                        <div class="card shadow-sm">
+                            <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src=@imageUrl alt="Room name">
+                            <div class="card-body">
+                                <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.RoomNumber</p>
+                                <p class="my-1">Starting from @room.Price RON</p>
+                                <p class="my-1 mt-2 btn btn-primary btn-sm" style="border-radius: 0">Show more</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            }
+                    </a>
+                }
+            </div>
         </div>
-    </div>
+    }
 
 </div>
 
 
 @code {
-    const string ApiRoomsEndpoint = "http://localhost:5100/api/v1/bookings";
+    const string ApiSearchRoomsEndpoint = "http://localhost:5100/api/v1/bookings";
+    const string ApiAllHotelRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
+    const string StaticImagesEndpoint = "http://localhost:19008/images/";
 
     public int roomCategoryIndex = -1;
     public DateTime checkInDate = DateTime.Now;
@@ -96,6 +105,16 @@
     public List<string> roomTypes = new List<string> { "Standard", "Deluxe", "Suite" };
 
     public List<Room> searchResultRooms;
+    public List<Room> allHotelRooms;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
+        var httpResponse = await HttpClient.SendAsync(getRequest);
+
+        allHotelRooms = await httpResponse.Content.ReadFromJsonAsync<List<Room>>();
+    }
 
 
     public async Task SubmitSearchRoomsForm()
@@ -112,7 +131,8 @@
         }
 
         string roomCategory = roomTypes[roomCategoryIndex];
-        string getRoomsApiUrl = $"{ApiRoomsEndpoint}/search?RoomCategory={roomCategory}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={personsNumber}";
+        Console.WriteLine($"RoomCategory={roomCategory}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={personsNumber}");
+        string getRoomsApiUrl = $"{ApiSearchRoomsEndpoint}/search?RoomCategory={roomCategory}&CheckIn={checkInDateString}&CheckOut={checkOutDateString}&PersonsNumber={personsNumber}";
         var getRequest = new HttpRequestMessage(HttpMethod.Get, getRoomsApiUrl);
         var httpResponse = await HttpClient.SendAsync(getRequest);
 
@@ -129,6 +149,7 @@
         public int Price { get; set; }
         public string Facilities { get; set; }
         public int PersonsNumber { get; set; }
+        public string Image { get; set; }
     }
 
     public class RoomListDeserializer
