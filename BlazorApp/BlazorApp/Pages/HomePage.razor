@@ -43,25 +43,33 @@
     @if (searchResultRooms != null)
     {
         <div class="container">
-            <h3 class="mt-3">Rooms that match your search:</h3>
 
-            <div class="row">
-                @foreach (var room in searchResultRooms)
-                {
-                    string imageUrl = StaticImagesEndpoint + room.Image;
+            @if (searchResultRooms.Count > 0)
+            {
+                <h3 class="mt-3">Rooms that match your search:</h3>
 
-                    <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src=@imageUrl alt="Room name">
-                            <div class="card-body">
-                                <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.RoomNumber</p>
-                                <p class="my-1">Starting from @room.Price RON</p>
-                                <p class="my-1 mt-2 btn btn-primary btn-sm" style="border-radius: 0">Show more</p>
+                <div class="row">
+                    @foreach (var room in searchResultRooms)
+                    {
+                        string imageUrl = StaticImagesEndpoint + room.Image;
+
+                        <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
+                            <div class="card shadow-sm">
+                                <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src=@imageUrl alt="Room name">
+                                <div class="card-body">
+                                    <p class="font-weight-bold text-primary mb-2">@room.RoomCategory @room.RoomNumber</p>
+                                    <p class="my-1">Starting from @room.Price RON</p>
+                                    <p class="my-1 mt-2 btn btn-primary btn-sm" style="border-radius: 0">Show more</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                }
-            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <h3 class="mt-3">Sorry, no rooms match your search :'(</h3>
+            }
         </div>
     }
 

@@ -1,7 +1,66 @@
 ﻿@page "/success-payment"
 
+@inject NavigationManager NavManager
+@using Microsoft.AspNetCore.WebUtilities;
+@using Newtonsoft.Json
+@inject HttpClient HttpClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
 <h3>Payment was successfull</h3>
 
 @code {
 
+    const string ApiBookingEndpoint = "http://localhost:5100/api/v1/bookings";
+    string sessionId;
+    string redirectUri;
+    int roomNumber;
+    DateTime checkInDate;
+    DateTime checkOutDate;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = new Uri(NavManager.Uri).Query;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("session_id", out var session_id))
+        {
+            Console.WriteLine($"||session_id: {session_id}||");
+            sessionId = session_id;
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("redirect_uri", out var redirect_uri))
+        {
+            Console.WriteLine($"||redirect_uri: {redirect_uri}||");
+            redirectUri = redirect_uri;
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("room_number", out var room_number))
+        {
+            Console.WriteLine($"||room_number: {room_number}||");
+            roomNumber = Convert.ToInt32(room_number);
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_in", out var check_in))
+        {
+            Console.WriteLine($"||check_in: {check_in}||");
+            checkInDate = Convert.ToDateTime(check_in);
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_out", out var check_out))
+        {
+            Console.WriteLine($"||check_out: {check_out}||");
+            checkOutDate = Convert.ToDateTime(check_out);
+        }
+
+
+        var request = new HttpRequestMessage(HttpMethod.Post, ApiBookingEndpoint);
+        var postBody = new
+        {
+            roomNumber = roomNumber,
+            checkIn = checkInDate.ToString("yyyy-MM-dd HH:mm:ss"),
+            checkOut = checkOutDate.ToString("yyyy-MM-dd HH:mm:ss")
+        };
+        request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postBody), System.Text.Encoding.UTF8, "application/json");
+        request.Headers.Add("authorizationToken", await localStorage.GetItemAsync<string>("jwt"));
+        using var response = await HttpClient.SendAsync(request);
+
+        NavManager.NavigateTo(redirectUri, true);
+    }
 }

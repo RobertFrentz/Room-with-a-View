@@ -6,6 +6,7 @@
 @using Stripe.Checkout
 @inject IJSRuntime jsRuntime
 
+<AuthComponent @ref="authComponent" />
 
 <div class="bg-light text-dark py-4">
 
@@ -63,8 +64,25 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" @onclick="@(e => CheckoutHandler("price_1IpzQZEpnVBzkA6J6avcHxo2"))">Reserve</button>
-                    <small class="form-text text-muted">You will be redirected to pay.</small>
+                    @if (bookingAvailability.available)
+                    {
+                        @if (userIsLoggedIn)
+                        {
+                            <button type="submit" class="btn btn-primary w-100" @onclick="@(e => CheckoutHandler("price_1IpzQZEpnVBzkA6J6avcHxo2"))">Reserve</button>
+                            <small class="form-text text-muted">You will be redirected to pay.</small>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary w-100" disabled>Reserve</button>
+                            <small class="form-text text-muted text-danger">You must be logged in to reserve.</small>
+                        }
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary w-100" disabled>Reserve</button>
+                        <small class="form-text text-muted">You will be redirected to pay.</small>
+                    }
+
                 </form>
             </div>
 
@@ -169,6 +187,8 @@
     [Parameter]
     public int RoomNumber { get; set; }
 
+    private AuthComponent authComponent;
+
     const string ApiRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
     const string ApiCheckRoomBookingAvailableEndpoint = "http://localhost:5100/api/v1/bookings/available";
 
@@ -194,6 +214,7 @@
             ComputeEstimations();
         }
     }
+    bool userIsLoggedIn = false;
     public Room roomDetails = new Room();
     BookingAvailability bookingAvailability = new BookingAvailability();
 
@@ -215,6 +236,26 @@
         Console.WriteLine(roomDetails.Image);
 
         ComputeEstimations();
+    }
+
+    /* manipulate components references after the component has finished rendering */
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            Console.WriteLine("RoomPage - not first render");
+            return;
+        }
+        Console.WriteLine("RoomPage - first render");
+
+        if (await authComponent.UserIsLoggedIn())
+        {
+            userIsLoggedIn = true;
+        }
+        else
+        {
+            userIsLoggedIn = false;
+        }
     }
 
     public async Task ComputeEstimations()
@@ -273,6 +314,12 @@
     public async Task<string> CreateCheckoutSessionAsync(string priceId, string customerId = null)
     {
 
+        string redirectUriParams =
+                $"&redirect_uri={NavigationManager.Uri}&" +
+                $"room_number={roomDetails.RoomNumber}&" +
+                $"check_in={checkInDate.ToString("yyyy-MM-dd HH:mm:ss")}&" +
+                $"check_out={checkOutDate.ToString("yyyy-MM-dd HH:mm:ss")}";
+
         var options = new SessionCreateOptions
         {
             Customer = customerId,
@@ -289,7 +336,7 @@
                 },
             },
             Mode = "payment",
-            SuccessUrl = $"https://localhost:5001/success-payment?session_id={{CHECKOUT_SESSION_ID}}",
+            SuccessUrl = $"https://localhost:5001/success-payment?session_id={{CHECKOUT_SESSION_ID}}" + redirectUriParams,
             CancelUrl = $"{NavigationManager.Uri}",
         };
 
