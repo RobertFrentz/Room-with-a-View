@@ -35,6 +35,11 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
+            var responseAdminPrivileges = await client.GetAsync(usersManagementMicroserviceUri + "adminPrivileges" + "?json="+ responseAuthorization.Content.ReadAsStringAsync().Result);
+            if (responseAdminPrivileges.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized(responseAdminPrivileges.Content.ReadAsStringAsync().Result);
+            }
             var bookings = await _repository.GetBookingsAsync();
             return Ok(bookings);
         }
