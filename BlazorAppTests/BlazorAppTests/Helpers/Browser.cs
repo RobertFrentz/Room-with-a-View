@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace BlazorAppTests.Helpers
 {
@@ -9,7 +9,7 @@ namespace BlazorAppTests.Helpers
 
         public Browser()
         {
-            Driver = new ChromeDriver();
+            Driver = new FirefoxDriver();
             Driver.Manage().Window.Maximize();
         }
 

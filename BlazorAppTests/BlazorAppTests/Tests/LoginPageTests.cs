@@ -13,7 +13,7 @@ namespace BlazorAppTests.Tests
         [Fact]
         public void Login_ValidCredentials_SuccessLogin()
         {
-            Driver.Navigate().GoToUrl("https://localhost:44331/login");
+            Driver.Navigate().GoToUrl("https://localhost:5001/login");
             loginPage = new LoginPage(Driver);
             loginPage.Login("admin@gmail.com", "admin");
             homePage = new HomePage(Driver);
@@ -23,7 +23,7 @@ namespace BlazorAppTests.Tests
         [Fact]
         public void Login_InvalidEmail_FailedLogin()
         {
-            Driver.Navigate().GoToUrl("https://localhost:44331/login");
+            Driver.Navigate().GoToUrl("https://localhost:5001/login");
             loginPage = new LoginPage(Driver);
             loginPage.Login("adminul@gmail.com", "admin");
             Assert.Equal("Attention! Email or password invalid.", loginPage.alertBox.Text);
@@ -32,7 +32,7 @@ namespace BlazorAppTests.Tests
         [Fact]
         public void Login_IncorrectPassword_FailedLogin()
         {
-            Driver.Navigate().GoToUrl("https://localhost:44331/login");
+            Driver.Navigate().GoToUrl("https://localhost:5001/login");
             loginPage = new LoginPage(Driver);
             loginPage.Login("admin@gmail.com", "adminul");
             Assert.Equal("Attention! Email or password invalid.", loginPage.alertBox.Text);
