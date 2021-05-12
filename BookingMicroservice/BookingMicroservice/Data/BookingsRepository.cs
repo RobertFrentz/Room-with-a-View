@@ -84,6 +84,7 @@ namespace BookingMicroservice.Data
                                                      ((booking.CheckIn > patchBooking.CheckIn && booking.CheckOut < patchBooking.CheckOut) ||
                                                       (booking.CheckIn < patchBooking.CheckIn && patchBooking.CheckIn < booking.CheckOut && patchBooking.CheckOut > booking.CheckOut) ||
                                                       (booking.CheckIn > patchBooking.CheckIn && booking.CheckIn < patchBooking.CheckOut && patchBooking.CheckOut < booking.CheckOut) ||
+                                                      (booking.CheckIn == patchBooking.CheckIn || booking.CheckOut == patchBooking.CheckOut) ||
                                                       (booking.CheckIn < patchBooking.CheckIn && booking.CheckOut > patchBooking.CheckOut)));
             if (isUpdateNotPossible)
             {
@@ -123,6 +124,7 @@ namespace BookingMicroservice.Data
                                                      ((booking.CheckIn > checkIn && booking.CheckOut < checkOut) ||
                                                       (booking.CheckIn < checkIn && checkIn < booking.CheckOut && checkOut > booking.CheckOut) ||
                                                       (booking.CheckIn > checkIn && booking.CheckIn < checkOut && checkOut < booking.CheckOut) ||
+                                                      (booking.CheckIn == checkIn || booking.CheckOut == checkOut) ||
                                                       (booking.CheckIn < checkIn && booking.CheckOut > checkOut)));
             return !isReserved;
         }
