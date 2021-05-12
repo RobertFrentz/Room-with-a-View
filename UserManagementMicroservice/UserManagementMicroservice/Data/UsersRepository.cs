@@ -24,12 +24,13 @@ namespace UserManagementMicroservice.Data
             {
                 return -1;
             }
+
             if(this.context.Users.Any(user => user.Email == Cryptography.HashString(userRegister.Email)))
             {
                 return -2;
             }
-            User registerUser= new(userRegister.Username, userRegister.Email, userRegister.Password, role);
-            var user = this.context.Add(Cryptography.HashUserData(registerUser));
+            User registerUser= new (userRegister.Username, userRegister.Email, userRegister.Password, role);
+            var user = this.context.Add(Cryptography.SecureUserData(registerUser));
             await this.context.SaveChangesAsync();
             return user.Entity.Id;
         }

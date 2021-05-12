@@ -1,4 +1,6 @@
-﻿namespace UserManagementMicroservice.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UserManagementMicroservice.Entities
 {
     public class User
     {
@@ -24,6 +26,7 @@
 
         public int Id { get; set; }
         public string Username { get; set; }
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
         public string Password { get; set; }
 

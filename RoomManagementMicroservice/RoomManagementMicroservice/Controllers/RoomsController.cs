@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace RoomManagementMicroservice.Controllers
 {
-    //token admin: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTkyOTYyNDMsInVzZXJJZCI6Mn0.iDhjcbhbd0V-BxJjgr6rxRd9mhrQBz2XZH2kOK3ohJU
     [Route("api/v1/rooms")]
     [ApiController]
     public class RoomsController : ControllerBase
@@ -60,11 +59,6 @@ namespace RoomManagementMicroservice.Controllers
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber, [FromHeader] string authorizationToken)
         {
-            /*var verify=await VerifyAuthorization(authorizationToken);
-            if(verify is UnauthorizedObjectResult)
-            {
-                return verify;
-            }*/
             RoomDescriptionDto result = await _repository.GetRoomByNumberAsync(roomNumber);
             if( result == null)
             {

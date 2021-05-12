@@ -45,6 +45,7 @@ namespace UserManagementMicroservice.Controllers
         [HttpGet("{id}", Name = "GetById")]
         public async Task<User> GetById(int id) => await _repository.GetByIdAsync(id);
 
+
         [Route("authorization")]
         [HttpGet]
 

@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +41,12 @@ namespace UserManagementMicroservice
                     .AllowAnyOrigin();
                 });
             });
-
+            services.AddDataProtection()
+               .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+               {
+                   EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
+                   ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+               });
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddSwaggerGen(c =>
             {
