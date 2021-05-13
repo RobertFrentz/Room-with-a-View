@@ -9,7 +9,11 @@ namespace BlazorAppTests.Helpers
 
         public Browser()
         {
-            Driver = new FirefoxDriver();
+            var op = new FirefoxOptions()
+            {
+                AcceptInsecureCertificates = true
+            };
+            Driver = new FirefoxDriver(op);
             Driver.Manage().Window.Maximize();
         }
 

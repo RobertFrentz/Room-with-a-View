@@ -1,4 +1,4 @@
-ıB
+ŸB
 ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -6,470 +6,470 @@
 .$ %
 Controllers% 0
 { 
-[ 
-Route 
+[ 
+Route 
 
-(
+(
  
-$str 
-) 
-] 
-[ 
-ApiController 
-] 
-public 
+$str 
+) 
+] 
+[ 
+ApiController 
+] 
+public 
 
-class 
-RoomsController  
-:! "
-ControllerBase# 1
-{ 
+class 
+RoomsController  
+:! "
+ControllerBase# 1
+{ 
+private 
+readonly 
+IRoomsRepository )
+_repository* 5
+;5 6
 private 
-readonly 
-IRoomsRepository )
-_repository* 5
-;5 6
+readonly 
+
+HttpClient #
+client$ *
+;* +
 private 
-readonly 
+readonly 
+string *
+usersManagementMicroserviceUri  >
+=? @
+$strA g
+;g h
+[ 	)
+ActivatorUtilitiesConstructor	 &
+]& '
+public 
+RoomsController 
+( 
+IRoomsRepository /
 
-HttpClient #
-client$ *
-;* +
-private 
-readonly 
-string *
-usersManagementMicroserviceUri  >
-=? @
-$strA g
-;g h
-[ 	)
-ActivatorUtilitiesConstructor	 &
-]& '
-public 
-RoomsController 
-( 
-IRoomsRepository /
+repository0 :
+): ;
+{ 	
+_repository 
+= 
 
-repository0 :
-): ;
-{ 	
-_repository 
-= 
+repository $
+;$ %
+client 
+= 
+new 
 
-repository $
-;$ %
-client 
-= 
-new 
+HttpClient #
+(# $
+)$ %
+;% &
+} 	
+public 
+RoomsController 
+( 
+)  
+{ 	
+client 
+= 
+new 
 
-HttpClient #
-(# $
-)$ %
-;% &
-} 	
-public 
-RoomsController 
-( 
-)  
-{ 	
-client   
-=   
-new   
-
-HttpClient   #
-(  # $
-)  $ %
-;  % &
-}!! 	
-["" 	
-HttpGet""	 
-]"" 
-public$$ 
-async$$ 
-Task$$ 
-<$$ 
-IActionResult$$ '
->$$' (
-GetRoomsAsync$$) 6
-($$6 7
-)$$7 8
-{%% 	
-IEnumerable&& 
-<&& 
-RoomDescriptionDto&& *
->&&* +
-result&&, 2
-=&&3 4
-await&&5 :
-_repository&&; F
-.&&F G
-GetRoomsAsync&&G T
-(&&T U
-)&&U V
-;&&V W
-if'' 
-('' 
-!'' 
-result'' 
-.'' 
-Any'' 
-('' 
-)'' 
-)'' 
-{(( 
-return)) 
-NotFound)) 
-())  
-new))  #
-Error))$ )
-())) *
-$str))* 4
-)))4 5
-)))5 6
-;))6 7
-}** 
-return,, 
-Ok,, 
-(,, 
-result,, 
-),, 
-;,, 
-}-- 	
-[// 	
-Route//	 
-(// 
-$str// 
-)// 
-]// 
-[00 	
-HttpGet00	 
-]00 
-public11 
-async11 
-Task11 
-<11 
-IActionResult11 '
->11' (
-VerifyAuthorization11) <
-(11< =
-string11= C
-authorizationToken11D V
-)11V W
-{22 	
-client33 
-.33 !
-DefaultRequestHeaders33 (
-.33( )
-Add33) ,
-(33, -
-$str33- A
-,33A B
-authorizationToken33C U
-)33U V
-;33V W
-var44 !
+HttpClient #
+(# $
+)$ %
+;% &
+}   	
+[!! 	
+HttpGet!!	 
+]!! 
+public## 
+async## 
+Task## 
+<## 
+IActionResult## '
+>##' (
+GetRoomsAsync##) 6
+(##6 7
+)##7 8
+{$$ 	
+IEnumerable%% 
+<%% 
+RoomDescriptionDto%% *
+>%%* +
+result%%, 2
+=%%3 4
+await%%5 :
+_repository%%; F
+.%%F G
+GetRoomsAsync%%G T
+(%%T U
+)%%U V
+;%%V W
+if&& 
+(&& 
+!&& 
+result&& 
+.&& 
+Any&& 
+(&& 
+)&& 
+)&& 
+{'' 
+return(( 
+NotFound(( 
+(((  
+new((  #
+Error(($ )
+((() *
+$str((* 4
+)((4 5
+)((5 6
+;((6 7
+})) 
+return++ 
+Ok++ 
+(++ 
+result++ 
+)++ 
+;++ 
+},, 	
+[.. 	
+Route..	 
+(.. 
+$str.. 
+).. 
+].. 
+[// 	
+HttpGet//	 
+]// 
+public00 
+async00 
+Task00 
+<00 
+IActionResult00 '
+>00' (
+VerifyAuthorization00) <
+(00< =
+string00= C
+authorizationToken00D V
+)00V W
+{11 	
+client22 
+.22 !
+DefaultRequestHeaders22 (
+.22( )
+Add22) ,
+(22, -
+$str22- A
+,22A B
+authorizationToken22C U
+)22U V
+;22V W
+var33 !
+responseAuthorization33 %
+=33& '
+await33( -
+client33. 4
+.334 5
+GetAsync335 =
+(33= >*
+usersManagementMicroserviceUri33> \
++33] ^
+$str33_ n
+)33n o
+;33o p
+if44 
+(44 !
 responseAuthorization44 %
-=44& '
-await44( -
-client44. 4
-.444 5
-GetAsync445 =
-(44= >*
-usersManagementMicroserviceUri44> \
-+44] ^
-$str44_ n
-)44n o
-;44o p
-if55 
-(55 !
-responseAuthorization55 %
-.55% &
+.44% &
 
-StatusCode55& 0
-==551 3
-System554 :
-.55: ;
-Net55; >
-.55> ?
-HttpStatusCode55? M
-.55M N
-Unauthorized55N Z
-)55Z [
-{66 
-return77 
-Unauthorized77 #
-(77# $!
-responseAuthorization77$ 9
-.779 :
-Content77: A
-.77A B
-ReadAsStringAsync77B S
-(77S T
-)77T U
-.77U V
-Result77V \
-)77\ ]
-;77] ^
-}88 
-return99 
-Ok99 
-(99 !
-responseAuthorization99 +
-.99+ ,
-Content99, 3
-.993 4
-ReadAsStringAsync994 E
-(99E F
-)99F G
-.99G H
-Result99H N
-)99N O
-;99O P
-}:: 	
-[;; 	
-HttpGet;;	 
-(;; 
-$str;; 
-);;  
-];;  !
-public== 
-async== 
-Task== 
-<== 
-IActionResult== '
->==' ( 
-GetRoomByNumberAsync==) =
-(=== >
-int==> A
+StatusCode44& 0
+==441 3
+System444 :
+.44: ;
+Net44; >
+.44> ?
+HttpStatusCode44? M
+.44M N
+Unauthorized44N Z
+)44Z [
+{55 
+return66 
+Unauthorized66 #
+(66# $!
+responseAuthorization66$ 9
+.669 :
+Content66: A
+.66A B
+ReadAsStringAsync66B S
+(66S T
+)66T U
+.66U V
+Result66V \
+)66\ ]
+;66] ^
+}77 
+return88 
+Ok88 
+(88 !
+responseAuthorization88 +
+.88+ ,
+Content88, 3
+.883 4
+ReadAsStringAsync884 E
+(88E F
+)88F G
+.88G H
+Result88H N
+)88N O
+;88O P
+}99 	
+[:: 	
+HttpGet::	 
+(:: 
+$str:: 
+)::  
+]::  !
+public<< 
+async<< 
+Task<< 
+<<< 
+IActionResult<< '
+><<' ( 
+GetRoomByNumberAsync<<) =
+(<<= >
+int<<> A
 
-roomNumber==B L
-,==L M
-[==N O
+roomNumber<<B L
+,<<L M
+[<<N O
 
-FromHeader==O Y
-]==Y Z
-string==[ a
-authorizationToken==b t
-)==t u
-{>> 	
-RoomDescriptionDtoDD 
-resultDD %
-=DD& '
-awaitDD( -
-_repositoryDD. 9
-.DD9 : 
-GetRoomByNumberAsyncDD: N
-(DDN O
+FromHeader<<O Y
+]<<Y Z
+string<<[ a
+authorizationToken<<b t
+)<<t u
+{== 	
+RoomDescriptionDto>> 
+result>> %
+=>>& '
+await>>( -
+_repository>>. 9
+.>>9 : 
+GetRoomByNumberAsync>>: N
+(>>N O
 
-roomNumberDDO Y
-)DDY Z
-;DDZ [
-ifEE 
-(EE 
-resultEE 
-==EE 
-nullEE 
-)EE 
-{FF 
-returnGG 
-NotFoundGG 
-(GG  
-newGG  #
-ErrorGG$ )
-(GG) *
-$strGG* U
-)GGU V
-)GGV W
-;GGW X
-}HH 
-returnII 
-OkII 
-(II 
-JsonConvertII !
-.II! "
-SerializeObjectII" 1
-(II1 2
-newII2 5
-{JJ 
-roomKK 
-=KK 
-resultKK 
-}LL 
-)LL 
-)LL 
-;LL 
-}MM 	
-[NN 	
-RouteNN	 
-(NN 
-$strNN 
-)NN 
-]NN 
-[OO 	
-HttpPostOO	 
-]OO 
-publicQQ 
-asyncQQ 
-TaskQQ 
-<QQ 
-IActionResultQQ '
->QQ' (
-PostRoomAsyncQQ) 6
-(QQ6 7
-[QQ7 8
-FromBodyQQ8 @
-]QQ@ A
-PostRoomDtoQQB M
-	roomToAddQQN W
-,QQX Y
-[QQZ [
+roomNumber>>O Y
+)>>Y Z
+;>>Z [
+if?? 
+(?? 
+result?? 
+==?? 
+null?? 
+)?? 
+{@@ 
+returnAA 
+NotFoundAA 
+(AA  
+newAA  #
+ErrorAA$ )
+(AA) *
+$strAA* U
+)AAU V
+)AAV W
+;AAW X
+}BB 
+returnCC 
+OkCC 
+(CC 
+JsonConvertCC !
+.CC! "
+SerializeObjectCC" 1
+(CC1 2
+newCC2 5
+{DD 
+roomEE 
+=EE 
+resultEE 
+}FF 
+)FF 
+)FF 
+;FF 
+}GG 	
+[HH 	
+RouteHH	 
+(HH 
+$strHH 
+)HH 
+]HH 
+[II 	
+HttpPostII	 
+]II 
+publicKK 
+asyncKK 
+TaskKK 
+<KK 
+IActionResultKK '
+>KK' (
+PostRoomAsyncKK) 6
+(KK6 7
+[KK7 8
+FromBodyKK8 @
+]KK@ A
+PostRoomDtoKKB M
+	roomToAddKKN W
+,KKX Y
+[KKZ [
 
-FromHeaderQQ[ e
-]QQe f
-stringQQg m
-authorizationToken	QQn Ä
+FromHeaderKK[ e
+]KKe f
+stringKKg m
+authorizationToken	KKn Ä
 )
-QQÄ Å
-{RR 	
-varSS 
-verifySS 
-=SS 
-awaitSS 
-VerifyAuthorizationSS 2
-(SS2 3
-authorizationTokenSS3 E
-)SSE F
-;SSF G
-ifTT 
-(TT 
-verifyTT 
-isTT $
-UnauthorizedObjectResultTT 2
-)TT2 3
-{UU 
-returnVV 
-verifyVV 
-;VV 
-}WW 
-awaitXX 
-_repositoryXX 
-.XX 
-AddRoomAsyncXX *
-(XX* +
-	roomToAddXX+ 4
-)XX4 5
-;XX5 6
-returnYY 
-CreatedAtActionYY "
-(YY" #
-$strYY# ,
-,YY, -
-	roomToAddYY. 7
-)YY7 8
-;YY8 9
-}ZZ 	
-[\\ 	
-	HttpPatch\\	 
-(\\ 
-$str\\ !
-)\\! "
-]\\" #
-public]] 
-async]] 
-Task]] 
-<]] 
-IActionResult]] '
->]]' (
-UpdateRoomAsync]]) 8
-(]]8 9
-int]]9 <
+KKÄ Å
+{LL 	
+varMM 
+verifyMM 
+=MM 
+awaitMM 
+VerifyAuthorizationMM 2
+(MM2 3
+authorizationTokenMM3 E
+)MME F
+;MMF G
+ifNN 
+(NN 
+verifyNN 
+isNN $
+UnauthorizedObjectResultNN 2
+)NN2 3
+{OO 
+returnPP 
+verifyPP 
+;PP 
+}QQ 
+awaitRR 
+_repositoryRR 
+.RR 
+AddRoomAsyncRR *
+(RR* +
+	roomToAddRR+ 4
+)RR4 5
+;RR5 6
+returnSS 
+CreatedAtActionSS "
+(SS" #
+$strSS# ,
+,SS, -
+	roomToAddSS. 7
+)SS7 8
+;SS8 9
+}TT 	
+[VV 	
+	HttpPatchVV	 
+(VV 
+$strVV !
+)VV! "
+]VV" #
+publicWW 
+asyncWW 
+TaskWW 
+<WW 
+IActionResultWW '
+>WW' (
+UpdateRoomAsyncWW) 8
+(WW8 9
+intWW9 <
 
-roomNumber]]= G
-,]]G H
-[]]I J
-FromBody]]J R
-]]]R S
-PatchRoomDto]]T `
-patchRoomDto]]a m
-,]]n o
-[]]p q
+roomNumberWW= G
+,WWG H
+[WWI J
+FromBodyWWJ R
+]WWR S
+PatchRoomDtoWWT `
+patchRoomDtoWWa m
+,WWn o
+[WWp q
 
-FromHeader]]q {
-]]]{ |
-string	]]} É 
+FromHeaderWWq {
+]WW{ |
+string	WW} É 
 authorizationToken
-]]Ñ ñ
+WWÑ ñ
 )
-]]ñ ó
-{^^ 	
-var__ 
-verify__ 
-=__ 
-await__ 
-VerifyAuthorization__ 2
-(__2 3
-authorizationToken__3 E
-)__E F
-;__F G
-if`` 
-(`` 
-verify`` 
-is`` $
-UnauthorizedObjectResult`` 2
-)``2 3
-{aa 
-returnbb 
-verifybb 
-;bb 
-}cc 
-vardd 
-resultdd 
-=dd 
-awaitdd 
-_repositorydd *
-.dd* +
-UpdateAsyncdd+ 6
-(dd6 7
+WWñ ó
+{XX 	
+varYY 
+verifyYY 
+=YY 
+awaitYY 
+VerifyAuthorizationYY 2
+(YY2 3
+authorizationTokenYY3 E
+)YYE F
+;YYF G
+ifZZ 
+(ZZ 
+verifyZZ 
+isZZ $
+UnauthorizedObjectResultZZ 2
+)ZZ2 3
+{[[ 
+return\\ 
+verify\\ 
+;\\ 
+}]] 
+var^^ 
+result^^ 
+=^^ 
+await^^ 
+_repository^^ *
+.^^* +
+UpdateAsync^^+ 6
+(^^6 7
 
-roomNumberdd7 A
-,ddA B
-patchRoomDtoddB N
-)ddN O
-;ddO P
-ifee 
-(ee 
-resultee 
-==ee 
--ee 
-$numee 
-)ee 
-{ff 
-returngg 
-NotFoundgg 
-(gg  
-newgg  #
-Errorgg$ )
-(gg) *
-$"gg* ,!
-The room with number gg, A
-{ggA B
+roomNumber^^7 A
+,^^A B
+patchRoomDto^^B N
+)^^N O
+;^^O P
+if__ 
+(__ 
+result__ 
+==__ 
+-__ 
+$num__ 
+)__ 
+{`` 
+returnaa 
+NotFoundaa 
+(aa  
+newaa  #
+Erroraa$ )
+(aa) *
+$"aa* ,
+$straa, A
+{aaA B
 
-roomNumberggB L
-}ggL M
- was not found.ggM \
-"gg\ ]
-)gg] ^
-)gg^ _
-;gg_ `
-}hh 
-returnii 
-	NoContentii 
-(ii 
-)ii 
-;ii 
-}kk 	
-}ll 
-}mm ìk
+roomNumberaaB L
+}aaL M
+$straaM \
+"aa\ ]
+)aa] ^
+)aa^ _
+;aa_ `
+}bb 
+returncc 
+	NoContentcc 
+(cc 
+)cc 
+;cc 
+}ee 	
+}ff 
+}gg ìk
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs
 	namespace 	&
 RoomManagementMicroservice
