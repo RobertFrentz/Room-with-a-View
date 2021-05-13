@@ -8,10 +8,10 @@
         <h3 class="mb-3">My bookings</h3>
         @if (allBookings != null && allBookedRooms != null)
         {
-            @for(int i=0; i< allBookings.Count; i++)
+            @for (int i = 0; i < allBookings.Count; i++)
             {
                 string imageUrl = StaticImagesEndpoint + allBookedRooms[i].Image;
-                
+
                 <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
                     <div class="col-sm-5 p-3">
                         <img class="d-block w-100 h-auto" src=@imageUrl style="max-height: 270px; object-fit:cover;">
@@ -38,7 +38,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Price paid:</th>
-                                    <td>@allBookings[i].TotalPay</td>
+                                    <td>@ComputePrice(i) RON</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -64,10 +64,10 @@
         getRequest.Headers.Add("authorizationToken", token);
         var httpResponse = await HttpClient.SendAsync(getRequest);
         allBookings = await httpResponse.Content.ReadFromJsonAsync<List<Booking>>();
-        
+
         allBookedRooms = new List<Room>();
 
-        foreach(var booking in allBookings)
+        foreach (var booking in allBookings)
         {
             string getRoomInfoRequestUrl = ApiHotelRoomEndpoint + booking.RoomNumber;
             var getRoomInfoRequest = new HttpRequestMessage(HttpMethod.Get, getRoomInfoRequestUrl);
@@ -78,6 +78,11 @@
             allBookedRooms.Add(bookedRoom);
         }
 
+    }
+
+    public double ComputePrice(int i)
+    {
+        return (allBookings[i].CheckOut.Date - allBookings[i].CheckIn.Date).Days * allBookedRooms[i].Price;
     }
 
     public class Booking

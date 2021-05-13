@@ -121,7 +121,7 @@
         var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
         var httpResponse = await HttpClient.SendAsync(getRequest);
 
-        allHotelRooms = await httpResponse.Content.ReadFromJsonAsync<List<Room>>();
+        allHotelRooms = SortRoomsByNumber(await httpResponse.Content.ReadFromJsonAsync<List<Room>>());
     }
 
 
@@ -145,7 +145,12 @@
         var httpResponse = await HttpClient.SendAsync(getRequest);
 
         RoomListDeserializer roomListDeserializer = await httpResponse.Content.ReadFromJsonAsync<RoomListDeserializer>();
-        searchResultRooms = roomListDeserializer.rooms;
+        searchResultRooms = SortRoomsByNumber(roomListDeserializer.rooms);
+    }
+
+    public List<Room> SortRoomsByNumber(List<Room> rooms)
+    {
+        return rooms.OrderBy(room => room.RoomNumber).ToList();
     }
 
 

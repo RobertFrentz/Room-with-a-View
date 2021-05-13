@@ -30,12 +30,12 @@ namespace BookingMicroservice.Controllers
         public async Task<IActionResult> GetBookings([FromHeader] string authorizationToken)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri+"authorization");
+            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + "authorization");
             if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var responseAdminPrivileges = await client.GetAsync(usersManagementMicroserviceUri + "adminPrivileges" + "?json="+ responseAuthorization.Content.ReadAsStringAsync().Result);
+            var responseAdminPrivileges = await client.GetAsync(usersManagementMicroserviceUri + "adminPrivileges" + "?json=" + responseAuthorization.Content.ReadAsStringAsync().Result);
             if (responseAdminPrivileges.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return Unauthorized(responseAdminPrivileges.Content.ReadAsStringAsync().Result);
@@ -56,10 +56,6 @@ namespace BookingMicroservice.Controllers
             }
             var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var bookings = await _repository.GetBookingsByUserIdAsync(userId);
-            if (!bookings.Any())
-            {
-                return NotFound(new Error("You have no bookings."));
-            }
             return Ok(bookings);
         }
 
@@ -73,7 +69,7 @@ namespace BookingMicroservice.Controllers
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
             var result = await _repository.GetBookingByIdAsync(id);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound(new Error($"Booking with id {id} does not exist."));
             }
@@ -96,10 +92,10 @@ namespace BookingMicroservice.Controllers
                 return BadRequest(new Error("Check in/check out dates invalid."));
             }
             var httpResultContent = await client.GetStringAsync(roomsManagementMicroserviceUri);
-            if(httpResultContent!=null)
+            if (httpResultContent != null)
             {
                 List<RoomDescriptionDto>? rooms = JsonConvert.DeserializeObject<List<RoomDescriptionDto>>(httpResultContent);
-                if(rooms!=null)
+                if (rooms != null)
                 {
                     var result = _repository.SearchAvailableRoomsAsync(roomSearchDTO, rooms);
                     if (result == null)
@@ -111,7 +107,7 @@ namespace BookingMicroservice.Controllers
                         rooms = result.Result
                     }));
                 }
-               
+
             }
             return NotFound(new Error("No rooms found."));
         }
@@ -127,7 +123,7 @@ namespace BookingMicroservice.Controllers
             }
             var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postBooking.RoomNumber}");
-            if(responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return BadRequest(new Error($"Room with room number {postBooking.RoomNumber} does not exist."));
             }
@@ -140,7 +136,7 @@ namespace BookingMicroservice.Controllers
             {
                 return BadRequest(new Error("Booking already exists."));
             }
-            if(result == -1)
+            if (result == -1)
             {
                 return BadRequest(new Error("An existing booking interferes with given CheckIn/CheckOut."));
             }
@@ -163,11 +159,11 @@ namespace BookingMicroservice.Controllers
             {
                 return BadRequest(new Error("Check in/check out dates invalid."));
             }
-            if (result == -2) 
+            if (result == -2)
             {
                 return NotFound(new Error($"Booking with id {patchBooking.Id} does not exist."));
             }
-            if(result == -1)
+            if (result == -1)
             {
                 return BadRequest(new Error("An existing booking interferes with given CheckIn/CheckOut."));
             }
