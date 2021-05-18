@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace BlazorAppTests.Helpers
 {
@@ -9,7 +9,11 @@ namespace BlazorAppTests.Helpers
 
         public Browser()
         {
-            Driver = new ChromeDriver();
+            var op = new FirefoxOptions()
+            {
+                AcceptInsecureCertificates = true
+            };
+            Driver = new FirefoxDriver(op);
             Driver.Manage().Window.Maximize();
         }
 

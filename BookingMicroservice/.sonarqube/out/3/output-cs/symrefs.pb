@@ -69,4 +69,31 @@
 •• 1
 
 •• 
-˜˜+ 1
+˜˜+ 1Å
+sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingTests\UnitTestsData\DataForUnitTests.cs
+
+ !
+		 & (( 
+
+
+
+ 
+
+  
+
+ 'ý
+oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingTests\UnitTestsData\GenerateData.cs
+
+ 2
+
+
+% ,    
+
+ 
+( 0 
+
+ )
+1 6 (
+ %) 1 !! (
+ &  , (' 32
+  4 5) *4 5

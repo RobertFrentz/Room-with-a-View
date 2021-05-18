@@ -123,6 +123,10 @@ namespace UserManagementMicroservice.Controllers
         public async Task<IActionResult> RegisterGuestAsync([FromBody] UserRegisterDto userRegister)
         {
             var result = await RegisterAsync(userRegister, 0);
+            if (result is ConflictObjectResult)
+            {
+                return result;
+            }
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
@@ -141,6 +145,10 @@ namespace UserManagementMicroservice.Controllers
                 return priviliges;
             }
             var result = await RegisterAsync(userRegister, 1);
+            if (result is ConflictObjectResult)
+            {
+                return result;
+            }
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
@@ -159,6 +167,10 @@ namespace UserManagementMicroservice.Controllers
                 return priviliges;
             }
             var result = await RegisterAsync(userRegister, 2);
+            if (result is ConflictObjectResult)
+            {
+                return result;
+            }
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
