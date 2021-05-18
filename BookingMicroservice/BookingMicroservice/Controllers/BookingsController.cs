@@ -3,6 +3,7 @@ using BookingMicroservice.DTOs;
 using BookingMicroservice.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,10 +57,6 @@ namespace BookingMicroservice.Controllers
             }
             var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var bookings = await _repository.GetBookingsByUserIdAsync(userId);
-            if (!bookings.Any())
-            {
-                return NotFound(new Error("You have no bookings."));
-            }
             return Ok(bookings);
         }
 
@@ -127,15 +124,18 @@ namespace BookingMicroservice.Controllers
             }
             var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postBooking.RoomNumber}");
-            if(responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
+            int price = 0;
+            if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return BadRequest(new Error($"Room with room number {postBooking.RoomNumber} does not exist."));
             }
+            Console.WriteLine(responseRoomNumber.Content.ReadAsStringAsync().Result);
+
             if (!Validation.CheckValidDates(postBooking.CheckIn, postBooking.CheckOut))
             {
                 return BadRequest(new Error("Check in/check out dates invalid."));
             }
-            var result = await _repository.AddBookingAsync(postBooking, userId);
+            var result = await _repository.AddBookingAsync(postBooking, userId, price);
             if (result == -2)
             {
                 return BadRequest(new Error("Booking already exists."));

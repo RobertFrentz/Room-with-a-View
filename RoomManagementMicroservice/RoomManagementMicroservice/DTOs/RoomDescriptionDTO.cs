@@ -15,5 +15,6 @@
         public int PersonsNumber { get; set; }
 
         public string Image { get; set; }
+
     }
 }

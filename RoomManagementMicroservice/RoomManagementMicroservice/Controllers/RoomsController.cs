@@ -55,6 +55,7 @@ namespace RoomManagementMicroservice.Controllers
             }
             return Ok(responseAuthorization.Content.ReadAsStringAsync().Result);
         }
+
         [HttpGet("{roomNumber}")]
 
         public async Task<IActionResult> GetRoomByNumberAsync(int roomNumber, [FromHeader] string authorizationToken)
@@ -64,11 +65,22 @@ namespace RoomManagementMicroservice.Controllers
             {
                 return NotFound(new Error("The room with that number does not exist."));
             }
+            RoomDescriptionDto roomDescription = new RoomDescriptionDto()
+            {
+                RoomCategory = result.RoomCategory,
+                RoomNumber = result.RoomNumber,
+                Description = result.Description,
+                Facilities = result.Facilities,
+                PersonsNumber = result.PersonsNumber,
+                Price = result.Price,
+                Image = result.Image
+            };
             return Ok(JsonConvert.SerializeObject(new
             {
-                room = result
+                room = roomDescription
             }));
         }
+
         [Route("addRoom")]
         [HttpPost]
 

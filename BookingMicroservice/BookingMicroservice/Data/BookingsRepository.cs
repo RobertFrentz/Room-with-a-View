@@ -43,7 +43,7 @@ namespace BookingMicroservice.Data
             };
         }
 
-        public async Task<int> AddBookingAsync(PostBookingDto postBooking, int userId)
+        public async Task<int> AddBookingAsync(PostBookingDto postBooking, int userId, int price)
         {
 
             var result = await _context.Bookings.AnyAsync(booking => booking.RoomNumber == postBooking.RoomNumber && booking.CheckIn == postBooking.CheckIn
@@ -52,6 +52,7 @@ namespace BookingMicroservice.Data
             {
                 return -2;
             }
+            int totalPay = price * (postBooking.CheckIn - postBooking.CheckOut).Days;
             var isAddingPossible = await CheckRoomAvailabilityAsync(postBooking.RoomNumber, postBooking.CheckIn, postBooking.CheckOut);
             if (isAddingPossible)
             {
