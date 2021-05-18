@@ -96,5 +96,15 @@ namespace UserManagementMicroservice.Data
             }
             return false;
         }
+
+        public async Task<int> GetUserIdByNameAsync(string name)
+        {
+            var user = await this.context.Users.Where(user => user.Username == name).FirstOrDefaultAsync();
+            if(user == null)
+            {
+                return 0;
+            }
+            return user.Id;
+        }
     }
 }

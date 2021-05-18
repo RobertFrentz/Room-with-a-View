@@ -52,7 +52,7 @@ namespace BookingMicroservice.Data
             {
                 return -2;
             }
-            int totalPay = price * (postBooking.CheckIn - postBooking.CheckOut).Days;
+            int totalPay = price * (postBooking.CheckOut - postBooking.CheckIn).Days;
             var isAddingPossible = await CheckRoomAvailabilityAsync(postBooking.RoomNumber, postBooking.CheckIn, postBooking.CheckOut);
             if (isAddingPossible)
             {
@@ -63,7 +63,7 @@ namespace BookingMicroservice.Data
                     CheckIn = postBooking.CheckIn,
                     CheckOut = postBooking.CheckOut,
                     UserId = userId,
-                    TotalPay = 100,
+                    TotalPay = totalPay,
                     Status = "Registered"
 
                 });

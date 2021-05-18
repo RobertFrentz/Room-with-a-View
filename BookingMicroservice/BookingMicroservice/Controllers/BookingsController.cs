@@ -55,7 +55,7 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var userId = Extract.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var bookings = await _repository.GetBookingsByUserIdAsync(userId);
             return Ok(bookings);
         }
@@ -122,14 +122,15 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var userId = Extract.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postBooking.RoomNumber}");
-            int price = 0;
+            int price;
             if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return BadRequest(new Error($"Room with room number {postBooking.RoomNumber} does not exist."));
             }
             Console.WriteLine(responseRoomNumber.Content.ReadAsStringAsync().Result);
+            price = Extract.ExtractPrice(responseRoomNumber.Content.ReadAsStringAsync().Result);
 
             if (!Validation.CheckValidDates(postBooking.CheckIn, postBooking.CheckOut))
             {
@@ -157,7 +158,7 @@ namespace BookingMicroservice.Controllers
             {
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
-            var userId = ExtractId.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var userId = Extract.ExtractUserId(responseAuthorization.Content.ReadAsStringAsync().Result);
             var result = await _repository.UpdateBookingAsync(patchBooking, userId);
             if (!Validation.CheckValidDates(patchBooking.CheckIn, patchBooking.CheckOut))
             {

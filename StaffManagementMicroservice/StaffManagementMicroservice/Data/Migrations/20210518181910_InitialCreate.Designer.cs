@@ -9,7 +9,7 @@ using StaffManagementMicroservice.Data;
 namespace StaffManagementMicroservice.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210518164657_InitialCreate")]
+    [Migration("20210518181910_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace StaffManagementMicroservice.Data.Migrations
 
                     b.Property<string>("Observations")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");

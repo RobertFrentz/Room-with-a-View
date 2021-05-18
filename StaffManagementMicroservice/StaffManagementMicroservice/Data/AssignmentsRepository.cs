@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using StaffManagementMicroservice.DTOs;
 using StaffManagementMicroservice.Entities;
 using System;
@@ -18,35 +17,58 @@ namespace StaffManagementMicroservice.Data
             _context = context;
         }
 
-        public async Task<IEnumerable<AssignmentDescriptionDto>> GetAssignmentsAsync()
+        public async Task<IEnumerable<Assignment>> GetAssignmentsAsync()
         {
-            var assignments = await _context.Assignments.Select(assignment =>
-                    new AssignmentDescriptionDto()
-                    {
-                        UserId = assignment.UserId,
-                        Type = assignment.Type,
-                        Observations = assignment.Observations,
-                        AddedAt = assignment.AddedAt,
-                        Status = assignment.Status,
-                    }).ToListAsync();
+            var assignments = await _context.Assignments.ToListAsync();
             return assignments;
         }
 
-        public async Task<AssignmentDescriptionDto> GetAssignmentAsync(int id)
+        public async Task<Assignment> GetAssignmentAsync(int id)
         {
             var assignment = await _context.Assignments.Where(assignment => assignment.Id == id).FirstOrDefaultAsync();
-            if(assignment != null)
+            return assignment;
+        }
+
+        public async Task<int> PostAssignmentAsync(PostAssignmentDto postAssignmentDto, int userId)
+        {
+            Assignment assignment = new Assignment()
             {
-                return new AssignmentDescriptionDto()
-                        {
-                            UserId = assignment.UserId,
-                            Type = assignment.Type,
-                            Observations = assignment.Observations,
-                            AddedAt = assignment.AddedAt,
-                            Status = assignment.Status,
-                        };
+                UserId = userId,
+                RoomNumber = postAssignmentDto.RoomNumber,
+                Type = postAssignmentDto.Type,
+                Observations = postAssignmentDto.Observations,
+                AddedAt = DateTime.Now,
+                Status = 0
+            };
+            _context.Add(assignment);
+            await _context.SaveChangesAsync();
+            return 1;
+        }
+
+        public async Task<IEnumerable<Assignment>> GetAssignmentByUserIdAsync(int userId)
+        {
+            return await _context.Assignments.Where(assignment => assignment.UserId == userId).ToListAsync();
+
+        }
+
+        public async Task<bool> UpdateAsync(int status, int id)
+        {
+            var result = _context.Assignments.Find(id);
+            if (result == null)
+            {
+                return false;
             }
-            return null;
+            result.Status = status;
+            await _context.SaveChangesAsync();
+            return true;
+
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var assignment = await _context.Assignments.FindAsync(id);
+            _context.Remove(assignment);
+            await _context.SaveChangesAsync();
         }
 
     }

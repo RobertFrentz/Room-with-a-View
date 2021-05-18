@@ -28,6 +28,9 @@ namespace StaffManagementMicroservice.Data.Migrations
                     b.Property<string>("Observations")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 

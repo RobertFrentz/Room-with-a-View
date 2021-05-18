@@ -12,6 +12,8 @@ namespace UserManagementMicroservice.Data
         Task<User> LoginAsync(UserCredentialsDto userCredentials);
         Task<IEnumerable<User>> GetAllAsync(int userId);
         Task<User> GetByIdAsync(int userId);
+
+        Task<int> GetUserIdByNameAsync(string name);
         Task<bool> UpdateAsync(UserRegisterDto user, int userId);
         Task DeleteByIdAsync(int userId);
 

@@ -46,6 +46,18 @@ namespace UserManagementMicroservice.Controllers
         public async Task<User> GetById(int id) => await _repository.GetByIdAsync(id);
 
 
+        [Route("name")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserIdByNameAsync(string name)
+        {
+            var result = await _repository.GetUserIdByNameAsync(name);
+            if(result == 0)
+            {
+                return NotFound(new Error($"User with name {name} does not exist."));
+            }
+            return Ok(result);
+        }
+
         [Route("authorization")]
         [HttpGet]
 
