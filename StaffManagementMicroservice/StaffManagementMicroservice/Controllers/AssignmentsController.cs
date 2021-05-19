@@ -16,7 +16,7 @@ namespace StaffManagementMicroservice.Controllers
         private readonly IAssignmentsRepository _repository;
         private readonly HttpClient client;
         private readonly string usersManagementMicroserviceUri = "http://localhost:60094/api/v1/users/";
-
+        private readonly string roomsManagementMicroserviceUri = "http://localhost:19008/api/v1/rooms";
         public AssignmentsController(IAssignmentsRepository repository)
         {
             _repository = repository;
@@ -82,6 +82,17 @@ namespace StaffManagementMicroservice.Controllers
                 return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
             }
             int userId = Int32.Parse(responseAuthorization.Content.ReadAsStringAsync().Result);
+            var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postAssignmentDto.RoomNumber}");
+            if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return BadRequest(new Error($"Room with room number {postAssignmentDto.RoomNumber} does not exist."));
+            }
+            var responseUserDetails = await client.GetAsync(usersManagementMicroserviceUri + $"{userId}");
+            int role = Extract.ExtractRole(responseUserDetails.Content.ReadAsStringAsync().Result);
+            if (role != 2)
+            {
+                return BadRequest(new Error($"User with id = {userId} is not a staff member"));
+            } 
             await _repository.PostAssignmentAsync(postAssignmentDto, userId);
             return Ok(postAssignmentDto);
         }
