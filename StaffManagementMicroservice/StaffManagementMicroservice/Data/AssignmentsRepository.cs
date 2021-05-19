@@ -78,6 +78,10 @@ namespace StaffManagementMicroservice.Data
             {
                 return false;
             }
+            foreach(var assignment in _context.Assignments.Where(assignment => assignment.UserId == result.UserId))
+            {
+                assignment.Status = 0;
+            }
             result.Status = 1;
             await _context.SaveChangesAsync();
             return true;

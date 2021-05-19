@@ -57,6 +57,23 @@ namespace StaffManagementMicroservice.Controllers
             }
             return Ok(responseAuthorization.Content.ReadAsStringAsync().Result);
         }
+        
+        [Route("staff/assignments")]
+        [HttpGet]
+        public async Task<IActionResult> GetStaffAssignmentByUserId([FromHeader] string authorizationToken, int userId)
+        {
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
+            {
+                return verify;
+            }
+            var result = await _repository.GetAssignmentsByUserIdAsync(userId);
+            if (result == null)
+            {
+                return NotFound(new Error($"User with this {userId} does not have any assignments yet."));
+            }
+            return Ok(result);
+        }
 
         [Route("own")]
         [HttpGet]
@@ -70,10 +87,6 @@ namespace StaffManagementMicroservice.Controllers
 
             var userId = Extract.ExtractUserId((verify as ObjectResult).Value.ToString());
             var result = await _repository.GetAssignmentsByUserIdAsync(userId);
-            if (result == null)
-            {
-                return NotFound(new Error($"User with this {userId} does not have any assignments yet."));
-            }
             return Ok(result);
         }
 
@@ -134,8 +147,13 @@ namespace StaffManagementMicroservice.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync([FromHeader] string authorizationToken, int id)
         {
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
+            {
+                return verify;
+            }
             await _repository.DeleteByIdAsync(id);
             return NoContent();
         }
