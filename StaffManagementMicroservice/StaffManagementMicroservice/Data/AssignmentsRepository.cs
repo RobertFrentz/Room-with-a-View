@@ -45,7 +45,7 @@ namespace StaffManagementMicroservice.Data
             return 1;
         }
 
-        public async Task<IEnumerable<Assignment>> GetAssignmentByUserIdAsync(int userId)
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByUserIdAsync(int userId)
         {
             return await _context.Assignments.Where(assignment => assignment.UserId == userId).ToListAsync();
 
@@ -71,5 +71,16 @@ namespace StaffManagementMicroservice.Data
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> PrioritizeAssignmentAsync(int id)
+        {
+            var result = _context.Assignments.Find(id);
+            if (result == null)
+            {
+                return false;
+            }
+            result.Status = 1;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

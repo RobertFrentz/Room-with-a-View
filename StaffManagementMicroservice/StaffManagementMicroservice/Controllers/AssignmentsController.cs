@@ -31,8 +31,13 @@ namespace StaffManagementMicroservice.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAssignmentAsync(int id)
+        public async Task<IActionResult> GetAssignmentAsync([FromHeader] string authorizationToken, int id)
         {
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
+            {
+                return verify;
+            }
             var result = await _repository.GetAssignmentAsync(id);
             if(result == null)
             {
@@ -55,7 +60,7 @@ namespace StaffManagementMicroservice.Controllers
 
         [Route("own")]
         [HttpGet]
-        public async Task<IActionResult> GetAssignmentByUserIdAsync([FromHeader] string authorizationToken)
+        public async Task<IActionResult> GetAssignmentsByUserIdAsync([FromHeader] string authorizationToken)
         {
             var verify = await VerifyAuthorization(authorizationToken);
             if (verify is UnauthorizedObjectResult)
@@ -64,7 +69,7 @@ namespace StaffManagementMicroservice.Controllers
             }
 
             var userId = Extract.ExtractUserId((verify as ObjectResult).Value.ToString());
-            var result = await _repository.GetAssignmentByUserIdAsync(userId);
+            var result = await _repository.GetAssignmentsByUserIdAsync(userId);
             if (result == null)
             {
                 return NotFound(new Error($"User with this {userId} does not have any assignments yet."));
@@ -75,20 +80,40 @@ namespace StaffManagementMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAssignmentAsync([FromHeader] string authorizationToken, [FromBody] PostAssignmentDto postAssignmentDto)
         {
-            client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + $"name?name={postAssignmentDto.Name}");
-            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
             {
-                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
+                return verify;
             }
-            int userId = Int32.Parse(responseAuthorization.Content.ReadAsStringAsync().Result);
-            await _repository.PostAssignmentAsync(postAssignmentDto, userId);
+            await _repository.PostAssignmentAsync(postAssignmentDto, postAssignmentDto.userId);
             return Ok(postAssignmentDto);
+        }
+        
+        [Route("prioritize")]
+        [HttpPatch]
+        public async Task<IActionResult> PrioritizeAssignmentAsync([FromHeader] string authorizationToken, int id)
+        {
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
+            {
+                return verify;
+            }
+            bool isPrioritized = await _repository.PrioritizeAssignmentAsync(id);
+            if (!isPrioritized)
+            {
+                return NotFound(new Error("Assignment doesn't exist"));
+            }
+            return NoContent();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] int status, int id)
+        public async Task<IActionResult> UpdateAsync([FromHeader] string authorizationToken, [FromBody] int status, int id)
         {
+            var verify = await VerifyAuthorization(authorizationToken);
+            if (verify is UnauthorizedObjectResult)
+            {
+                return verify;
+            }
             bool isUpdated = await _repository.UpdateAsync(status, id);
             if (!isUpdated)
             {

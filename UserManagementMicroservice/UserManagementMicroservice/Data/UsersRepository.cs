@@ -97,6 +97,21 @@ namespace UserManagementMicroservice.Data
             return false;
         }
 
+        public async Task<IEnumerable<StaffResponseDto>> GetStaffMembersAsync()
+        {
+            var staff = await context.Users.Where(user => user.Role == 2).Select(user =>
+                   new StaffResponseDto()
+                   {
+                       Name = user.Username,
+                       UserId = user.Id
+                   }).ToListAsync();
+            if (staff == null)
+            {
+                return null;
+            }
+            return staff;
+        }
+
         public async Task<int> GetUserIdByNameAsync(string name)
         {
             var user = await this.context.Users.Where(user => user.Username == name).FirstOrDefaultAsync();

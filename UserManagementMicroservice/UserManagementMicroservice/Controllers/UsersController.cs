@@ -45,6 +45,28 @@ namespace UserManagementMicroservice.Controllers
         [HttpGet("{id}", Name = "GetById")]
         public async Task<User> GetById(int id) => await _repository.GetByIdAsync(id);
 
+        [Route("staff")]
+        [HttpGet]
+        public async Task<IActionResult> GetStaffMembersAsync([FromHeader] string authorizationToken)
+        {
+            var jsonObjectResult = CheckAuth(authorizationToken) as ObjectResult;
+            if (jsonObjectResult is UnauthorizedObjectResult)
+            {
+                return jsonObjectResult;
+            }
+            var priviliges = await VerifyAdminPrivileges(jsonObjectResult.Value.ToString());
+            if (priviliges is UnauthorizedObjectResult)
+            {
+                return priviliges;
+            }
+            var response = await _repository.GetStaffMembersAsync();
+            if (response == null)
+            {
+                return NotFound(new Error("There are no staff members yet."));
+            }
+            return Ok(response);
+
+        }
 
         [Route("name")]
         [HttpGet]

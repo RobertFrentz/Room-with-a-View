@@ -13,7 +13,9 @@ namespace StaffManagementMicroservice.Data
 
         Task<int> PostAssignmentAsync(PostAssignmentDto postAssignmentDto, int userId);
 
-        Task<IEnumerable<Assignment>> GetAssignmentByUserIdAsync(int userId);
+        Task<IEnumerable<Assignment>> GetAssignmentsByUserIdAsync(int userId);
+
+        Task<bool> PrioritizeAssignmentAsync(int id);
 
         Task<bool> UpdateAsync(int status, int id);
 

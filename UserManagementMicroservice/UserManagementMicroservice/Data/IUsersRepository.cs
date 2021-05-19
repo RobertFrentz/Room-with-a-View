@@ -18,5 +18,7 @@ namespace UserManagementMicroservice.Data
         Task DeleteByIdAsync(int userId);
 
         Task<bool> HasAdminPrivileges(int userId);
+
+        Task<IEnumerable<StaffResponseDto>> GetStaffMembersAsync();
     }
 }
