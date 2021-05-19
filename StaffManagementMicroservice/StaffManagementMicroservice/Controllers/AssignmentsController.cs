@@ -16,7 +16,7 @@ namespace StaffManagementMicroservice.Controllers
         private readonly IAssignmentsRepository _repository;
         private readonly HttpClient client;
         private readonly string usersManagementMicroserviceUri = "http://localhost:60094/api/v1/users/";
-
+        private readonly string roomsManagementMicroserviceUri = "http://localhost:19008/api/v1/rooms";
         public AssignmentsController(IAssignmentsRepository repository)
         {
             _repository = repository;

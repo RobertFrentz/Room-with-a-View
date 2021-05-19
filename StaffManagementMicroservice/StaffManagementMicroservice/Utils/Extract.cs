@@ -13,5 +13,11 @@ namespace StaffManagementMicroservice.Utils
                 string id = claims.Remove(claims.Length - 1);
                 return Int32.Parse(id);
             }
+            public static int ExtractRole(string data)
+            {
+                int startPos = data.IndexOf("role\":");
+                var res = Int32.Parse(data.Substring(startPos + 6, 1));
+                return res;
+            }
     }
 }
