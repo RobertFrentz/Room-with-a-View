@@ -7,7 +7,7 @@ namespace StaffManagementMicroservice.DTOs
 {
     public class PostAssignmentDto
     {
-        public string Name { get; set; }
+        public int UserId { get; set; }
         public int RoomNumber { get; set; }
         public string Type { get; set; }
         public string Observations { get; set; }
