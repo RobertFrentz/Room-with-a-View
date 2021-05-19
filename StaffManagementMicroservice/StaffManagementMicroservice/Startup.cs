@@ -11,6 +11,7 @@ namespace StaffManagementMicroservice
 {
     public class Startup
     {
+        readonly string MyAllowedSpecificOrigins = "_AllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +28,17 @@ namespace StaffManagementMicroservice
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowedSpecificOrigins, builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StaffManagementMicroservice", Version = "v1" });
@@ -43,6 +55,8 @@ namespace StaffManagementMicroservice
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StaffManagementMicroservice v1"));
             }
+
+            app.UseCors(MyAllowedSpecificOrigins);
 
             app.UseRouting();
 
