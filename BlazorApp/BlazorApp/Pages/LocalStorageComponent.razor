@@ -4,19 +4,17 @@
 
     public async Task<string> GetUsername()
     {
-        //return await localStorage.GetItemAsync<string>("username");
-        return "Bob";
+        return await localStorage.GetItemAsync<string>("username");
     }
 
     public async Task<bool> UserIsStaff()
     {
-        // To be implemented when login and register will provide necessary info
-        return true;
+        return (await localStorage.GetItemAsync<string>("role")).Equals("Staff");
     }
 
     public async Task<bool> UserIsManager()
     {
-        return true;
+        return (await localStorage.GetItemAsync<string>("role")).Equals("Admin");
     }
 
     public async Task ClearLocalStorage()
