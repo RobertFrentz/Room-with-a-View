@@ -76,24 +76,22 @@ namespace StaffManagementMicroservice.Controllers
         public async Task<IActionResult> PostAssignmentAsync([FromHeader] string authorizationToken, [FromBody] PostAssignmentDto postAssignmentDto)
         {
             client.DefaultRequestHeaders.Add("authorizationToken", authorizationToken);
-            var responseAuthorization = await client.GetAsync(usersManagementMicroserviceUri + $"name?name={postAssignmentDto.Name}");
-            if (responseAuthorization.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                return Unauthorized(responseAuthorization.Content.ReadAsStringAsync().Result);
-            }
-            int userId = Int32.Parse(responseAuthorization.Content.ReadAsStringAsync().Result);
             var responseRoomNumber = await client.GetAsync(roomsManagementMicroserviceUri + $"/{postAssignmentDto.RoomNumber}");
             if (responseRoomNumber.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return BadRequest(new Error($"Room with room number {postAssignmentDto.RoomNumber} does not exist."));
             }
-            var responseUserDetails = await client.GetAsync(usersManagementMicroserviceUri + $"{userId}");
+            var responseUserDetails = await client.GetAsync(usersManagementMicroserviceUri + $"{postAssignmentDto.UserId}");
+            if (responseUserDetails.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return BadRequest(new Error($"User with id {postAssignmentDto.UserId} does not exist."));
+            }
             int role = Extract.ExtractRole(responseUserDetails.Content.ReadAsStringAsync().Result);
             if (role != 2)
             {
-                return BadRequest(new Error($"User with id = {userId} is not a staff member"));
+                return BadRequest(new Error($"User with id = {postAssignmentDto.UserId} is not a staff member"));
             } 
-            await _repository.PostAssignmentAsync(postAssignmentDto, userId);
+            await _repository.PostAssignmentAsync(postAssignmentDto, postAssignmentDto.UserId);
             return Ok(postAssignmentDto);
         }
 

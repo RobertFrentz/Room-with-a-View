@@ -73,7 +73,12 @@ namespace UserManagementMicroservice.Data
 
         public async Task<User> GetByIdAsync(int userId)
         {
-            return await this.context.Users.FindAsync(userId);
+            var user = await this.context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
         }
 
         public async Task DeleteByIdAsync(int userId)
