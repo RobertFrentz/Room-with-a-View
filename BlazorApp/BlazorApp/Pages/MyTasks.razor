@@ -11,7 +11,7 @@
         {
             @foreach (Assignment assignment in assignments)
             {
-                <div class="bg-white border border-secondary my-4 p-4" style="margin-left: 0px; margin-right:0px">
+                <div class="@AssignmentStatusBackgroundColors[assignment.Status] border border-secondary my-4 p-4" style="margin-left: 0px; margin-right:0px">
                     <table class="table">
                         <tbody>
                             <tr class="row">
@@ -36,7 +36,6 @@
                         <button type="button" class="btn btn-primary float-right" @onclick="@(e => DeleteTask(@assignment.Id))">Mark as done</button>
                     </div>
                 </div>
-
             }
         }
 
@@ -48,15 +47,27 @@
 @code {
     const string ApiDisplayAssignmentsEndpoint = "http://localhost:6704/api/v1/assignments/own";
     const string ApiDeleteAssignmentEndpoint = "http://localhost:6704/api/v1/assignments?id=";
+
+    Dictionary<int, string> AssignmentStatusBackgroundColors = new Dictionary<int, string> {
+        {0, "bg-white"},
+        {1, "bg-warning"}
+    };
+
     List<Assignment> assignments;
 
     protected override async Task OnInitializedAsync()
+    {
+        await GetTasks();
+    }
+
+    private async Task GetTasks()
     {
         string token = await localStorage.GetItemAsync<string>("jwt");
         var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiDisplayAssignmentsEndpoint);
         getRequest.Headers.Add("authorizationToken", token);
         var httpResponse = await HttpClient.SendAsync(getRequest);
-        assignments = await httpResponse.Content.ReadFromJsonAsync<List<Assignment>>();
+        // sort to display current task first
+        assignments = (await httpResponse.Content.ReadFromJsonAsync<List<Assignment>>()).OrderBy(assignment => assignment.Status).Reverse().ToList();
     }
 
     private async Task DeleteTask(int assignmentId)
@@ -70,6 +81,7 @@
         int index = assignments.FindIndex(elem => elem.Id == assignmentId);
         assignments.RemoveAt(index);
     }
+
 
     public class Assignment
     {

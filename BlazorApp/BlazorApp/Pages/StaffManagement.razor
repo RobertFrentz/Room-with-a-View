@@ -52,7 +52,7 @@
                                     <th scope="row">Current Task:</th>
                                     @if (currentAssignmentIndex != -1)
                                     {
-                                        <td>Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type</td>
+                                        <td>Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type - Obs: @assignments[currentAssignmentIndex].Observations</td>
                                     }
                                     @*<td>Room 203: Clean</td>*@
                                 </tr>
@@ -63,7 +63,7 @@
                                             <option value="-1" selected>Choose</option>
                                             @for (int i = 0; i < assignments.Count; i++)
                                             {
-                                                <option value="@assignments[i].Id">Room @assignments[i].RoomNumber: @assignments[i].Type</option>
+                                                <option value="@assignments[i].Id">Room @assignments[i].RoomNumber: @assignments[i].Type - Obs: @assignments[i].Observations</option>
                                             }
                                             @*<option value="1">Room 102: Clean</option>
                                                 <option value="2">Room 203: Clean</option>*@
