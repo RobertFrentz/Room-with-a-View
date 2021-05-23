@@ -3,6 +3,9 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@using Microsoft.AspNetCore.WebUtilities;
+@using System.Web
+
 
 <div class="bg-light">
 
@@ -13,7 +16,7 @@
             <form class="needs-validation" onsubmit="return false">
                 <div class="form-group row">
                     <label for="inlineFormCustomSelect" class="col-sm-2 col-form-label">Room category:</label>
-                    <select class="form-control col-sm-10" id="inlineFormCustomSelect" required @bind="roomCategoryIndex">
+                    <select class="form-control col-sm-10" id="inlineFormCustomSelect" required @bind="_roomCategoryIndex">
                         <option value="-1" selected>Choose category</option>
                         <option value="0">Standard</option>
                         <option value="1">Deluxe</option>
@@ -23,17 +26,17 @@
 
                 <div class="form-group row">
                     <label for="checkInDate" class="col-sm-2 col-form-label">Check-in:</label>
-                    <input type="date" min="2021-04-01" class="form-control col-sm-10" id="checkInDate" required @bind="checkInDate">
+                    <input type="date" min="2021-04-01" class="form-control col-sm-10" id="checkInDate" required @bind="_checkInDate">
                 </div>
 
                 <div class="form-group row">
                     <label for="checkOutDate" class="col-sm-2 col-form-label">Check-out:</label>
-                    <input type="date" min="2021-04-01" class="form-control col-sm-10" id="checkOutDate" required @bind="checkOutDate">
+                    <input type="date" min="2021-04-01" class="form-control col-sm-10" id="checkOutDate" required @bind="_checkOutDate">
                 </div>
 
                 <div class="form-group row">
                     <label for="personsNumber" class="col-sm-2 col-form-label">Persons number:</label>
-                    <input type="number" min="1" max="10" class="form-control col-sm-10" id="personsNumber" required @bind="personsNumber">
+                    <input type="number" min="1" max="10" class="form-control col-sm-10" id="personsNumber" required @bind="_personsNumber">
                 </div>
 
                 <button type="submit" class="btn btn-outline-dark" @onclick='(() => SubmitSearchRoomsForm())'>Search</button>
@@ -51,9 +54,12 @@
                 <div class="row">
                     @foreach (var room in searchResultRooms)
                     {
+                        string checkInDateString = checkInDate.ToString("yyyy-MM-dd");
+                        string checkOutDateString = checkOutDate.ToString("yyyy-MM-dd");
+                        string roomUrl = $"/room/{@room.RoomNumber}?check_in={checkInDateString}&check_out={checkOutDateString}";
                         string imageUrl = StaticImagesEndpoint + room.Image;
 
-                        <a href="/room/@room.RoomNumber" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
+                        <a href="@roomUrl" class="col-md-3 mb-3 p-3 text-dark" style="text-decoration: none;">
                             <div class="card shadow-sm">
                                 <img class="card-img-top img-fluid" style="min-height:15rem; object-fit:cover;" src=@imageUrl alt="Room name">
                                 <div class="card-body">
@@ -106,7 +112,7 @@
     const string ApiAllHotelRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
     const string StaticImagesEndpoint = "http://localhost:19008/images/";
 
-    public int roomCategoryIndex = -1;
+    public int roomCategoryIndex = 0;
     public DateTime checkInDate = DateTime.Now;
     public DateTime checkOutDate = DateTime.Now.AddDays(2);
     public int personsNumber = 2;
@@ -116,14 +122,132 @@
     public List<Room> allHotelRooms;
 
 
+    public int _roomCategoryIndex
+    {
+        get { return roomCategoryIndex; }
+        set
+        {
+            roomCategoryIndex = value;
+            ChangeUrl();
+        }
+    }
+    public int _personsNumber
+    {
+        get { return personsNumber; }
+        set
+        {
+            personsNumber = value;
+            ChangeUrl();
+        }
+    }
+    public DateTime _checkInDate
+    {
+        get { return checkInDate; }
+        set
+        {
+            checkInDate = value;
+            ChangeUrl();
+        }
+    }
+    public DateTime _checkOutDate
+    {
+        get { return checkOutDate; }
+        set
+        {
+            checkOutDate = value;
+            ChangeUrl();
+        }
+    }
+
+
     protected override async Task OnInitializedAsync()
+    {
+        await GetAllHotelRooms();
+
+        await GetDataFromQuery();
+        ChangeUrl(); // set url query
+    }
+
+    public async Task GetDataFromQuery()
+    {
+        var query = new Uri(NavigationManager.Uri).Query;
+        int counter = 0;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("room_category", out var room_category))
+        {
+            Console.WriteLine($"Query room_category: {room_category}");
+            roomCategoryIndex = Convert.ToInt32(room_category);
+            counter++;
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("persons_number", out var persons_number))
+        {
+            Console.WriteLine($"Query persons_number: {persons_number}");
+            personsNumber = Convert.ToInt32(persons_number);
+            counter++;
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_in", out var check_in))
+        {
+            Console.WriteLine($"Query check_in: {check_in}");
+            checkInDate = Convert.ToDateTime(check_in);
+            counter++;
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_out", out var check_out))
+        {
+            Console.WriteLine($"Query check_out: {check_out}");
+            checkOutDate = Convert.ToDateTime(check_out);
+            counter++;
+        }
+
+        if (counter == 4)
+        {
+            await SubmitSearchRoomsForm();
+            StateHasChanged(); // force redisplay to update with search result
+        }
+    }
+
+    private void ChangeUrl()
+    {
+        string url = RemoveQueryStringByKey(NavigationManager.Uri, "room_category");
+        url = RemoveQueryStringByKey(url, "persons_number");
+        url = RemoveQueryStringByKey(url, "check_out");
+        url = RemoveQueryStringByKey(url, "check_in");
+
+        var query = new Dictionary<string, string> {
+            { "room_category", roomCategoryIndex.ToString() },
+            { "persons_number", personsNumber.ToString() },
+            { "check_out", checkOutDate.ToString("yyyy-MM-dd") },
+            { "check_in", checkInDate.ToString("yyyy-MM-dd") }
+        };
+
+        NavigationManager.NavigateTo(QueryHelpers.AddQueryString(url, query));
+    }
+
+    public static string RemoveQueryStringByKey(string url, string key)
+    {
+        /* https://stackoverflow.com/a/64422433 */
+        var uri = new Uri(url);
+
+        // this gets all the query string key value pairs as a collection
+        var newQueryString = HttpUtility.ParseQueryString(uri.Query);
+
+        // this removes the key if exists
+        newQueryString.Remove(key);
+
+        // this gets the page path from root without QueryString
+        string pagePathWithoutQueryString = uri.GetLeftPart(UriPartial.Path);
+
+        return newQueryString.Count > 0
+            ? String.Format("{0}?{1}", pagePathWithoutQueryString, newQueryString)
+            : pagePathWithoutQueryString;
+    }
+
+    public async Task GetAllHotelRooms()
     {
         var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
         var httpResponse = await HttpClient.SendAsync(getRequest);
 
         allHotelRooms = SortRoomsByNumber(await httpResponse.Content.ReadFromJsonAsync<List<Room>>());
     }
-
 
     public async Task SubmitSearchRoomsForm()
     {

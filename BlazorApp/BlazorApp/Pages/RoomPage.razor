@@ -5,6 +5,8 @@
 @using System.Dynamic
 @using Stripe.Checkout
 @inject IJSRuntime jsRuntime
+@using Microsoft.AspNetCore.WebUtilities;
+
 
 <AuthComponent @ref="authComponent" />
 
@@ -235,7 +237,10 @@
         Console.WriteLine(roomDetails.PersonsNumber);
         Console.WriteLine(roomDetails.Image);
 
-        ComputeEstimations();
+        await GetDataFromQuery();
+
+        await ComputeEstimations();
+
     }
 
     /* manipulate components references after the component has finished rendering */
@@ -255,6 +260,22 @@
         else
         {
             userIsLoggedIn = false;
+        }
+    }
+
+    public async Task GetDataFromQuery()
+    {
+        var query = new Uri(NavigationManager.Uri).Query;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_in", out var check_in))
+        {
+            Console.WriteLine($"Query check_in: {check_in}");
+            checkInDate = Convert.ToDateTime(check_in);
+        }
+        if (QueryHelpers.ParseQuery(query).TryGetValue("check_out", out var check_out))
+        {
+            Console.WriteLine($"Query check_out: {check_out}");
+            checkOutDate = Convert.ToDateTime(check_out);
         }
     }
 
@@ -315,10 +336,9 @@
     {
 
         string redirectUriParams =
-                $"&redirect_uri={NavigationManager.Uri}&" +
-                $"room_number={roomDetails.RoomNumber}&" +
-                $"check_in={checkInDate.ToString("yyyy-MM-dd HH:mm:ss")}&" +
-                $"check_out={checkOutDate.ToString("yyyy-MM-dd HH:mm:ss")}";
+                $"&room_number={roomDetails.RoomNumber}&" +
+                $"check_in={checkInDate.ToString("yyyy-MM-dd")}&" +
+                $"check_out={checkOutDate.ToString("yyyy-MM-dd")}";
 
         var options = new SessionCreateOptions
         {
