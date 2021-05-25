@@ -195,6 +195,11 @@ namespace BookingMicroservice.Controllers
             }));
         }
 
-
+        [HttpGet("roomNumber")]
+        public async Task<IActionResult> GetBookingDatesRoomSpecified(int roomNumber)
+        {
+            var dates = await _repository.GetCheckInCheckOutForSpecificRoom(roomNumber);
+            return Ok(dates);
+        }
     }
 }

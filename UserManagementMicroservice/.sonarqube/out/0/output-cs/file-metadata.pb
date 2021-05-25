@@ -6,7 +6,8 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\Use
 üC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Migrations\20210420162254_InitialCreate.Designer.csutf-8û
 íC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Migrations\DataContextModelSnapshot.csutf-8|
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Role.csutf-8á
-~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.csutf-8ã
+~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.csutf-8à
+C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\StaffResponseDto.csutf-8ã
 ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\UserCredentialsDto.csutf-8á
 ~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\UserRegisterDto.csutf-8Ä
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Entities\User.csutf-8z

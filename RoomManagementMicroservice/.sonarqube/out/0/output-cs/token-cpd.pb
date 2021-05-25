@@ -1,4 +1,4 @@
-ŸB
+™J
 ÖC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Controllers\RoomsController.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -226,181 +226,165 @@ StatusCode44& 0
 )88N O
 ;88O P
 }99 	
-[:: 	
-HttpGet::	 
-(:: 
-$str:: 
-)::  
-]::  !
-public<< 
-async<< 
-Task<< 
-<<< 
-IActionResult<< '
-><<' ( 
-GetRoomByNumberAsync<<) =
-(<<= >
-int<<> A
+[;; 	
+HttpGet;;	 
+(;; 
+$str;; 
+);;  
+];;  !
+public== 
+async== 
+Task== 
+<== 
+IActionResult== '
+>==' ( 
+GetRoomByNumberAsync==) =
+(=== >
+int==> A
 
-roomNumber<<B L
-,<<L M
-[<<N O
+roomNumber==B L
+,==L M
+[==N O
 
-FromHeader<<O Y
-]<<Y Z
-string<<[ a
-authorizationToken<<b t
-)<<t u
-{== 	
-RoomDescriptionDto>> 
-result>> %
-=>>& '
-await>>( -
-_repository>>. 9
-.>>9 : 
-GetRoomByNumberAsync>>: N
-(>>N O
+FromHeader==O Y
+]==Y Z
+string==[ a
+authorizationToken==b t
+)==t u
+{>> 	
+RoomDescriptionDto?? 
+result?? %
+=??& '
+await??( -
+_repository??. 9
+.??9 : 
+GetRoomByNumberAsync??: N
+(??N O
 
-roomNumber>>O Y
-)>>Y Z
-;>>Z [
-if?? 
-(?? 
-result?? 
-==?? 
-null?? 
-)?? 
-{@@ 
-returnAA 
-NotFoundAA 
-(AA  
-newAA  #
-ErrorAA$ )
-(AA) *
-$strAA* U
-)AAU V
-)AAV W
-;AAW X
-}BB 
-returnCC 
-OkCC 
-(CC 
-JsonConvertCC !
-.CC! "
-SerializeObjectCC" 1
-(CC1 2
-newCC2 5
-{DD 
-roomEE 
-=EE 
-resultEE 
-}FF 
-)FF 
-)FF 
-;FF 
-}GG 	
-[HH 	
-RouteHH	 
-(HH 
-$strHH 
-)HH 
-]HH 
-[II 	
-HttpPostII	 
-]II 
-publicKK 
-asyncKK 
-TaskKK 
-<KK 
-IActionResultKK '
->KK' (
-PostRoomAsyncKK) 6
-(KK6 7
-[KK7 8
-FromBodyKK8 @
-]KK@ A
-PostRoomDtoKKB M
-	roomToAddKKN W
-,KKX Y
-[KKZ [
+roomNumber??O Y
+)??Y Z
+;??Z [
+if@@ 
+(@@ 
+result@@ 
+==@@ 
+null@@ 
+)@@ 
+{AA 
+returnBB 
+NotFoundBB 
+(BB  
+newBB  #
+ErrorBB$ )
+(BB) *
+$strBB* U
+)BBU V
+)BBV W
+;BBW X
+}CC 
+RoomDescriptionDtoDD 
+roomDescriptionDD .
+=DD/ 0
+newDD1 4
+RoomDescriptionDtoDD5 G
+(DDG H
+)DDH I
+{EE 
+RoomCategoryFF 
+=FF 
+resultFF %
+.FF% &
+RoomCategoryFF& 2
+,FF2 3
 
-FromHeaderKK[ e
-]KKe f
-stringKKg m
-authorizationToken	KKn Ä
-)
-KKÄ Å
-{LL 	
-varMM 
-verifyMM 
-=MM 
-awaitMM 
-VerifyAuthorizationMM 2
-(MM2 3
-authorizationTokenMM3 E
-)MME F
-;MMF G
-ifNN 
-(NN 
-verifyNN 
-isNN $
-UnauthorizedObjectResultNN 2
-)NN2 3
-{OO 
-returnPP 
-verifyPP 
-;PP 
-}QQ 
-awaitRR 
-_repositoryRR 
-.RR 
-AddRoomAsyncRR *
-(RR* +
-	roomToAddRR+ 4
-)RR4 5
-;RR5 6
-returnSS 
-CreatedAtActionSS "
-(SS" #
-$strSS# ,
-,SS, -
-	roomToAddSS. 7
-)SS7 8
-;SS8 9
-}TT 	
-[VV 	
-	HttpPatchVV	 
-(VV 
-$strVV !
-)VV! "
-]VV" #
+RoomNumberGG 
+=GG 
+resultGG #
+.GG# $
+
+RoomNumberGG$ .
+,GG. /
+DescriptionHH 
+=HH 
+resultHH $
+.HH$ %
+DescriptionHH% 0
+,HH0 1
+
+FacilitiesII 
+=II 
+resultII #
+.II# $
+
+FacilitiesII$ .
+,II. /
+PersonsNumberJJ 
+=JJ 
+resultJJ  &
+.JJ& '
+PersonsNumberJJ' 4
+,JJ4 5
+PriceKK 
+=KK 
+resultKK 
+.KK 
+PriceKK $
+,KK$ %
+ImageLL 
+=LL 
+resultLL 
+.LL 
+ImageLL $
+}MM 
+;MM 
+returnNN 
+OkNN 
+(NN 
+JsonConvertNN !
+.NN! "
+SerializeObjectNN" 1
+(NN1 2
+newNN2 5
+{OO 
+roomPP 
+=PP 
+roomDescriptionPP &
+}QQ 
+)QQ 
+)QQ 
+;QQ 
+}RR 	
+[TT 	
+RouteTT	 
+(TT 
+$strTT 
+)TT 
+]TT 
+[UU 	
+HttpPostUU	 
+]UU 
 publicWW 
 asyncWW 
 TaskWW 
 <WW 
 IActionResultWW '
->WW' (
-UpdateRoomAsyncWW) 8
-(WW8 9
-intWW9 <
+>WW' (
+PostRoomAsyncWW) 6
+(WW6 7
+[WW7 8
+FromBodyWW8 @
+]WW@ A
+PostRoomDtoWWB M
+	roomToAddWWN W
+,WWX Y
+[WWZ [
 
-roomNumberWW= G
-,WWG H
-[WWI J
-FromBodyWWJ R
-]WWR S
-PatchRoomDtoWWT `
-patchRoomDtoWWa m
-,WWn o
-[WWp q
-
-FromHeaderWWq {
-]WW{ |
-string	WW} É 
-authorizationToken
-WWÑ ñ
+FromHeaderWW[ e
+]WWe f
+stringWWg m
+authorizationToken	WWn Ä
 )
-WWñ ó
+WWÄ Å
 {XX 	
 varYY 
 verifyYY 
@@ -421,55 +405,126 @@ FromHeaderWWq {
 return\\ 
 verify\\ 
 ;\\ 
-}]] 
-var^^ 
-result^^ 
-=^^ 
-await^^ 
-_repository^^ *
-.^^* +
-UpdateAsync^^+ 6
-(^^6 7
+}]] 
+await^^ 
+_repository^^ 
+.^^ 
+AddRoomAsync^^ *
+(^^* +
+	roomToAdd^^+ 4
+)^^4 5
+;^^5 6
+return__ 
+CreatedAtAction__ "
+(__" #
+$str__# ,
+,__, -
+	roomToAdd__. 7
+)__7 8
+;__8 9
+}`` 	
+[bb 	
+	HttpPatchbb	 
+(bb 
+$strbb !
+)bb! "
+]bb" #
+publiccc 
+asynccc 
+Taskcc 
+<cc 
+IActionResultcc '
+>cc' (
+UpdateRoomAsynccc) 8
+(cc8 9
+intcc9 <
 
-roomNumber^^7 A
-,^^A B
-patchRoomDto^^B N
-)^^N O
-;^^O P
-if__ 
-(__ 
-result__ 
-==__ 
--__ 
-$num__ 
-)__ 
-{`` 
-returnaa 
-NotFoundaa 
-(aa  
-newaa  #
-Erroraa$ )
-(aa) *
-$"aa* ,
-$straa, A
-{aaA B
+roomNumbercc= G
+,ccG H
+[ccI J
+FromBodyccJ R
+]ccR S
+PatchRoomDtoccT `
+patchRoomDtocca m
+,ccn o
+[ccp q
 
-roomNumberaaB L
-}aaL M
-$straaM \
-"aa\ ]
-)aa] ^
-)aa^ _
-;aa_ `
-}bb 
-returncc 
-	NoContentcc 
-(cc 
-)cc 
-;cc 
-}ee 	
-}ff 
-}gg ìk
+FromHeaderccq {
+]cc{ |
+string	cc} É 
+authorizationToken
+ccÑ ñ
+)
+ccñ ó
+{dd 	
+varee 
+verifyee 
+=ee 
+awaitee 
+VerifyAuthorizationee 2
+(ee2 3
+authorizationTokenee3 E
+)eeE F
+;eeF G
+ifff 
+(ff 
+verifyff 
+isff $
+UnauthorizedObjectResultff 2
+)ff2 3
+{gg 
+returnhh 
+verifyhh 
+;hh 
+}ii 
+varjj 
+resultjj 
+=jj 
+awaitjj 
+_repositoryjj *
+.jj* +
+UpdateAsyncjj+ 6
+(jj6 7
+
+roomNumberjj7 A
+,jjA B
+patchRoomDtojjB N
+)jjN O
+;jjO P
+ifkk 
+(kk 
+resultkk 
+==kk 
+-kk 
+$numkk 
+)kk 
+{ll 
+returnmm 
+NotFoundmm 
+(mm  
+newmm  #
+Errormm$ )
+(mm) *
+$"mm* ,
+$strmm, A
+{mmA B
+
+roomNumbermmB L
+}mmL M
+$strmmM \
+"mm\ ]
+)mm] ^
+)mm^ _
+;mm_ `
+}nn 
+returnoo 
+	NoContentoo 
+(oo 
+)oo 
+;oo 
+}qq 	
+}rr 
+}ss ìk
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\DataContext.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -3490,7 +3545,7 @@ Facilities		  
 
  
 } ¶
-ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.cs
+ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDTO.cs
 	namespace 	&
 RoomManagementMicroservice
  $
@@ -3567,8 +3622,8 @@ Facilities  
 set# &
 ;& '
 }( )
-} 
-} ¨
+} 
+} ¨
 ÇC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.cs
 	namespace 	&
 RoomManagementMicroservice

@@ -2,5 +2,5 @@ projectKey=BookingMicroservice
 serverUrl=http://localhost:9000
 serverVersion=8.9.0.43852
 dashboardUrl=http://localhost:9000/dashboard?id=BookingMicroservice
-ceTaskId=AXllmMnpecmu7s1JXj0Y
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXllmMnpecmu7s1JXj0Y
+ceTaskId=AXmJDvkGI5dEfHxR8yiA
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXmJDvkGI5dEfHxR8yiA

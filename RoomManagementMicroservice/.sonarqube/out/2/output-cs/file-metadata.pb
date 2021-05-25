@@ -8,7 +8,7 @@ zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\Roo
 ~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.csutf-8Ñ
 {C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PatchRoomDto.csutf-8É
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PostRoomDto.csutf-8ã
-ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDto.csutf-8å
+ÅC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomDescriptionDTO.csutf-8å
 ÇC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.csutf-8Ä
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Entities\Room.csutf-8z
 qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Program.csutf-8z
