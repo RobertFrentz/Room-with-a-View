@@ -130,7 +130,7 @@ namespace BookingMicroservice.Data
             return !isReserved;
         }
 
-        public async Task<IEnumerable<object>> GetCheckInCheckOutForSpecificRoom(int roomNumber)
+        public async Task<List<object>?> GetCheckInCheckOutForSpecificRoom(int roomNumber)
         {
             
             var dates = await _context.Bookings.Where(booking => booking.RoomNumber == roomNumber && booking.CheckOut>=DateTime.Now).Select(booking =>
@@ -141,7 +141,7 @@ namespace BookingMicroservice.Data
                }).OrderBy(date => date.CheckIn).ToListAsync();
             if(dates.Count == 0)
             {
-                return dates;
+                return null;
             }
             var items = new List<object>();
             items.Add(dates);
