@@ -2,12 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using UserManagementMicroservice.Data;
 using UserManagementMicroservice.DTOs;
-using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
 
 namespace UserManagementMicroservice.Controllers
@@ -169,6 +166,7 @@ namespace UserManagementMicroservice.Controllers
             {
                 return result;
             }
+            MailSystem.SendRegistrationMail(userRegister.Email, userRegister.Username);
             return CreatedAtAction(nameof(GetById), new { id = result }, userRegister);
         }
 
