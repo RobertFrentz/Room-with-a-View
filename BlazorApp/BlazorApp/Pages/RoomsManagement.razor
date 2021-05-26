@@ -1,44 +1,47 @@
 ﻿@page "/management/rooms"
-
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject HttpClient HttpClient
 
 <div class="bg-light py-4">
 
     <div class="container">
         <h3 class="mb-3">Rooms overview</h3>
-
-        @for (int i = 0; i < 3; i++)
+        @if (rooms != null && bookingDates != null)
         {
-            <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
-                <div class="col-sm-5 p-3">
-                    <img class="d-block w-100 h-auto" src="images/109169993.jpg" style="max-height: 270px; object-fit:cover;">
-                </div>
+            @for (int i = 0; i < rooms.Count; i++)
+            {
+                <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
+                    <div class="col-sm-5 p-3">
+                        <img class="d-block w-100 h-auto" src="images/109169993.jpg" style="max-height: 270px; object-fit:cover;">
+                    </div>
 
-                <div class="col-sm-7 p-3">
-                    <table class="table table-striped mb-0">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Number:</th>
-                                <td>104</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Bookings:</th>
-                                <td class="d-inline-block" style="min-height: 150px;">
-                                    <ul class="pl-4">
-                                        <li class="py-1">Booked from 16 May 2021 to 17 May 2021</li>
-                                        <li class="py-1">Booked from 17 May 2021 to 18 May 2021</li>
-                                        <li class="py-1">Booked from 18 May 2021 to 19 May 2021</li>
-                                        <li class="py-1">Booked from 19 May 2021 to 20 May 2021</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Price per Night:</th>
-                                <td>170.6 RON</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-sm-7 p-3">
+                        <table class="table table-striped mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Number:</th>
+                                    <td>@rooms[i].RoomNumber</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Bookings:</th>
+                                    <td class="d-inline-block" style="min-height: 150px;">
+                                        <ul class="pl-4">
+                                            @foreach (var bookingDatePerRoom in bookingDates[i])
+                                            {
+                                                <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckIn.ToString("f")</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Price per Night:</th>
+                                    <td>@rooms[i].Price</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
 
@@ -46,5 +49,60 @@
 
 
 @code {
+    const string ApiAllHotelRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
+    const string ApiBookingDatesEndpoint = "http://localhost:5100/api/v1/bookings/roomNumber?roomNumber=";
 
+    List<Room> rooms;
+    List<List<BookingDate>> bookingDates;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetRooms();
+        //await GetBookingDates();
+    }
+
+    private async Task GetRooms()
+    {
+        var getRoomsRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
+        var httpRoomsResponse = await HttpClient.SendAsync(getRoomsRequest);
+        rooms = (await httpRoomsResponse.Content.ReadFromJsonAsync<List<Room>>()).OrderBy(room => room.RoomNumber).ToList();
+        Console.WriteLine(rooms[0].RoomNumber);
+        /*}
+
+        private async Task GetBookingDates()
+        {*/
+        bookingDates = new List<List<BookingDate>>();
+        foreach (var room in rooms)
+        {
+            string apiBookingDatesForRoomEndpoint = ApiBookingDatesEndpoint + room.RoomNumber;
+            var getBookingDatesRequest = new HttpRequestMessage(HttpMethod.Get, apiBookingDatesForRoomEndpoint);
+            var httpBookingDatesResponse = await HttpClient.SendAsync(getBookingDatesRequest);
+            // sort to display current task first
+            BookingDeserializer bookingDeserializer = await httpBookingDatesResponse.Content.ReadFromJsonAsync<BookingDeserializer>();
+            bookingDates.Append(bookingDeserializer.Dates);
+        }
+    }
+
+    public class Room
+    {
+        public string RoomCategory { get; set; }
+        public int RoomNumber { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+        public string Facilities { get; set; }
+        public int PersonsNumber { get; set; }
+        public string Image { get; set; }
+    }
+
+    public class BookingDate
+    {
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+    }
+
+    public class BookingDeserializer
+    {
+        public List<BookingDate> Dates { get; set; }
+        public string Status { get; set; }
+    }
 }
