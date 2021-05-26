@@ -32,7 +32,7 @@
                                             @if (bookings[i].Dates.Count != 0)
                                                 @foreach (var bookingDatePerRoom in bookings[i].Dates)
                                                 {
-                                                    <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckIn.ToString("f")</li>
+                                                    <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckOut.ToString("f")</li>
                                                 }
                                         </ul>
                                     </td>
