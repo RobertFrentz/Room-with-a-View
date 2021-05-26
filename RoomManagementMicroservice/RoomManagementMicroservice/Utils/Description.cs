@@ -42,7 +42,6 @@ namespace RoomManagementMicroservice.Utils
                             "Offers a separate living area, private balcony overlooking the lush garden or lively town, flat screen TV with international channels and free WiFi.";
                     break;
                 default:
-                    Console.WriteLine("Default case");
                     break;
             }
         }

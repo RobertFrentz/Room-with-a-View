@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RoomManagementMicroservice.Data;
+using RoomManagementMicroservice.Repositories;
 using System.IO;
 
 namespace RoomManagementMicroservice

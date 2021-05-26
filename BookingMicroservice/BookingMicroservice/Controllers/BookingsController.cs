@@ -4,6 +4,8 @@ using BookingMicroservice.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Stripe;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,6 +138,20 @@ namespace BookingMicroservice.Controllers
             {
                 return BadRequest(new Error("Check in/check out dates invalid."));
             }
+            StripeConfiguration.ApiKey = "sk_test_51IpzH0EpnVBzkA6JMg0hJipPp1kL46qfg2IP8CjFovMQvkiolWx0PBQ9V7EVKfcX4O31jYXbdD1b71W4IRLscts300rDjslJf0";
+            var service = new SessionService();
+            service.Get(
+              postBooking.SessionId
+            );
+            var payment = service.Get(
+              postBooking.SessionId
+            );
+            Console.WriteLine(payment);
+            if(payment.PaymentStatus=="unpaid")
+            {
+                return BadRequest(new Error("Transaction not completed."));
+            }
+
             var result = await _repository.AddBookingAsync(postBooking, userId, price);
             if (result == -2)
             {

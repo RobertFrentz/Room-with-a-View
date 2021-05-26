@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Repositories;
 using RoomManagementMicroservice.Utils;
 using System.Collections.Generic;
 using System.Linq;

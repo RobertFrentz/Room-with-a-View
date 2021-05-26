@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RoomManagementMicroservice.Data
+namespace RoomManagementMicroservice.Repositories
 {
     public interface IRoomsRepository
     {

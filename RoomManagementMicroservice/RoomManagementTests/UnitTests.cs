@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RoomManagementMicroservice.Controllers;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
+using RoomManagementMicroservice.Repositories;
 using Xunit;
 
 namespace RoomManagementTests

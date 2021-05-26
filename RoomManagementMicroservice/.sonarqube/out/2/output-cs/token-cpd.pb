@@ -1339,89 +1339,7 @@ Facilitiespp@ J
 ;rr 
 }ss 	
 }tt 
-}uu ¢	
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\IRoomsRepository.cs
-	namespace 	&
-RoomManagementMicroservice
- $
-.$ %
-Data% )
-{ 
-public 
-
-	interface 
-IRoomsRepository %
-{ 
-Task
-
- 
-<
-
- 
-IEnumerable
-
- 
-<
-
- 
-RoomDescriptionDto
-
- +
->
-
-+ ,
->
-
-, -
-GetRoomsAsync
-
-. ;
-(
-
-; <
-)
-
-< =
-;
-
-= >
-Task 
-< 
-RoomDescriptionDto 
->   
-GetRoomByNumberAsync! 5
-(5 6
-int6 9
-
-roomNumber: D
-)D E
-;E F
-Task 
-< 
-int 
-> 
-AddRoomAsync 
-( 
-PostRoomDto *
-	roomToAdd+ 4
-)4 5
-;5 6
-Task 
-< 
-int 
-> 
-UpdateAsync 
-( 
-int !
-
-roomNumber" ,
-,, -
-PatchRoomDto- 9
-patchRoomDto: F
-)F G
-;G H
-} 
-} £ž
+}uu £ž
 –C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\Migrations\20210511163056_InitialCreate.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -2917,494 +2835,7 @@ InsertDatacc '
 ;ll 
 }mm 	
 }nn 
-}oo ºA
-~C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Data\RoomsRepository.cs
-	namespace 	&
-RoomManagementMicroservice
- $
-.$ %
-Data% )
-{		 
-public
-
- 
-
-class
-
- 
-RoomsRepository
-
-  
-:
-
-! "
-IRoomsRepository
-
-# 3
-{ 
-private 
-readonly 
-DataContext $
-context% ,
-;, -
-public 
-RoomsRepository 
-( 
-DataContext *
-context+ 2
-)2 3
-{ 	
-this 
-. 
-context 
-= 
-context "
-;" #
-} 	
-public 
-async 
-Task 
-< 
-IEnumerable %
-<% &
-RoomDescriptionDto& 8
->8 9
->9 :
-GetRoomsAsync; H
-(H I
-)I J
-{ 	
-var 
-rooms 
-= 
-await 
-context %
-.% &
-Rooms& +
-.+ ,
-Select, 2
-(2 3
-room3 7
-=>8 :
-new 
-RoomDescriptionDto "
-(" #
-)# $
-{ 
-RoomCategory 
-= 
-room #
-.# $
-RoomCategory$ 0
-,0 1
-
-RoomNumber 
-= 
-room !
-.! "
-
-RoomNumber" ,
-,, -
-Description 
-= 
-room "
-." #
-Description# .
-,. /
-
-Facilities 
-= 
-room !
-.! "
-
-Facilities" ,
-,, -
-PersonsNumber 
-= 
-room  $
-.$ %
-PersonsNumber% 2
-,2 3
-Price 
-= 
-room 
-. 
-Price "
-," #
-Image 
-= 
-room 
-. 
-Image "
-}   
-)   
-.   
-OrderBy   
-(   
-room   
-=>   
-room   #
-.  # $
-Price  $ )
-)  ) *
-.  * +
-ToListAsync  + 6
-(  6 7
-)  7 8
-;  8 9
-return!! 
-rooms!! 
-;!! 
-}"" 	
-public$$ 
-async$$ 
-Task$$ 
-<$$ 
-RoomDescriptionDto$$ ,
->$$, - 
-GetRoomByNumberAsync$$. B
-($$B C
-int$$C F
-
-roomNumber$$G Q
-)$$Q R
-{%% 	
-var&& 
-room&& 
-=&& 
-await&& 
-context&& $
-.&&$ %
-Rooms&&% *
-.&&* +
-Where&&+ 0
-(&&0 1
-room&&1 5
-=>&&6 8
-room&&9 =
-.&&= >
-
-RoomNumber&&> H
-==&&I K
-
-roomNumber&&L V
-)&&V W
-.&&W X
-FirstOrDefaultAsync&&X k
-(&&k l
-)&&l m
-;&&m n
-if'' 
-('' 
-room'' 
-=='' 
-null'' 
-)'' 
-{(( 
-return)) 
-null)) 
-;)) 
-}** 
-RoomDescriptionDto++ 
-roomDescription++ .
-=++/ 0
-new++1 4
-RoomDescriptionDto++5 G
-(++G H
-)++H I
-{,, 
-RoomCategory-- 
-=-- 
-room-- #
-.--# $
-RoomCategory--$ 0
-,--0 1
-
-RoomNumber.. 
-=.. 
-room.. !
-...! "
-
-RoomNumber.." ,
-,.., -
-Description// 
-=// 
-room// "
-.//" #
-Description//# .
-,//. /
-
-Facilities00 
-=00 
-room00 !
-.00! "
-
-Facilities00" ,
-,00, -
-PersonsNumber11 
-=11 
-room11  $
-.11$ %
-PersonsNumber11% 2
-,112 3
-Price22 
-=22 
-room22 
-.22 
-Price22 "
-,22" #
-Image33 
-=33 
-room33 
-.33 
-Image33 "
-}44 
-;44 
-return55 
-roomDescription55 "
-;55" #
-}66 	
-public77 
-async77 
-Task77 
-<77 
-int77 
->77 
-AddRoomAsync77 +
-(77+ ,
-PostRoomDto77, 7
-	roomToAdd778 A
-)77A B
-{88 	
-Room99 
-room99 
-=99 
-new99 
-(99 
-	roomToAdd99 %
-.99% &
-RoomCategory99& 2
-,992 3
-	roomToAdd994 =
-.99= >
-PersonsNumber99> K
-,99K L
-	roomToAdd99M V
-.99V W
-Description99W b
-,99b c
-	roomToAdd99d m
-.99m n
-Price99n s
-,99s t
-	roomToAdd99u ~
-.99~ 
-
-Facilities	99 ‰
-)
-99‰ Š
-;
-99Š ‹
-int:: 
-numberOfRooms:: 
-=:: 
-context::  '
-.::' (
-Rooms::( -
-.::- .
-Count::. 3
-(::3 4
-)::4 5
-;::5 6
-room;; 
-.;; 
-
-RoomNumber;; 
-=;; 
-(;; 
-numberOfRooms;; ,
-/;;- .
-$num;;/ 0
-+;;1 2
-$num;;3 4
-);;4 5
-*;;6 7
-$num;;8 ;
-+;;< =
-numberOfRooms;;> K
-%;;L M
-$num;;N O
-;;;O P
-room<< 
-.<< 
-State<< 
-=<< 
-$str<< $
-;<<$ %
-room== 
-.== 
-Image== 
-=== 
-room== 
-.== 
-RoomCategory== *
-.==* +
-ToLower==+ 2
-(==2 3
-)==3 4
-+==5 6
-room==7 ;
-.==; <
-
-RoomNumber==< F
-%==G H
-$num==I J
-+==K L
-$str==M S
-;==S T
-this>> 
-.>> 
-context>> 
-.>> 
-Add>> 
-(>> 
-room>> !
-)>>! "
-;>>" #
-await?? 
-this?? 
-.?? 
-context?? 
-.?? 
-SaveChangesAsync?? /
-(??/ 0
-)??0 1
-;??1 2
-return@@ 
-$num@@ 
-;@@ 
-}AA 	
-publicCC 
-asyncCC 
-TaskCC 
-<CC 
-intCC 
->CC 
-UpdateAsyncCC *
-(CC* +
-intCC+ .
-
-roomNumberCC/ 9
-,CC9 :
-PatchRoomDtoCC: F
-patchRoomDtoCCG S
-)CCS T
-{DD 	
-varEE 
-resultEE 
-=EE 
-awaitEE 
-contextEE &
-.EE& '
-RoomsEE' ,
-.EE, -
-WhereEE- 2
-(EE2 3
-roomEE3 7
-=>EE8 :
-roomEE; ?
-.EE? @
-
-RoomNumberEE@ J
-==EEK M
-
-roomNumberEEN X
-)EEX Y
-.EEY Z
-FirstOrDefaultAsyncEEZ m
-(EEm n
-)EEn o
-;EEo p
-ifFF 
-(FF 
-resultFF 
-==FF 
-nullFF 
-)FF 
-{GG 
-returnHH 
--HH 
-$numHH 
-;HH 
-}II 
-resultJJ 
-.JJ 
-PersonsNumberJJ  
-=JJ! "
-patchRoomDtoJJ# /
-.JJ/ 0
-PersonsNumberJJ0 =
-;JJ= >
-resultKK 
-.KK 
-DescriptionKK 
-=KK  
-patchRoomDtoKK! -
-.KK- .
-DescriptionKK. 9
-??KK: <
-resultKK= C
-.KKC D
-DescriptionKKD O
-;KKO P
-resultLL 
-.LL 
-PriceLL 
-=LL 
-patchRoomDtoLL '
-.LL' (
-PriceLL( -
-;LL- .
-resultMM 
-.MM 
-
-FacilitiesMM 
-=MM 
-patchRoomDtoMM  ,
-.MM, -
-
-FacilitiesMM- 7
-??MM8 :
-resultMM; A
-.MMA B
-
-FacilitiesMMB L
-;MML M
-resultNN 
-.NN 
-StateNN 
-=NN 
-patchRoomDtoNN '
-.NN' (
-StateNN( -
-??NN- /
-resultNN/ 5
-.NN5 6
-StateNN6 ;
-;NN; <
-awaitOO 
-contextOO 
-.OO 
-SaveChangesAsyncOO *
-(OO* +
-)OO+ ,
-;OO, -
-returnPP 
-$numPP 
-;PP 
-}QQ 	
-}SS 
-}TT Þ
+}oo Þ
 {C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\PatchRoomDto.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -3623,50 +3054,7 @@ Facilities  
 ;& '
 }( )
 } 
-} ¬
-‚C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\DTOs\RoomResultSearchDto.cs
-	namespace 	&
-RoomManagementMicroservice
- $
-.$ %
-DTOs% )
-{ 
-public 
-
-class 
-RoomResultSearchDto $
-{ 
-public 
-string 
-RoomCategory "
-{# $
-get% (
-;( )
-set* -
-;- .
-}/ 0
-public 
-int 
-Id 
-{ 
-get 
-; 
-set  
-;  !
-}" #
-public 
-int 
-Price 
-{ 
-get 
-; 
-set  #
-;# $
-}% &
-}		 
-}
-
- œ
+} œ
 wC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Entities\Room.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -3932,278 +3320,839 @@ UseStartup )
 ) 
 ; 
 } 
-} ò&
-qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Startup.cs
-	namespace 	&
-RoomManagementMicroservice
- $
-{ 
-public 
+} ³	
+‡C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Repositories\IRoomsRepository.cs
+	namespace 	&
+RoomManagementMicroservice
+ $
+.$ %
+Repositories% 1
+{ 
+public 
+
+	interface 
+IRoomsRepository %
+{ 
+Task
+
+ 
+<
+
+ 
+IEnumerable
+
+ 
+<
+
+ 
+RoomDescriptionDto
+
+ +
+>
+
++ ,
+>
+
+, -
+GetRoomsAsync
+
+. ;
+(
+
+; <
+)
+
+< =
+;
+
+= >
+Task 
+< 
+RoomDescriptionDto 
+>   
+GetRoomByNumberAsync! 5
+(5 6
+int6 9
+
+roomNumber: D
+)D E
+;E F
+Task 
+< 
+int 
+> 
+AddRoomAsync 
+( 
+PostRoomDto *
+	roomToAdd+ 4
+)4 5
+;5 6
+Task 
+< 
+int 
+> 
+UpdateAsync 
+( 
+int !
+
+roomNumber" ,
+,, -
+PatchRoomDto- 9
+patchRoomDto: F
+)F G
+;G H
+} 
+} ËA
+†C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Repositories\RoomsRepository.cs
+	namespace		 	&
+RoomManagementMicroservice		
+ $
+.		$ %
+Repositories		% 1
+{
+
+ 
+public 
 
-class 
-Startup 
-{ 
-readonly 
-string $
-MyAllowedSpecificOrigins 0
-=1 2
-$str3 J
-;J K
-public 
-Startup 
-( 
-IConfiguration %
-configuration& 3
-)3 4
-{ 	
-Configuration 
-= 
-configuration )
-;) *
-} 	
-public 
-IConfiguration 
-Configuration +
-{, -
-get. 1
-;1 2
-}3 4
-public 
-void 
-ConfigureServices %
-(% &
-IServiceCollection& 8
-services9 A
-)A B
-{ 	
-services 
-. 
-AddControllers #
-(# $
-)$ %
-;% &
+class 
+RoomsRepository  
+:! "
+IRoomsRepository# 3
+{ 
+private 
+readonly 
+DataContext $
+context% ,
+;, -
+public 
+RoomsRepository 
+( 
+DataContext *
+context+ 2
+)2 3
+{ 	
+this 
+. 
+context 
+= 
+context "
+;" #
+} 	
+public 
+async 
+Task 
+< 
+IEnumerable %
+<% &
+RoomDescriptionDto& 8
+>8 9
+>9 :
+GetRoomsAsync; H
+(H I
+)I J
+{ 	
+var 
+rooms 
+= 
+await 
+context %
+.% &
+Rooms& +
+.+ ,
+Select, 2
+(2 3
+room3 7
+=>8 :
+new 
+RoomDescriptionDto "
+(" #
+)# $
+{ 
+RoomCategory 
+= 
+room #
+.# $
+RoomCategory$ 0
+,0 1
+
+RoomNumber 
+= 
+room !
+.! "
+
+RoomNumber" ,
+,, -
+Description 
+= 
+room "
+." #
+Description# .
+,. /
+
+Facilities 
+= 
+room !
+.! "
+
+Facilities" ,
+,, -
+PersonsNumber 
+= 
+room  $
+.$ %
+PersonsNumber% 2
+,2 3
+Price 
+= 
+room 
+. 
+Price "
+," #
+Image   
+=   
+room   
+.   
+Image   "
+}!! 
+)!! 
+.!! 
+OrderBy!! 
+(!! 
+room!! 
+=>!! 
+room!! #
+.!!# $
+Price!!$ )
+)!!) *
+.!!* +
+ToListAsync!!+ 6
+(!!6 7
+)!!7 8
+;!!8 9
+return"" 
+rooms"" 
+;"" 
+}## 	
+public%% 
+async%% 
+Task%% 
+<%% 
+RoomDescriptionDto%% ,
+>%%, - 
+GetRoomByNumberAsync%%. B
+(%%B C
+int%%C F
+
+roomNumber%%G Q
+)%%Q R
+{&& 	
+var'' 
+room'' 
+='' 
+await'' 
+context'' $
+.''$ %
+Rooms''% *
+.''* +
+Where''+ 0
+(''0 1
+room''1 5
+=>''6 8
+room''9 =
+.''= >
+
+RoomNumber''> H
+==''I K
+
+roomNumber''L V
+)''V W
+.''W X
+FirstOrDefaultAsync''X k
+(''k l
+)''l m
+;''m n
+if(( 
+((( 
+room(( 
+==(( 
+null(( 
+)(( 
+{)) 
+return** 
+null** 
+;** 
+}++ 
+RoomDescriptionDto,, 
+roomDescription,, .
+=,,/ 0
+new,,1 4
+RoomDescriptionDto,,5 G
+(,,G H
+),,H I
+{-- 
+RoomCategory.. 
+=.. 
+room.. #
+...# $
+RoomCategory..$ 0
+,..0 1
+
+RoomNumber// 
+=// 
+room// !
+.//! "
+
+RoomNumber//" ,
+,//, -
+Description00 
+=00 
+room00 "
+.00" #
+Description00# .
+,00. /
+
+Facilities11 
+=11 
+room11 !
+.11! "
+
+Facilities11" ,
+,11, -
+PersonsNumber22 
+=22 
+room22  $
+.22$ %
+PersonsNumber22% 2
+,222 3
+Price33 
+=33 
+room33 
+.33 
+Price33 "
+,33" #
+Image44 
+=44 
+room44 
+.44 
+Image44 "
+}55 
+;55 
+return66 
+roomDescription66 "
+;66" #
+}77 	
+public88 
+async88 
+Task88 
+<88 
+int88 
+>88 
+AddRoomAsync88 +
+(88+ ,
+PostRoomDto88, 7
+	roomToAdd888 A
+)88A B
+{99 	
+Room:: 
+room:: 
+=:: 
+new:: 
+(:: 
+	roomToAdd:: %
+.::% &
+RoomCategory::& 2
+,::2 3
+	roomToAdd::4 =
+.::= >
+PersonsNumber::> K
+,::K L
+	roomToAdd::M V
+.::V W
+Description::W b
+,::b c
+	roomToAdd::d m
+.::m n
+Price::n s
+,::s t
+	roomToAdd::u ~
+.::~ 
+
+Facilities	:: ‰
+)
+::‰ Š
+;
+::Š ‹
+int;; 
+numberOfRooms;; 
+=;; 
+context;;  '
+.;;' (
+Rooms;;( -
+.;;- .
+Count;;. 3
+(;;3 4
+);;4 5
+;;;5 6
+room<< 
+.<< 
+
+RoomNumber<< 
+=<< 
+(<< 
+numberOfRooms<< ,
+/<<- .
+$num<</ 0
++<<1 2
+$num<<3 4
+)<<4 5
+*<<6 7
+$num<<8 ;
++<<< =
+numberOfRooms<<> K
+%<<L M
+$num<<N O
+;<<O P
+room== 
+.== 
+State== 
+=== 
+$str== $
+;==$ %
+room>> 
+.>> 
+Image>> 
+=>> 
+room>> 
+.>> 
+RoomCategory>> *
+.>>* +
+ToLower>>+ 2
+(>>2 3
+)>>3 4
++>>5 6
+room>>7 ;
+.>>; <
+
+RoomNumber>>< F
+%>>G H
+$num>>I J
++>>K L
+$str>>M S
+;>>S T
+this?? 
+.?? 
+context?? 
+.?? 
+Add?? 
+(?? 
+room?? !
+)??! "
+;??" #
+await@@ 
+this@@ 
+.@@ 
+context@@ 
+.@@ 
+SaveChangesAsync@@ /
+(@@/ 0
+)@@0 1
+;@@1 2
+returnAA 
+$numAA 
+;AA 
+}BB 	
+publicDD 
+asyncDD 
+TaskDD 
+<DD 
+intDD 
+>DD 
+UpdateAsyncDD *
+(DD* +
+intDD+ .
+
+roomNumberDD/ 9
+,DD9 :
+PatchRoomDtoDD: F
+patchRoomDtoDDG S
+)DDS T
+{EE 	
+varFF 
+resultFF 
+=FF 
+awaitFF 
+contextFF &
+.FF& '
+RoomsFF' ,
+.FF, -
+WhereFF- 2
+(FF2 3
+roomFF3 7
+=>FF8 :
+roomFF; ?
+.FF? @
+
+RoomNumberFF@ J
+==FFK M
+
+roomNumberFFN X
+)FFX Y
+.FFY Z
+FirstOrDefaultAsyncFFZ m
+(FFm n
+)FFn o
+;FFo p
+ifGG 
+(GG 
+resultGG 
+==GG 
+nullGG 
+)GG 
+{HH 
+returnII 
+-II 
+$numII 
+;II 
+}JJ 
+resultKK 
+.KK 
+PersonsNumberKK  
+=KK! "
+patchRoomDtoKK# /
+.KK/ 0
+PersonsNumberKK0 =
+;KK= >
+resultLL 
+.LL 
+DescriptionLL 
+=LL  
+patchRoomDtoLL! -
+.LL- .
+DescriptionLL. 9
+??LL: <
+resultLL= C
+.LLC D
+DescriptionLLD O
+;LLO P
+resultMM 
+.MM 
+PriceMM 
+=MM 
+patchRoomDtoMM '
+.MM' (
+PriceMM( -
+;MM- .
+resultNN 
+.NN 
+
+FacilitiesNN 
+=NN 
+patchRoomDtoNN  ,
+.NN, -
+
+FacilitiesNN- 7
+??NN8 :
+resultNN; A
+.NNA B
+
+FacilitiesNNB L
+;NNL M
+resultOO 
+.OO 
+StateOO 
+=OO 
+patchRoomDtoOO '
+.OO' (
+StateOO( -
+??OO- /
+resultOO/ 5
+.OO5 6
+StateOO6 ;
+;OO; <
+awaitPP 
+contextPP 
+.PP 
+SaveChangesAsyncPP *
+(PP* +
+)PP+ ,
+;PP, -
+returnQQ 
+$numQQ 
+;QQ 
+}RR 	
+}TT 
+}UU ò&
+qC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Startup.cs
+	namespace 	&
+RoomManagementMicroservice
+ $
+{ 
+public 
+
+class 
+Startup 
+{ 
+readonly 
+string $
+MyAllowedSpecificOrigins 0
+=1 2
+$str3 J
+;J K
+public 
+Startup 
+( 
+IConfiguration %
+configuration& 3
+)3 4
+{ 	
+Configuration 
+= 
+configuration )
+;) *
+} 	
+public 
+IConfiguration 
+Configuration +
+{, -
+get. 1
+;1 2
+}3 4
+public 
+void 
+ConfigureServices %
+(% &
+IServiceCollection& 8
+services9 A
+)A B
+{ 	
 services 
-. 
-AddDbContext !
-<! "
-DataContext" -
->- .
-(. /
-options/ 6
-=>7 9
-{ 
-options 
-. 
-	UseSqlite !
-(! "
-Configuration" /
-./ 0
-GetConnectionString0 C
-(C D
-$strD W
-)W X
-)X Y
-;Y Z
-}   
-)   
-;   
-services"" 
-."" 
-AddCors"" 
-("" 
-options"" $
-=>""% '
-{## 
-options$$ 
-.$$ 
-	AddPolicy$$ !
-($$! "$
-MyAllowedSpecificOrigins$$" :
-,$$: ;
-builder$$< C
-=>$$D F
-{%% 
-builder&& 
-.&& 
-AllowAnyHeader&& *
-(&&* +
-)&&+ ,
-.'' 
-AllowAnyMethod'' #
-(''# $
-)''$ %
+. 
+AddControllers #
+(# $
+)$ %
+;% &
+services 
+. 
+AddDbContext !
+<! "
+DataContext" -
+>- .
+(. /
+options/ 6
+=>7 9
+{ 
+options   
+.   
+	UseSqlite   !
+(  ! "
+Configuration  " /
+.  / 0
+GetConnectionString  0 C
+(  C D
+$str  D W
+)  W X
+)  X Y
+;  Y Z
+}!! 
+)!! 
+;!! 
+services## 
+.## 
+AddCors## 
+(## 
+options## $
+=>##% '
+{$$ 
+options%% 
+.%% 
+	AddPolicy%% !
+(%%! "$
+MyAllowedSpecificOrigins%%" :
+,%%: ;
+builder%%< C
+=>%%D F
+{&& 
+builder'' 
+.'' 
+AllowAnyHeader'' *
+(''* +
+)''+ ,
 .(( 
-AllowAnyOrigin(( #
+AllowAnyMethod(( #
 (((# $
 )(($ %
-;((% &
-})) 
-))) 
-;)) 
-}** 
-)** 
-;** 
-services,, 
-.,, 
-AddTransient,, !
-<,,! "
-IRoomsRepository,," 2
-,,,2 3
-RoomsRepository,,4 C
->,,C D
-(,,D E
-),,E F
-;,,F G
+.)) 
+AllowAnyOrigin)) #
+())# $
+)))$ %
+;))% &
+}** 
+)** 
+;** 
+}++ 
+)++ 
+;++ 
 services-- 
-.-- 
-AddSwaggerGen-- "
-(--" #
-c--# $
-=>--% '
-{.. 
-c// 
-.// 
+.-- 
+AddTransient-- !
+<--! "
+IRoomsRepository--" 2
+,--2 3
+RoomsRepository--4 C
+>--C D
+(--D E
+)--E F
+;--F G
+services.. 
+... 
+AddSwaggerGen.. "
+(.." #
+c..# $
+=>..% '
+{// 
+c00 
+.00 
 
-SwaggerDoc// 
-(// 
-$str// !
-,//! "
-new//# &
-OpenApiInfo//' 2
-{//3 4
-Title//5 :
-=//; <
-$str//= Y
-,//Y Z
-Version//[ b
-=//c d
-$str//e i
-}//j k
-)//k l
-;//l m
-}00 
-)00 
-;00 
-}11 	
-public44 
-void44 
-	Configure44 
-(44 
-IApplicationBuilder44 1
-app442 5
-,445 6
-IWebHostEnvironment447 J
-env44K N
-)44N O
-{55 	
-if66 
-(66 
-env66 
-.66 
-IsDevelopment66 !
-(66! "
-)66" #
-)66# $
-{77 
-app88 
-.88 %
-UseDeveloperExceptionPage88 -
-(88- .
-)88. /
-;88/ 0
+SwaggerDoc00 
+(00 
+$str00 !
+,00! "
+new00# &
+OpenApiInfo00' 2
+{003 4
+Title005 :
+=00; <
+$str00= Y
+,00Y Z
+Version00[ b
+=00c d
+$str00e i
+}00j k
+)00k l
+;00l m
+}11 
+)11 
+;11 
+}22 	
+public55 
+void55 
+	Configure55 
+(55 
+IApplicationBuilder55 1
+app552 5
+,555 6
+IWebHostEnvironment557 J
+env55K N
+)55N O
+{66 	
+if77 
+(77 
+env77 
+.77 
+IsDevelopment77 !
+(77! "
+)77" #
+)77# $
+{88 
 app99 
-.99 
-
-UseSwagger99 
-(99 
-)99  
-;99  !
+.99 %
+UseDeveloperExceptionPage99 -
+(99- .
+)99. /
+;99/ 0
 app:: 
-.:: 
-UseSwaggerUI::  
-(::  !
-c::! "
-=>::# %
-c::& '
-.::' (
-SwaggerEndpoint::( 7
-(::7 8
-$str::8 R
-,::R S
-$str::T s
-)::s t
-)::t u
-;::u v
-};; 
-app== 
-.== 
-UseCors== 
-(== $
-MyAllowedSpecificOrigins== 0
-)==0 1
-;==1 2
-app?? 
-.?? 
-UseStaticFiles?? 
-(?? 
-new?? "
-StaticFileOptions??# 4
-{@@ 
-FileProviderAA 
-=AA 
-newAA " 
-PhysicalFileProviderAA# 7
-(AA7 8
-PathBB 
-.BB 
-CombineBB 
-(BB 
-envBB 
-.BB 
-ContentRootPathBB ,
-,BB, -
-$strBB. @
-)BB@ A
-)BBA B
-,BBB C
-RequestPathCC 
-=CC 
-$strCC '
-}DD 
-)DD 
-;DD 
-appFF 
-.FF 
+.:: 
 
-UseRoutingFF 
-(FF 
-)FF 
-;FF 
-appHH 
-.HH 
-UseAuthorizationHH  
-(HH  !
-)HH! "
-;HH" #
-appJJ 
-.JJ 
-UseEndpointsJJ 
-(JJ 
-	endpointsJJ &
-=>JJ' )
-{KK 
-	endpointsLL 
-.LL 
-MapControllersLL (
-(LL( )
-)LL) *
-;LL* +
-}MM 
-)MM 
-;MM 
-}NN 	
-}OO 
-}PP ”
+UseSwagger:: 
+(:: 
+)::  
+;::  !
+app;; 
+.;; 
+UseSwaggerUI;;  
+(;;  !
+c;;! "
+=>;;# %
+c;;& '
+.;;' (
+SwaggerEndpoint;;( 7
+(;;7 8
+$str;;8 R
+,;;R S
+$str;;T s
+);;s t
+);;t u
+;;;u v
+}<< 
+app>> 
+.>> 
+UseCors>> 
+(>> $
+MyAllowedSpecificOrigins>> 0
+)>>0 1
+;>>1 2
+app@@ 
+.@@ 
+UseStaticFiles@@ 
+(@@ 
+new@@ "
+StaticFileOptions@@# 4
+{AA 
+FileProviderBB 
+=BB 
+newBB " 
+PhysicalFileProviderBB# 7
+(BB7 8
+PathCC 
+.CC 
+CombineCC 
+(CC 
+envCC 
+.CC 
+ContentRootPathCC ,
+,CC, -
+$strCC. @
+)CC@ A
+)CCA B
+,CCB C
+RequestPathDD 
+=DD 
+$strDD '
+}EE 
+)EE 
+;EE 
+appGG 
+.GG 
+
+UseRoutingGG 
+(GG 
+)GG 
+;GG 
+appII 
+.II 
+UseAuthorizationII  
+(II  !
+)II! "
+;II" #
+appKK 
+.KK 
+UseEndpointsKK 
+(KK 
+	endpointsKK &
+=>KK' )
+{LL 
+	endpointsMM 
+.MM 
+MapControllersMM (
+(MM( )
+)MM) *
+;MM* +
+}NN 
+)NN 
+;NN 
+}OO 	
+}PP 
+}QQ š
 {C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Utils\Description.cs
 	namespace 	&
 RoomManagementMicroservice
@@ -4338,20 +4287,13 @@ UseRoutingFF 
 break++ 
 ;++ 
 default,, 
-:,, 
-Console-- 
-.-- 
-	WriteLine-- %
-(--% &
-$str--& 4
-)--4 5
-;--5 6
-break.. 
-;.. 
-}// 
-}00 	
-}11 
-}22 ì
+:,, 
+break-- 
+;-- 
+}.. 
+}// 	
+}00 
+}11 ì
 uC:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementMicroservice\Utils\Error.cs
 	namespace 	&
 RoomManagementMicroservice
