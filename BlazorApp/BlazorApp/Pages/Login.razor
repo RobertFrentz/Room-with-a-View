@@ -115,7 +115,21 @@
         dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
 
         await localStorage.SetItemAsync("jwt", (string)jsonObject.jwt);
+        await localStorage.SetItemAsync("role", (string)jsonObject.role);
+
+        await localStorage.SetItemAsync("username", await GetUsername());
         NavigationManager.NavigateTo("/home", true);
+    }
+
+    public async Task<string> GetUsername()
+    {
+        string getUsernameApiUrl = "http://localhost:60094/api/v1/users/username";
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, getUsernameApiUrl);
+        getRequest.Headers.Add("authorizationToken", await localStorage.GetItemAsync<string>("jwt"));
+        using var httpResponse = await HttpClient.SendAsync(getRequest);
+        string jsonString = await httpResponse.Content.ReadAsStringAsync();
+        dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
+        return jsonObject.username;
     }
 
     public class LoginFormDTO

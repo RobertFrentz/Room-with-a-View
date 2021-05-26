@@ -1,4 +1,7 @@
 ﻿@page "/management/staff"
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject HttpClient HttpClient
+@using Newtonsoft.Json
 
 
 <div class="bg-light py-4">
@@ -6,7 +9,7 @@
     <div class="container">
         <h3 class="mb-3">Staff management</h3>
 
-        @for (int i = 0; i < 3; i++)
+        @if (staffMembers != null)
         {
             <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
                 <div class="col-sm-2 p-3">
@@ -17,78 +20,314 @@
                     <table class="table table-striped mb-0">
                         <tbody>
                             <tr>
-                                <th scope="row">Name:</th>
-                                <td>Abcdef Ghijkl</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tasks:</th>
+                                <th scope="row">Staff Member:</th>
                                 <td>
-                                    <ul class="pl-4">
-                                        <li>Room 102: Clean</li>
-                                        <li>Room 203: Clean</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Current Task:</th>
-                                <td>Room 203: Clean</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Prioritize task:</th>
-                                <td>
-                                    <select class="form-control">
-                                        <option selected>Choose</option>
-                                        <option value="1">Room 102: Clean</option>
-                                        <option value="2">Room 203: Clean</option>
+                                    <select class="form-control" @bind="_currentStaffMemberId">
+                                        <option value="-1" selected>Choose Staff Member</option>
+                                        @for (int i = 0; i < staffMembers.Count; i++)
+                                        {
+                                            <option value="@staffMembers[i].UserId">@staffMembers[i].Name</option>
+                                        }
+                                        @*<option value="1">Abcdef Ghijkl</option>
+                                            <option value="2">Mnopqr Stuvwx</option>*@
                                     </select>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">Add task:</th>
-                                <td>
-                                    <div class="form-row mb-3">
-                                        <div class="col">
-                                            <select class="form-control">
-                                                <option selected>Choose room</option>
-                                                <option value="101">Room 101</option>
-                                                <option value="102">Room 102</option>
-                                                <option value="103">Room 103</option>
-                                                <option value="201">Room 201</option>
-                                                <option value="202">Room 202</option>
-                                                <option value="203">Room 203</option>
-                                            </select>
+                            @if (assignments != null && currentStaffMemberId != -1)
+                            {
+                                <tr>
+                                    <th scope="row">Tasks:</th>
+                                    <td class="d-inline-block" style="min-height: 150px;">
+                                        <ul class="pl-4">
+                                            @for (int i = 0; i < assignments.Count; i++)
+                                            {
+                                                <li class="py-1">Room @assignments[i].RoomNumber: @assignments[i].Type - Obs: @assignments[i].Observations</li>
+                                            }
+                                            @*<li>Room 102: Clean</li>
+                                                <li>Room 203: Clean</li>*@
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Current Task:</th>
+                                    @if (currentAssignmentIndex != -1)
+                                    {
+                                        <td>Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type - Obs: @assignments[currentAssignmentIndex].Observations</td>
+                                    }
+                                    @*<td>Room 203: Clean</td>*@
+                                </tr>
+                                <tr>
+                                    <th scope="row">Prioritize task:</th>
+                                    <td>
+                                        <select class="form-control" @bind="_currentAssignmentId">
+                                            <option value="-1" selected>Choose</option>
+                                            @for (int i = 0; i < assignments.Count; i++)
+                                            {
+                                                <option value="@assignments[i].Id">Room @assignments[i].RoomNumber: @assignments[i].Type - Obs: @assignments[i].Observations</option>
+                                            }
+                                            @*<option value="1">Room 102: Clean</option>
+                                                <option value="2">Room 203: Clean</option>*@
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Add task:</th>
+                                    <td>
+                                        <div class="form-row mb-3">
+                                            <div class="col">
+                                                <select class="form-control" @bind="addAssignmentRoomNumber">
+                                                    <option value="-1" selected>Choose room</option>
+                                                    @if (allHotelRooms != null)
+                                                    {
+                                                        @for (int i = 0; i < allHotelRooms.Count; i++)
+                                                        {
+                                                            <option value="@allHotelRooms[i].RoomNumber">Room @allHotelRooms[i].RoomNumber</option>
+                                                        }
+                                                    }
+                                                    @*<option value="101">Room 101</option>
+                                                        <option value="102">Room 102</option>
+                                                        <option value="103">Room 103</option>
+                                                        <option value="201">Room 201</option>
+                                                        <option value="202">Room 202</option>
+                                                        <option value="203">Room 203</option>*@
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control" @bind="addAssignmentType">
+                                                    <option value="-1" selected>Choose task</option>
+                                                    <option value="0">Clean</option>
+                                                    <option value="1">Maintenance</option>
+                                                    <option value="2">Other</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <select class="form-control">
-                                                <option selected>Choose task</option>
-                                                <option value="0">Clean</option>
-                                                <option value="1">Maintenance</option>
-                                                <option value="2">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <textarea class="form-control" placeholder="..observations" rows="1"></textarea>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <textarea class="form-control" placeholder="..observations" rows="1" @bind="addAssignmentObservations"></textarea>
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" class="btn btn-primary" @onclick='SubmitNewStaffAssignment'>Add</button>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <button type="button" class="btn btn-primary">Add</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Remove task:</th>
+                                    <td>
+                                        <div class="form-row mb-3">
+                                            <div class="col">
+                                                <select class="form-control" @bind="removeAssignmentId">
+                                                    <option value="-1" selected>Choose assignment</option>
+                                                    @for (int i = 0; i < assignments.Count; i++)
+                                                    {
+                                                        <option value="@assignments[i].Id">Room @assignments[i].RoomNumber: @assignments[i].Type</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" class="btn btn-primary" @onclick='RemoveStaffMemberAssignment'>Remove</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
 
                     </table>
                 </div>
             </div>
         }
+
     </div>
 
 </div>
 
 
 @code {
+    const string ApiStaffUsersEndpoint = "http://localhost:60094/api/v1/users/staff";
+    const string ApiAssignmentsEndpoint = "http://localhost:6704/api/v1/assignments";
+    const string ApiStaffAssignmentsEndpoint = "http://localhost:6704/api/v1/assignments/staff/assignments";
+    const string ApiStaffUpdateCurrentAssignmentEndpoint = "http://localhost:6704/api/v1/assignments/prioritize";
+    const string ApiAllHotelRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
 
+    public int currentStaffMemberId = -1;
+    public int _currentStaffMemberId
+    {
+        get { return currentStaffMemberId; }
+        set
+        {
+            currentStaffMemberId = value;
+            Console.WriteLine($"currentStaffMemberId: {currentStaffMemberId}");
+            GetAssignmentsForCurrentStaffMember();
+        }
+    }
+    public int currentAssignmentId = -1;
+    public int _currentAssignmentId
+    {
+        get { return currentAssignmentId; }
+        set
+        {
+            currentAssignmentId = value;
+            Console.WriteLine($"currentAssignmentId: {currentAssignmentId}");
+            UpdateStaffMemberCurrentAssignment();
+        }
+    }
+
+    public int currentAssignmentIndex;
+    public int addAssignmentRoomNumber = -1;
+    public int addAssignmentType = -1;
+    public string addAssignmentObservations = "";
+
+    public int removeAssignmentId = -1;
+
+    List<StaffMember> staffMembers;
+    List<Assignment> assignments;
+    List<Room> allHotelRooms;
+
+    Dictionary<int, string> AssignmentTypes = new Dictionary<int, string> {
+        {0, "Clean"},
+        {1, "Maintenance"},
+        {2, "Other"}
+    };
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllStaffMembersData();
+        await GetAllHotelRooms();
+    }
+
+    public async Task GetAllStaffMembersData()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiStaffUsersEndpoint);
+        getRequest.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(getRequest);
+        staffMembers = await httpResponse.Content.ReadFromJsonAsync<List<StaffMember>>();
+    }
+
+    public async Task GetAssignmentsForCurrentStaffMember()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, $"{ApiStaffAssignmentsEndpoint}?userId={currentStaffMemberId}");
+        getRequest.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(getRequest);
+        assignments = await httpResponse.Content.ReadFromJsonAsync<List<Assignment>>();
+
+        FindAndSetCurrentTask(); // find which assignment is currently prioritized
+        StateHasChanged(); // force display assignments
+    }
+
+    public async Task FindAndSetCurrentTask()
+    {
+        for (int i = 0; i < assignments.Count; i++)
+        {
+            if (assignments[i].Status == 1)
+            {
+                currentAssignmentIndex = i;
+                currentAssignmentId = assignments[i].Id;
+                return;
+            }
+            currentAssignmentIndex = -1;
+        }
+    }
+
+    public async Task UpdateStaffMemberCurrentAssignment()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        var patchRequest = new HttpRequestMessage(HttpMethod.Patch, $"{ApiStaffUpdateCurrentAssignmentEndpoint}?id={currentAssignmentId}");
+        patchRequest.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(patchRequest);
+
+        GetAssignmentsForCurrentStaffMember();
+    }
+
+    public async Task GetAllHotelRooms()
+    {
+        var getRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
+        var httpResponse = await HttpClient.SendAsync(getRequest);
+
+        allHotelRooms = (await httpResponse.Content.ReadFromJsonAsync<List<Room>>()).OrderBy(room => room.RoomNumber).ToList();
+    }
+
+    public async Task SubmitNewStaffAssignment()
+    {
+        if (addAssignmentRoomNumber == -1 || addAssignmentType == -1)
+        {
+            Console.WriteLine($"addAssignmentRoomNumber: {addAssignmentRoomNumber} -- addAssignmentType: {addAssignmentType}");
+            return;
+        }
+
+        var request = new HttpRequestMessage(HttpMethod.Post, ApiAssignmentsEndpoint);
+        var postBody = new
+        {
+            userId = currentStaffMemberId,
+            roomNumber = addAssignmentRoomNumber,
+            type = AssignmentTypes[addAssignmentType],
+            observations = addAssignmentObservations
+        };
+        request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postBody), System.Text.Encoding.UTF8, "application/json");
+        request.Headers.Add("authorizationToken", await localStorage.GetItemAsync<string>("jwt"));
+        using var httpResponse = await HttpClient.SendAsync(request);
+
+        string jsonString = await httpResponse.Content.ReadAsStringAsync();
+        dynamic jsonObject = JsonConvert.DeserializeObject(jsonString);
+        Console.WriteLine($"SubmitNewStaffAssignment jsonString: {jsonString}");
+
+        // redisplay staff assignments
+        GetAssignmentsForCurrentStaffMember();
+
+        // cleanup
+        addAssignmentRoomNumber = -1;
+        addAssignmentType = -1;
+        addAssignmentObservations = "";
+    }
+
+    public async Task RemoveStaffMemberAssignment()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt");
+        var deleteRequest = new HttpRequestMessage(HttpMethod.Delete, $"{ApiAssignmentsEndpoint}?id={removeAssignmentId}");
+        deleteRequest.Headers.Add("authorizationToken", token);
+        var httpResponse = await HttpClient.SendAsync(deleteRequest);
+
+        // redisplay staff assignments
+        GetAssignmentsForCurrentStaffMember();
+
+        // cleanup
+        removeAssignmentId = -1;
+    }
+
+    public class StaffMember
+    {
+        public string Name { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class Assignment
+    {
+        public int Id { get; set; }
+        public int RoomNumber { get; set; }
+        public int UserId { get; set; }
+        public string Type { get; set; }
+        public string Observations { get; set; }
+        public DateTime AddedAt { get; set; }
+        public int Status { get; set; }
+    }
+
+    public class Room
+    {
+        public string RoomCategory { get; set; }
+        public int RoomNumber { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+        public string Facilities { get; set; }
+        public int PersonsNumber { get; set; }
+        public string Image { get; set; }
+    }
+
+    public class RoomListDeserializer
+    {
+        public List<Room> rooms { get; set; }
+    }
 }

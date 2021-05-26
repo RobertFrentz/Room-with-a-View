@@ -129,5 +129,31 @@ namespace BookingMicroservice.Data
                                                       (booking.CheckIn < checkIn && booking.CheckOut > checkOut)));
             return !isReserved;
         }
+
+        public async Task<IEnumerable<object>> GetCheckInCheckOutForSpecificRoom(int roomNumber)
+        {
+            
+            var dates = await _context.Bookings.Where(booking => booking.RoomNumber == roomNumber && booking.CheckOut>=DateTime.Now).Select(booking =>
+               new DateInterval()
+               {
+                   CheckIn = booking.CheckIn,
+                   CheckOut = booking.CheckOut
+               }).OrderBy(date => date.CheckIn).ToListAsync();
+            if(dates.Count == 0)
+            {
+                return dates;
+            }
+            var items = new List<object>();
+            items.Add(dates);
+            if(DateTime.Now>=dates[0].CheckIn)
+            {
+                items.Add("Booked");
+            }
+            else
+            {
+                items.Add("Available");
+            }
+            return items;
+        }
     }
 }

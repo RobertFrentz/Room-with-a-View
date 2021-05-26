@@ -19,5 +19,6 @@ namespace BookingMicroservice.Data
 
         Task<bool> CheckRoomAvailabilityAsync(int roomNumber, DateTime? checkIn, DateTime? checkOut);
 
+        Task<IEnumerable<object>> GetCheckInCheckOutForSpecificRoom(int roomNumber);
     }
 }

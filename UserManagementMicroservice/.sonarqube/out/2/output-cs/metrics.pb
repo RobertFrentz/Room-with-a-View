@@ -1,17 +1,20 @@
-§
-…C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Controllers\UsersController.csI 8"jrš	
- !"#$%&'()*+-.12456789:;<>?@ABCDEFGHJKLMNOPQRSTUWXYZ[\]^_`abcdefhijklmnopqrstuvyz{|}~€‚ƒ…†‡ˆ‰Š‹Œ‘’“”•–—˜™›œŸ ¡¢£¤¥¦§¨©ª«¬­®¯±²³´µ¶·¸¹º»¾ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎĞÑÒÓÔÕÖ×ØÙÛİŞx‚q$%&(*.679;BCEGNOQST[\^`acelmoqsu}~€‚‰ŠŒ‘“”–˜Ÿ ¢¤¥§©ª¬®µ¶¸º»ÃÄÆÈÉËÍÓÔÖØÙ
+–
+…C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Controllers\UsersController.cs[ 8)jrè	
+ !"#$%&'()*+-./012345689:;<=>?@ABCDEFGHIJKMOPQRSTUVWXY[\^_`abcdefhijklmnopqrtuvwxyz{|}~‚ƒ„…†‡ˆ‰Š‹Œ’“”•–—˜™š›œŸ £¤¥¦§¨©ª«¬­¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÛÜİŞßàáâãäåèêëìíîïğñòóôõö÷øúûüışÿ€‚ƒ…‡ˆx‚‘$%&(*0135<=?ABDFGIKSTVX`acelmoqxy{}~…†ˆŠ‹–—™›Ÿ§¨ª¬³´¶¸¹»½¾ÀÂÉÊÌÎÏÑÓÔÖØßàâäåíîğòóõ÷ış€‚ƒ
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\DataContext.cs 8r	
-‚–
-C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\IUsersRepository.csr	
-Î
+‚˜
+C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\IUsersRepository.csr	
+Î
 –C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Migrations\20210420162254_InitialCreate.cs 8r	
  ‚
 	„
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\Role.csr	
-Œ
-~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.cs# 8rY
- !"#$&'()*+,-.023456789:;<=>@ABCDEFGHJKLMOPQRSUVWXYZ[\]^_`abcdx	‚$ !"#()*,.4579:;<=BCEGLQRSXY[]_a–
+¸
+~C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\Data\UsersRepository.cs. 
+8rx
+ !"#$&'()*+,-.023456789:;<=>@ABCDEFGHJKLMNOPQRTUVWXZ[\]^_`abcdefgijklmnopqrstuvxyz{|}~€‚x‚1 !"#()*,.4579:;<=BCEGLMOQVWX]^`bdfknoqsuz{}•
+C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\StaffResponseDto.cs 8r	
+–
 C:\Users\alexg\Documents\GitHub\Room-with-a-View\UserManagementMicroservice\UserManagementMicroservice\DTOs\UserCredentialsDto.cs 8r
 	
 “
