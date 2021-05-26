@@ -199,12 +199,15 @@ namespace BookingMicroservice.Controllers
         public async Task<IActionResult> GetBookingDatesRoomSpecified(int roomNumber)
         {
             var dates = await _repository.GetCheckInCheckOutForSpecificRoom(roomNumber);
+            if(dates.Count==0)
+            {
+                return Ok(dates);
+            }
             return Ok(JsonConvert.SerializeObject(new
                 { 
                     dates=dates[0],
                     Status=dates[1]
                 }));
-
             }
         }
 }
