@@ -28,8 +28,6 @@
                                         {
                                             <option value="@staffMembers[i].UserId">@staffMembers[i].Name</option>
                                         }
-                                        @*<option value="1">Abcdef Ghijkl</option>
-                                            <option value="2">Mnopqr Stuvwx</option>*@
                                     </select>
                                 </td>
                             </tr>
@@ -43,8 +41,6 @@
                                             {
                                                 <li class="py-1">Room @assignments[i].RoomNumber: @assignments[i].Type - Obs: @assignments[i].Observations</li>
                                             }
-                                            @*<li>Room 102: Clean</li>
-                                                <li>Room 203: Clean</li>*@
                                         </ul>
                                     </td>
                                 </tr>
@@ -54,7 +50,6 @@
                                     {
                                         <td>Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type - Obs: @assignments[currentAssignmentIndex].Observations</td>
                                     }
-                                    @*<td>Room 203: Clean</td>*@
                                 </tr>
                                 <tr>
                                     <th scope="row">Prioritize task:</th>
@@ -65,8 +60,6 @@
                                             {
                                                 <option value="@assignments[i].Id">Room @assignments[i].RoomNumber: @assignments[i].Type - Obs: @assignments[i].Observations</option>
                                             }
-                                            @*<option value="1">Room 102: Clean</option>
-                                                <option value="2">Room 203: Clean</option>*@
                                         </select>
                                     </td>
                                 </tr>
@@ -84,12 +77,6 @@
                                                             <option value="@allHotelRooms[i].RoomNumber">Room @allHotelRooms[i].RoomNumber</option>
                                                         }
                                                     }
-                                                    @*<option value="101">Room 101</option>
-                                                        <option value="102">Room 102</option>
-                                                        <option value="103">Room 103</option>
-                                                        <option value="201">Room 201</option>
-                                                        <option value="202">Room 202</option>
-                                                        <option value="203">Room 203</option>*@
                                                 </select>
                                             </div>
                                             <div class="col">

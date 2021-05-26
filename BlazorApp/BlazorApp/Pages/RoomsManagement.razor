@@ -21,29 +21,29 @@
                     <div class="col-sm-7 p-3">
                         <table class="table table-striped mb-0">
                             <tbody>
-                                <tr>
-                                    <th scope="row">Number:</th>
-                                    <td>@rooms[i].RoomNumber</td>
+                                <tr class="row">
+                                    <th class="col-4" scope="row">Number:</th>
+                                    <td class="col-8">@rooms[i].RoomNumber</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Bookings:</th>
-                                    <td class="d-inline-block" style="min-height: 150px;">
+                                <tr class="row">
+                                    <th class="col-4" scope="row">Bookings:</th>
+                                    <td class="col-8 d-inline-block">
                                         <ul class="pl-4">
                                             @if (bookings[i].Dates.Count != 0)
                                                 @foreach (var bookingDatePerRoom in bookings[i].Dates)
                                                 {
-                                                    <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckOut.ToString("f")</li>
+                                                    <li class="py-1">From: @bookingDatePerRoom.CheckIn <br> To: @bookingDatePerRoom.CheckOut</li>
                                                 }
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Status:</th>
-                                    <td>@bookings[i].Status</td>
+                                <tr class="row">
+                                    <th class="col-4" scope="row">Status:</th>
+                                    <td class="col-8">@bookings[i].Status</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Price per Night:</th>
-                                    <td>@rooms[i].Price</td>
+                                <tr class="row">
+                                    <th class="col-4" scope="row">Price per Night:</th>
+                                    <td class="col-8">@rooms[i].Price RON</td>
                                 </tr>
                             </tbody>
                         </table>
