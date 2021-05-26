@@ -1,18 +1,21 @@
 ﻿@page "/management/rooms"
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject HttpClient HttpClient
+@using Newtonsoft.Json
 
 <div class="bg-light py-4">
 
     <div class="container">
         <h3 class="mb-3">Rooms overview</h3>
-        @if (rooms != null && bookingDates != null)
+        @if (rooms != null && bookings != null)
         {
             @for (int i = 0; i < rooms.Count; i++)
             {
+                string imageUrl = StaticImagesEndpoint + rooms[i].Image;
+
                 <div class="row bg-white border border-secondary my-4 p-0" style="margin-left: 0px; margin-right:0px">
                     <div class="col-sm-5 p-3">
-                        <img class="d-block w-100 h-auto" src="images/109169993.jpg" style="max-height: 270px; object-fit:cover;">
+                        <img class="d-block w-100 h-auto" src=@imageUrl style="max-height: 270px; object-fit:cover;">
                     </div>
 
                     <div class="col-sm-7 p-3">
@@ -26,12 +29,17 @@
                                     <th scope="row">Bookings:</th>
                                     <td class="d-inline-block" style="min-height: 150px;">
                                         <ul class="pl-4">
-                                            @foreach (var bookingDatePerRoom in bookingDates[i])
-                                            {
-                                                <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckIn.ToString("f")</li>
-                                            }
+                                            @if (bookings[i].Dates.Count != 0)
+                                                @foreach (var bookingDatePerRoom in bookings[i].Dates)
+                                                {
+                                                    <li class="py-1">Booked from @bookingDatePerRoom.CheckIn.ToString("f") to @bookingDatePerRoom.CheckIn.ToString("f")</li>
+                                                }
                                         </ul>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status:</th>
+                                    <td>@bookings[i].Status</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Price per Night:</th>
@@ -51,14 +59,15 @@
 @code {
     const string ApiAllHotelRoomsEndpoint = "http://localhost:19008/api/v1/rooms";
     const string ApiBookingDatesEndpoint = "http://localhost:5100/api/v1/bookings/roomNumber?roomNumber=";
+    const string StaticImagesEndpoint = "http://localhost:19008/images/";
 
     List<Room> rooms;
-    List<List<BookingDate>> bookingDates;
+    List<BookingDeserializer> bookings;
 
     protected override async Task OnInitializedAsync()
     {
         await GetRooms();
-        //await GetBookingDates();
+        await GetBookingDates();
     }
 
     private async Task GetRooms()
@@ -66,20 +75,26 @@
         var getRoomsRequest = new HttpRequestMessage(HttpMethod.Get, ApiAllHotelRoomsEndpoint);
         var httpRoomsResponse = await HttpClient.SendAsync(getRoomsRequest);
         rooms = (await httpRoomsResponse.Content.ReadFromJsonAsync<List<Room>>()).OrderBy(room => room.RoomNumber).ToList();
-        Console.WriteLine(rooms[0].RoomNumber);
-        /*}
+    }
 
-        private async Task GetBookingDates()
-        {*/
-        bookingDates = new List<List<BookingDate>>();
+    private async Task GetBookingDates()
+    {
+        bookings = new List<BookingDeserializer>();
         foreach (var room in rooms)
         {
             string apiBookingDatesForRoomEndpoint = ApiBookingDatesEndpoint + room.RoomNumber;
             var getBookingDatesRequest = new HttpRequestMessage(HttpMethod.Get, apiBookingDatesForRoomEndpoint);
             var httpBookingDatesResponse = await HttpClient.SendAsync(getBookingDatesRequest);
-            // sort to display current task first
-            BookingDeserializer bookingDeserializer = await httpBookingDatesResponse.Content.ReadFromJsonAsync<BookingDeserializer>();
-            bookingDates.Append(bookingDeserializer.Dates);
+            string jsonString = await httpBookingDatesResponse.Content.ReadAsStringAsync();
+            if (jsonString != "[]")
+            {
+                BookingDeserializer bookingDeserializer = JsonConvert.DeserializeObject<BookingDeserializer>(jsonString);
+                bookings.Add(bookingDeserializer);
+            }
+            else
+            {
+                bookings.Add(new BookingDeserializer("Available"));
+            }
         }
     }
 
@@ -104,5 +119,11 @@
     {
         public List<BookingDate> Dates { get; set; }
         public string Status { get; set; }
+
+        public BookingDeserializer(string status)
+        {
+            Dates = new List<BookingDate>();
+            Status = status;
+        }
     }
 }
