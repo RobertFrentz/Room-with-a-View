@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BookingMicroservice.Data.Migrations
+namespace BookingMicroservice.Repositories.Migrations
 {
     public partial class InitialCreate : Migration
     {

@@ -6,8 +6,9 @@ namespace BookingMicroservice.Utils
 {
     public static class MailSystem
     {
-        public static string email = "royalresidenceiasi@gmail.com";
-        public static string password = "royalresidence";
+        private static readonly string email = "royalresidenceiasi@gmail.com";
+        private static readonly string password = "royalresidence";
+
         public static void SendAddedBookingMail(string userMail, string username, int roomNumber, DateTime checkIn, DateTime checkOut)
         {
             string dateTime1 = checkIn.ToString("yyyy-MM-dd");

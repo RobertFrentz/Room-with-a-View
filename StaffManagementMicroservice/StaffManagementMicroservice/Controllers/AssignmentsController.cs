@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffManagementMicroservice.Data;
+using StaffManagementMicroservice.Repositories;
 using StaffManagementMicroservice.DTOs;
 using StaffManagementMicroservice.Utils;
 using System;

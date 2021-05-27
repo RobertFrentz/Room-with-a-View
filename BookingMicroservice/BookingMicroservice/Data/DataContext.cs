@@ -1,7 +1,7 @@
 ﻿using BookingMicroservice.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingMicroservice.Data
+namespace BookingMicroservice.Repositories
 {
     public class DataContext : DbContext
     {

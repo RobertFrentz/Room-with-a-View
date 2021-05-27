@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using StaffManagementMicroservice.Data;
+using StaffManagementMicroservice.Repositories;
 
-namespace StaffManagementMicroservice.Data.Migrations
+namespace StaffManagementMicroservice.Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20210518181910_InitialCreate")]

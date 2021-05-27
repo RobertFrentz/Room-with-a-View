@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StaffManagementMicroservice.Entities;
 
-namespace StaffManagementMicroservice.Data
+namespace StaffManagementMicroservice.Repositories
 {
     public class DataContext : DbContext
     {

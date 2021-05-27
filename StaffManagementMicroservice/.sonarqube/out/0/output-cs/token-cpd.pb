@@ -1049,422 +1049,13 @@ FromHeader
 üü 	
 }
 †† 
-}°° Ö8
-ÜC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Data\AssignmentsRepository.cs
-	namespace		 	'
-StaffManagementMicroservice		
- %
-.		% &
-Data		& *
-{
-
- 
-public 
-
-class !
-AssignmentsRepository &
-:' ("
-IAssignmentsRepository) ?
-{ 
-private 
-readonly 
-DataContext $
-_context% -
-;- .
-public !
-AssignmentsRepository $
-($ %
-DataContext% 0
-context1 8
-)8 9
-{ 	
-_context 
-= 
-context 
-; 
-} 	
-public 
-async 
-Task 
-< 
-IEnumerable %
-<% &
-
-Assignment& 0
->0 1
->1 2
-GetAssignmentsAsync3 F
-(F G
-)G H
-{ 	
-var 
-assignments 
-= 
-await #
-_context$ ,
-., -
-Assignments- 8
-.8 9
-ToListAsync9 D
-(D E
-)E F
-;F G
-return 
-assignments 
-; 
-} 	
-public 
-async 
-Task 
-< 
-
-Assignment $
->$ %
-GetAssignmentAsync& 8
-(8 9
-int9 <
-id= ?
-)? @
-{ 	
-var 
-
-assignment 
-= 
-await "
-_context# +
-.+ ,
-Assignments, 7
-.7 8
-Where8 =
-(= >
-
-assignment> H
-=>I K
-
-assignmentL V
-.V W
-IdW Y
-==Z \
-id] _
-)_ `
-.` a
-FirstOrDefaultAsynca t
-(t u
-)u v
-;v w
-return 
-
-assignment 
-; 
-} 	
-public   
-async   
-Task   
-<   
-int   
->   
-PostAssignmentAsync   2
-(  2 3
-PostAssignmentDto  3 D
-postAssignmentDto  E V
-,  V W
-int  X [
-userId  \ b
-)  b c
-{!! 	
-
-Assignment"" 
-
-assignment"" !
-=""" #
-new""$ '
-
-Assignment""( 2
-(""2 3
-)""3 4
-{## 
-UserId$$ 
-=$$ 
-userId$$ 
-,$$  
-
-RoomNumber%% 
-=%% 
-postAssignmentDto%% .
-.%%. /
-
-RoomNumber%%/ 9
-,%%9 :
-Type&& 
-=&& 
-postAssignmentDto&& (
-.&&( )
-Type&&) -
-,&&- .
-Observations'' 
-='' 
-postAssignmentDto'' 0
-.''0 1
-Observations''1 =
-,''= >
-AddedAt(( 
-=(( 
-DateTime(( "
-.((" #
-Now((# &
-,((& '
-Status)) 
-=)) 
-$num)) 
-}** 
-;** 
-_context++ 
-.++ 
-Add++ 
-(++ 
-
-assignment++ #
-)++# $
-;++$ %
-await,, 
-_context,, 
-.,, 
-SaveChangesAsync,, +
-(,,+ ,
-),,, -
-;,,- .
-return-- 
-$num-- 
-;-- 
-}.. 	
-public00 
-async00 
-Task00 
-<00 
-IEnumerable00 %
-<00% &
-
-Assignment00& 0
->000 1
->001 2'
-GetAssignmentsByUserIdAsync003 N
-(00N O
-int00O R
-userId00S Y
-)00Y Z
-{11 	
-return22 
-await22 
-_context22 !
-.22! "
-Assignments22" -
-.22- .
-Where22. 3
-(223 4
-
-assignment224 >
-=>22? A
-
-assignment22B L
-.22L M
-UserId22M S
-==22T V
-userId22W ]
-)22] ^
-.22^ _
-ToListAsync22_ j
-(22j k
-)22k l
-;22l m
-}44 	
-public66 
-async66 
-Task66 
-<66 
-bool66 
->66 
-UpdateAsync66  +
-(66+ ,
-int66, /
-status660 6
-,666 7
-int668 ;
-id66< >
-)66> ?
-{77 	
-var88 
-result88 
-=88 
-_context88 !
-.88! "
-Assignments88" -
-.88- .
-Find88. 2
-(882 3
-id883 5
-)885 6
-;886 7
-if99 
-(99 
-result99 
-==99 
-null99 
-)99 
-{:: 
-return;; 
-false;; 
-;;; 
-}<< 
-result== 
-.== 
-Status== 
-=== 
-status== "
-;==" #
-await>> 
-_context>> 
-.>> 
-SaveChangesAsync>> +
-(>>+ ,
-)>>, -
-;>>- .
-return?? 
-true?? 
-;?? 
-}AA 	
-publicCC 
-asyncCC 
-TaskCC 
-DeleteByIdAsyncCC )
-(CC) *
-intCC* -
-idCC. 0
-)CC0 1
-{DD 	
-varEE 
-
-assignmentEE 
-=EE 
-awaitEE "
-_contextEE# +
-.EE+ ,
-AssignmentsEE, 7
-.EE7 8
-	FindAsyncEE8 A
-(EEA B
-idEEB D
-)EED E
-;EEE F
-_contextFF 
-.FF 
-RemoveFF 
-(FF 
-
-assignmentFF &
-)FF& '
-;FF' (
-awaitGG 
-_contextGG 
-.GG 
-SaveChangesAsyncGG +
-(GG+ ,
-)GG, -
-;GG- .
-}HH 	
-publicJJ 
-asyncJJ 
-TaskJJ 
-<JJ 
-boolJJ 
->JJ %
-PrioritizeAssignmentAsyncJJ  9
-(JJ9 :
-intJJ: =
-idJJ> @
-)JJ@ A
-{KK 	
-varLL 
-resultLL 
-=LL 
-_contextLL !
-.LL! "
-AssignmentsLL" -
-.LL- .
-FindLL. 2
-(LL2 3
-idLL3 5
-)LL5 6
-;LL6 7
-ifMM 
-(MM 
-resultMM 
-==MM 
-nullMM 
-)MM 
-{NN 
-returnOO 
-falseOO 
-;OO 
-}PP 
-foreachQQ 
-(QQ 
-varQQ 
-
-assignmentQQ "
-inQQ# %
-_contextQQ& .
-.QQ. /
-AssignmentsQQ/ :
-.QQ: ;
-WhereQQ; @
-(QQ@ A
-
-assignmentQQA K
-=>QQL N
-
-assignmentQQO Y
-.QQY Z
-UserIdQQZ `
-==QQa c
-resultQQd j
-.QQj k
-UserIdQQk q
-)QQq r
-)QQr s
-{RR 
-
-assignmentSS 
-.SS 
-StatusSS !
-=SS" #
-$numSS$ %
-;SS% &
-}TT 
-resultUU 
-.UU 
-StatusUU 
-=UU 
-$numUU 
-;UU 
-awaitVV 
-_contextVV 
-.VV 
-SaveChangesAsyncVV +
-(VV+ ,
-)VV, -
-;VV- .
-returnWW 
-trueWW 
-;WW 
-}XX 	
-}YY 
-}ZZ ø
+}°° «
 |C:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Data\DataContext.cs
 	namespace 	'
 StaffManagementMicroservice
  %
-.% &
-Data& *
+.% &
+Repositories& 2
 { 
 public 
 
@@ -1500,132 +1091,16 @@ Assignment 
 ;7 8
 }9 :
 } 
-} ˇ
-áC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Data\IAssignmentsRepository.cs
-	namespace 	'
-StaffManagementMicroservice
- %
-.% &
-Data& *
-{ 
-public 
-
-	interface "
-IAssignmentsRepository +
-{		 
-Task
-
- 
-<
-
- 
-IEnumerable
-
- 
-<
-
- 
-
-Assignment
-
- #
->
-
-# $
->
-
-$ %
-GetAssignmentsAsync
-
-& 9
-(
-
-9 :
-)
-
-: ;
-;
-
-; <
-Task 
-< 
-
-Assignment 
-> 
-GetAssignmentAsync +
-(+ ,
-int, /
-id0 2
-)2 3
-;3 4
-Task 
-< 
-int 
-> 
-PostAssignmentAsync %
-(% &
-PostAssignmentDto& 7
-postAssignmentDto8 I
-,I J
-intK N
-userIdO U
-)U V
-;V W
-Task 
-< 
-IEnumerable 
-< 
-
-Assignment #
-># $
->$ %'
-GetAssignmentsByUserIdAsync& A
-(A B
-intB E
-userIdF L
-)L M
-;M N
-Task 
-< 
-bool 
-> %
-PrioritizeAssignmentAsync ,
-(, -
-int- 0
-id1 3
-)3 4
-;4 5
-Task 
-< 
-bool 
-> 
-UpdateAsync 
-( 
-int "
-status# )
-,) *
-int+ .
-id/ 1
-)1 2
-;2 3
-Task 
-DeleteByIdAsync 
-( 
-int  
-id! #
-)# $
-;$ %
-} 
-} ¬
+}  
 òC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Data\Migrations\20210518181910_InitialCreate.cs
 	namespace 	'
 StaffManagementMicroservice
  %
-.% &
-Data& *
-.* +
+.% &
+Repositories& 2
+.2 3
 
-Migrations+ 5
+Migrations3 =
 { 
 public 
 
@@ -2201,7 +1676,532 @@ UseStartup )
 ) 
 ; 
 } 
-} ’"
+} ï8
+éC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Repositories\AssignmentsRepository.cs
+	namespace		 	'
+StaffManagementMicroservice		
+ %
+.		% &
+Repositories		& 2
+{
+
+ 
+public 
+
+class !
+AssignmentsRepository &
+:' ("
+IAssignmentsRepository) ?
+{ 
+private 
+readonly 
+DataContext $
+_context% -
+;- .
+public !
+AssignmentsRepository $
+($ %
+DataContext% 0
+context1 8
+)8 9
+{ 	
+_context 
+= 
+context 
+; 
+} 	
+public 
+async 
+Task 
+< 
+IEnumerable %
+<% &
+
+Assignment& 0
+>0 1
+>1 2
+GetAssignmentsAsync3 F
+(F G
+)G H
+{ 	
+var 
+assignments 
+= 
+await #
+_context$ ,
+., -
+Assignments- 8
+.8 9
+ToListAsync9 D
+(D E
+)E F
+;F G
+return 
+assignments 
+; 
+} 	
+public 
+async 
+Task 
+< 
+
+Assignment $
+>$ %
+GetAssignmentAsync& 8
+(8 9
+int9 <
+id= ?
+)? @
+{ 	
+var 
+
+assignment 
+= 
+await "
+_context# +
+.+ ,
+Assignments, 7
+.7 8
+Where8 =
+(= >
+
+assignment> H
+=>I K
+
+assignmentL V
+.V W
+IdW Y
+==Z \
+id] _
+)_ `
+.` a
+FirstOrDefaultAsynca t
+(t u
+)u v
+;v w
+return 
+
+assignment 
+; 
+} 	
+public   
+async   
+Task   
+<   
+int   
+>   
+PostAssignmentAsync   2
+(  2 3
+PostAssignmentDto  3 D
+postAssignmentDto  E V
+,  V W
+int  X [
+userId  \ b
+)  b c
+{!! 	
+
+Assignment"" 
+
+assignment"" !
+=""" #
+new""$ '
+
+Assignment""( 2
+(""2 3
+)""3 4
+{## 
+UserId$$ 
+=$$ 
+userId$$ 
+,$$  
+
+RoomNumber%% 
+=%% 
+postAssignmentDto%% .
+.%%. /
+
+RoomNumber%%/ 9
+,%%9 :
+Type&& 
+=&& 
+postAssignmentDto&& (
+.&&( )
+Type&&) -
+,&&- .
+Observations'' 
+='' 
+postAssignmentDto'' 0
+.''0 1
+Observations''1 =
+,''= >
+AddedAt(( 
+=(( 
+DateTime(( "
+.((" #
+Now((# &
+,((& '
+Status)) 
+=)) 
+$num)) 
+}** 
+;** 
+_context++ 
+.++ 
+Add++ 
+(++ 
+
+assignment++ #
+)++# $
+;++$ %
+await,, 
+_context,, 
+.,, 
+SaveChangesAsync,, +
+(,,+ ,
+),,, -
+;,,- .
+return-- 
+$num-- 
+;-- 
+}.. 	
+public00 
+async00 
+Task00 
+<00 
+IEnumerable00 %
+<00% &
+
+Assignment00& 0
+>000 1
+>001 2'
+GetAssignmentsByUserIdAsync003 N
+(00N O
+int00O R
+userId00S Y
+)00Y Z
+{11 	
+return22 
+await22 
+_context22 !
+.22! "
+Assignments22" -
+.22- .
+Where22. 3
+(223 4
+
+assignment224 >
+=>22? A
+
+assignment22B L
+.22L M
+UserId22M S
+==22T V
+userId22W ]
+)22] ^
+.22^ _
+ToListAsync22_ j
+(22j k
+)22k l
+;22l m
+}44 	
+public66 
+async66 
+Task66 
+<66 
+bool66 
+>66 
+UpdateAsync66  +
+(66+ ,
+int66, /
+status660 6
+,666 7
+int668 ;
+id66< >
+)66> ?
+{77 	
+var88 
+result88 
+=88 
+_context88 !
+.88! "
+Assignments88" -
+.88- .
+Find88. 2
+(882 3
+id883 5
+)885 6
+;886 7
+if99 
+(99 
+result99 
+==99 
+null99 
+)99 
+{:: 
+return;; 
+false;; 
+;;; 
+}<< 
+result== 
+.== 
+Status== 
+=== 
+status== "
+;==" #
+await>> 
+_context>> 
+.>> 
+SaveChangesAsync>> +
+(>>+ ,
+)>>, -
+;>>- .
+return?? 
+true?? 
+;?? 
+}AA 	
+publicCC 
+asyncCC 
+TaskCC 
+DeleteByIdAsyncCC )
+(CC) *
+intCC* -
+idCC. 0
+)CC0 1
+{DD 	
+varEE 
+
+assignmentEE 
+=EE 
+awaitEE "
+_contextEE# +
+.EE+ ,
+AssignmentsEE, 7
+.EE7 8
+	FindAsyncEE8 A
+(EEA B
+idEEB D
+)EED E
+;EEE F
+_contextFF 
+.FF 
+RemoveFF 
+(FF 
+
+assignmentFF &
+)FF& '
+;FF' (
+awaitGG 
+_contextGG 
+.GG 
+SaveChangesAsyncGG +
+(GG+ ,
+)GG, -
+;GG- .
+}HH 	
+publicJJ 
+asyncJJ 
+TaskJJ 
+<JJ 
+boolJJ 
+>JJ %
+PrioritizeAssignmentAsyncJJ  9
+(JJ9 :
+intJJ: =
+idJJ> @
+)JJ@ A
+{KK 	
+varLL 
+resultLL 
+=LL 
+_contextLL !
+.LL! "
+AssignmentsLL" -
+.LL- .
+FindLL. 2
+(LL2 3
+idLL3 5
+)LL5 6
+;LL6 7
+ifMM 
+(MM 
+resultMM 
+==MM 
+nullMM 
+)MM 
+{NN 
+returnOO 
+falseOO 
+;OO 
+}PP 
+foreachQQ 
+(QQ 
+varQQ 
+
+assignmentQQ "
+inQQ# %
+_contextQQ& .
+.QQ. /
+AssignmentsQQ/ :
+.QQ: ;
+WhereQQ; @
+(QQ@ A
+
+assignmentQQA K
+=>QQL N
+
+assignmentQQO Y
+.QQY Z
+UserIdQQZ `
+==QQa c
+resultQQd j
+.QQj k
+UserIdQQk q
+)QQq r
+)QQr s
+{RR 
+
+assignmentSS 
+.SS 
+StatusSS !
+=SS" #
+$numSS$ %
+;SS% &
+}TT 
+resultUU 
+.UU 
+StatusUU 
+=UU 
+$numUU 
+;UU 
+awaitVV 
+_contextVV 
+.VV 
+SaveChangesAsyncVV +
+(VV+ ,
+)VV, -
+;VV- .
+returnWW 
+trueWW 
+;WW 
+}XX 	
+}YY 
+}ZZ è
+èC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Repositories\IAssignmentsRepository.cs
+	namespace 	'
+StaffManagementMicroservice
+ %
+.% &
+Repositories& 2
+{ 
+public 
+
+	interface "
+IAssignmentsRepository +
+{		 
+Task
+
+ 
+<
+
+ 
+IEnumerable
+
+ 
+<
+
+ 
+
+Assignment
+
+ #
+>
+
+# $
+>
+
+$ %
+GetAssignmentsAsync
+
+& 9
+(
+
+9 :
+)
+
+: ;
+;
+
+; <
+Task 
+< 
+
+Assignment 
+> 
+GetAssignmentAsync +
+(+ ,
+int, /
+id0 2
+)2 3
+;3 4
+Task 
+< 
+int 
+> 
+PostAssignmentAsync %
+(% &
+PostAssignmentDto& 7
+postAssignmentDto8 I
+,I J
+intK N
+userIdO U
+)U V
+;V W
+Task 
+< 
+IEnumerable 
+< 
+
+Assignment #
+># $
+>$ %'
+GetAssignmentsByUserIdAsync& A
+(A B
+intB E
+userIdF L
+)L M
+;M N
+Task 
+< 
+bool 
+> %
+PrioritizeAssignmentAsync ,
+(, -
+int- 0
+id1 3
+)3 4
+;4 5
+Task 
+< 
+bool 
+> 
+UpdateAsync 
+( 
+int "
+status# )
+,) *
+int+ .
+id/ 1
+)1 2
+;2 3
+Task 
+DeleteByIdAsync 
+( 
+int  
+id! #
+)# $
+;$ %
+} 
+} ’"
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\StaffManagementMicroservice\StaffManagementMicroservice\Startup.cs
 	namespace
 

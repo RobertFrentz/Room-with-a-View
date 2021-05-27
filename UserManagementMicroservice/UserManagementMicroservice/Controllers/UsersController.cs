@@ -112,7 +112,7 @@ namespace UserManagementMicroservice.Controllers
 
         [Route("user")]
         [HttpGet]
-        public async Task<IActionResult> GetByIdAsync([FromHeader] string authorizationToken)
+        public async Task<IActionResult> GetByUserTokenAsync([FromHeader] string authorizationToken)
         {
             var result = CheckAuth(authorizationToken) as ObjectResult;
             if(result is UnauthorizedObjectResult)

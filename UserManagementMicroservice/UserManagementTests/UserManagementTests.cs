@@ -52,6 +52,140 @@ namespace UserManagementTests
             var result = await usersController.GetAllAsync(jwt);
             Assert.IsType<UnauthorizedObjectResult>(result);
         }
+        [Theory]
+        [InlineData(4)]
+        public async Task GetExistingUserById_ReturnNotFoundObjectResultAsync(int id)
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserSpecifiedByIdDatabaseNotFound")
+                              .Options;
+            var context = new DataContext(options);
+            context.Add(GetTestUser(1));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetById(id) as ObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async Task GetExistingUserById_ReturnOkObjectResultAsync(int id)
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserSpecifiedByIdDatabaseOk")
+                              .Options;
+            var context = new DataContext(options);
+            context.Add(GetTestUser(1));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetById(id) as ObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Theory]
+        [InlineData("gdxbfsbz")]
+        public async Task GetExistingUserIdByName_ReturnNotFoundObjectResultAsync(string name)
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserIdByNameDatabaseNotFound")
+                              .Options;
+            var context = new DataContext(options);
+            context.Add(GetTestUser(1));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetUserIdByNameAsync(name) as ObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Theory]
+        [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLc")]
+        public async Task GetStaffMembersAsync_NoAuthorization_ReturnUnauthorizedObjectResult(string authorizationToken)
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetStaffMembersDatabaseNoAtuhorization")
+                              .Options;
+            var context = new DataContext(options);
+            context.Add(GetTestUser(3));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetStaffMembersAsync(authorizationToken) as ObjectResult;
+
+            Assert.IsType<UnauthorizedObjectResult>(result);
+
+        }
+        [Fact]
+        public async Task GetStaffMembersAsync_NoAdminPriviliges_ReturnUnauthorizedObjectResult()
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserIdByNameDatabaseNoAdminPriviliges")
+                              .Options;
+            var context = new DataContext(options);
+
+            var authToken = Jwt.CreateJWT(GetTestUser(1).Id, 1);
+
+            context.Add(GetTestUser(3));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetStaffMembersAsync(authToken) as ObjectResult;
+
+            Assert.IsType<UnauthorizedObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task GetStaffMembersAsync_ReturnOkObjectResult()
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserIdByNameDatabaseOk")
+                              .Options;
+            var context = new DataContext(options);
+
+            var authToken = Jwt.CreateJWT(GetTestUser(2).Id, 1);
+
+            context.Add(GetTestUser(2));
+            context.Add(GetTestUser(3));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetStaffMembersAsync(authToken) as ObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+
+        }
+        
+
+
+        [Theory]
+        [InlineData("Test One")]
+        public async Task GetExistingUserIdByName_ReturnOkObjectResultAsync(string name)
+        {
+            var options = new DbContextOptionsBuilder<DataContext>()
+                              .UseInMemoryDatabase(databaseName: "GetUserIdByNameDatabaseOk")
+                              .Options;
+            var context = new DataContext(options);
+            context.Add(GetTestUser(1));
+            context.SaveChanges();
+
+            UsersController usersController = new(new UsersRepository(context));
+
+            var result = await usersController.GetUserIdByNameAsync(name) as ObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+        }
 
         [Theory]
         [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLc")]
@@ -111,7 +245,7 @@ namespace UserManagementTests
         }
         [Theory]
         [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLa")]
-        public async Task GetExistingUserById_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
+        public async Task GetExistingUserByToken_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "GetUserSpecifiedDatabaseUnauthorized")
@@ -122,12 +256,12 @@ namespace UserManagementTests
 
             UsersController usersController = new(new UsersRepository(context));
 
-            var result = await usersController.GetByIdAsync(authorizationToken) as ObjectResult;
+            var result = await usersController.GetByUserTokenAsync(authorizationToken) as ObjectResult;
 
             Assert.IsType<UnauthorizedObjectResult>(result);
         }
         [Fact]
-        public async Task GetExistingUserById_ReturnASpecifiedUserByIdAsync()
+        public async Task GetExistingUserByToken_ReturnASpecifiedUserByIdAsync()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                               .UseInMemoryDatabase(databaseName: "GetUserSpecifiedDatabase")
@@ -139,7 +273,7 @@ namespace UserManagementTests
 
             UsersController usersController = new(new UsersRepository(context));
 
-            var result = await usersController.GetByIdAsync(jwt) as OkObjectResult;
+            var result = await usersController.GetByUserTokenAsync(jwt) as OkObjectResult;
             var user1 = result.Value as User;
 
             Assert.Equal(GetTestUser(1).Id, user1.Id);
@@ -157,7 +291,7 @@ namespace UserManagementTests
 
             UsersController usersController = new(new UsersRepository(context));
 
-            var result = await usersController.GetByIdAsync(authorizationToken) as ObjectResult;
+            var result = await usersController.GetByUserTokenAsync(authorizationToken) as ObjectResult;
 
             Assert.IsType<UnauthorizedObjectResult>(result);
         }
@@ -475,7 +609,7 @@ namespace UserManagementTests
             context.Add(GetTestUser(1));
             context.SaveChanges();
             await usersController.DeleteAsync(jwt);
-            var user = await usersController.GetByIdAsync(jwt);
+            var user = await usersController.GetByUserTokenAsync(jwt);
             Assert.IsType<OkObjectResult>(user);
         }
     }

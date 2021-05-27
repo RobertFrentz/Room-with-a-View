@@ -3,7 +3,7 @@
   <Settings>
     <Setting>
       <Key>sonar.cs.opencover.reportsPaths</Key>
-      <Value>C:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorAppTests\BlazorAppTests\TestResults\*\coverage.opencover.xml</Value>
+      <Value>C:\Users\alexg\Documents\GitHub\Room-with-a-View\BlazorApp\BlazorAppTests\TestResults\*\coverage.opencover.xml</Value>
     </Setting>
     <Setting>
       <Key>sonar.cs.ignoreHeaderComments</Key>

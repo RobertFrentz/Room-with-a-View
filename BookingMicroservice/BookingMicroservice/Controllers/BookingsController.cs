@@ -1,4 +1,4 @@
-﻿using BookingMicroservice.Data;
+﻿using BookingMicroservice.Repositories;
 using BookingMicroservice.DTOs;
 using BookingMicroservice.Utils;
 using Microsoft.AspNetCore.Mvc;

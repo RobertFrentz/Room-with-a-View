@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace StaffManagementMicroservice.Data.Migrations
+namespace StaffManagementMicroservice.Repositories.Migrations
 {
     public partial class InitialCreate : Migration
     {

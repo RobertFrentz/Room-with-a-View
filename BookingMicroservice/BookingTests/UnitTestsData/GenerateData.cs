@@ -1,4 +1,4 @@
-﻿using BookingMicroservice.Data;
+﻿using BookingMicroservice.Repositories;
 using BookingMicroservice.Entities;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
