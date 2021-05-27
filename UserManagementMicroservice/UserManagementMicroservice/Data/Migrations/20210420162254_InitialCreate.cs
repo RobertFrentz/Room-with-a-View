@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace UserManagementMicroservice.Data.Migrations
+namespace UserManagementMicroservice.Repositories.Migrations
 {
     public partial class InitialCreate : Migration
     {

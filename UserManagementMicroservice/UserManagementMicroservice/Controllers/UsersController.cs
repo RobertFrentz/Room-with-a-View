@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using UserManagementMicroservice.Data;
+using UserManagementMicroservice.Repositories;
 using UserManagementMicroservice.DTOs;
 using UserManagementMicroservice.Utils;
 

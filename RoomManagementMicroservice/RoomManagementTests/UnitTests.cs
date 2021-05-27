@@ -5,6 +5,7 @@ using RoomManagementMicroservice.Controllers;
 using RoomManagementMicroservice.Data;
 using RoomManagementMicroservice.DTOs;
 using RoomManagementMicroservice.Repositories;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace RoomManagementTests
@@ -14,7 +15,7 @@ namespace RoomManagementTests
 
         readonly string AdminJWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XL0";
         [Fact]
-        public async void GetAllRooms_ReturnOkObjectResultAsync()
+        public async Task   GetAllRooms_ReturnOkObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -32,7 +33,7 @@ namespace RoomManagementTests
         }
 
         [Fact]
-        public async void GetAllRooms_ReturnNotFoundObjectResultAsync()
+        public async Task GetAllRooms_ReturnNotFoundObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -52,7 +53,7 @@ namespace RoomManagementTests
         }
         [Theory]
         [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLa")]
-        public async void VerifyAuthorizationForRoomActions_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
+        public async Task VerifyAuthorizationForRoomActions_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
         {
             //Arrange
             RoomsController roomsController = new();
@@ -65,7 +66,7 @@ namespace RoomManagementTests
         }
 
         [Fact]
-        public async void VerifyAuthorizationForRoomActions_ReturnOkObjectResultAsync()
+        public async Task VerifyAuthorizationForRoomActions_ReturnOkObjectResultAsync()
         {
             //Arrange
             RoomsController roomsController = new();
@@ -81,7 +82,7 @@ namespace RoomManagementTests
         
 
         [Fact]
-        public async void GetRoomsByNumber_TheRoomWithGivenRoomNumberDoesNotExist_ReturnNotFoundObjectResultAsync()
+        public async Task GetRoomsByNumber_TheRoomWithGivenRoomNumberDoesNotExist_ReturnNotFoundObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -99,7 +100,7 @@ namespace RoomManagementTests
         }
 
         [Fact]
-        public async void GetRoomsByNumber_TheRoomWithGivenRoomNumberExists_ReturnOkObjectResultAsync()
+        public async Task GetRoomsByNumber_TheRoomWithGivenRoomNumberExists_ReturnOkObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -118,7 +119,7 @@ namespace RoomManagementTests
 
         [Theory]
         [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLa")]
-        public async void PostRoom_AddSpecificRoom_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
+        public async Task PostRoom_AddSpecificRoom_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -142,7 +143,7 @@ namespace RoomManagementTests
             Assert.IsType<UnauthorizedObjectResult>(result);
         }
         [Fact]
-        public async void PostRoom_AddSpecificRoom_WithAuthorization_ReturnCreatedAtActionResultAsync()
+        public async Task PostRoom_AddSpecificRoom_WithAuthorization_ReturnCreatedAtActionResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -168,7 +169,7 @@ namespace RoomManagementTests
 
         [Theory]
         [InlineData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjMyOTEwNDYsInVzZXJJZCI6MTV9.7_eU9SCtQ-CtzGxYG38HrgJkOWLB5IMWkIfuMfh9XLa")]
-        public async void UpdateRoom_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
+        public async Task UpdateRoom_NoAuthorization_ReturnUnauthorizedObjectResultAsync(string authorizationToken)
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -194,7 +195,7 @@ namespace RoomManagementTests
         }
 
         [Fact]
-        public async void UpdateRoom_TheRoomWithGivenRoomNumberDoesNotExist_ReturnNotFoundObjectResultAsync()
+        public async Task UpdateRoom_TheRoomWithGivenRoomNumberDoesNotExist_ReturnNotFoundObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
@@ -219,7 +220,7 @@ namespace RoomManagementTests
             Assert.IsType<NotFoundObjectResult>(result);
         }
         [Fact]
-        public async void UpdateRoom_TheRoomWithGivenRoomNumberIsUpdated_ReturnNoContentObjectResultAsync()
+        public async Task UpdateRoom_TheRoomWithGivenRoomNumberIsUpdated_ReturnNoContentObjectResultAsync()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()

@@ -2,7 +2,6 @@
 {
     public class PatchRoomDto
     {
-        //public int RoomNumber { get; set; }
         public int PersonsNumber { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }

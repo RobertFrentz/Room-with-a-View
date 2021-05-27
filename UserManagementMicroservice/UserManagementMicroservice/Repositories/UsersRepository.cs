@@ -7,7 +7,7 @@ using UserManagementMicroservice.DTOs;
 using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
 
-namespace UserManagementMicroservice.Data
+namespace UserManagementMicroservice.Repositories
 {
     public class UsersRepository : IUsersRepository
     {

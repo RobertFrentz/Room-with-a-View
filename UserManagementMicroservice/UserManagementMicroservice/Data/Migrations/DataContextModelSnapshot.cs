@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UserManagementMicroservice.Data;
+using UserManagementMicroservice.Repositories;
 
-namespace UserManagementMicroservice.Data.Migrations
+namespace UserManagementMicroservice.Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot

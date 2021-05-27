@@ -1,117 +1,145 @@
-ª
+õ
 zC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Controllers\BookingsController.cs
 
- #`
-- 8 ,,! ,;;! ,HH *ee! ,
-ãã *
-¢¢ *
-øø$ /¶
-$ * !! "". 4''0 644 55. 4BB CC. 4__* 0ww xx. 4~~+ 1
-õõ 
-úú. 4
-∂∂+ 1H
-  >""> \''@ ^55> \CC> \xx> \
-úú> \*
-  >__@ ^~~; Y
-∂∂; Y
+ #l
+- 8 ..! ,==! ,JJ *gg! ,
+õõ *
+≤≤ *
+œœ$ /
+ŸŸ )®
+$ * ## $$. 4))0 666 77. 4DD EE. 4aa* 0yy zz. 4
+ÄÄ+ 1
+´´ 
+¨¨. 4
+∆∆+ 1H
+  >$$> \))@ ^77> \EE> \zz> \
+¨¨> \,
+  >aa@ ^
+ÄÄ; Y
+∆∆; Y
 
- !
-6 @ $
+ !
+6 @ $
 
-) 4
-I [!!C U*
-"" %## %%%$ 9
-''Ä ï
-'' '(( '**$ ;
-,, -- 
+!!) 4
+!!I [##C U*
+$$ %%% %''$ 9
+))Ä ï
+)) '** ',,$ ;
+.. // 
 
-22) A
-22V h44C U(
-55 %66 %88$ 9::/ D
-:: ;;F L
-;; << 
+44) A
+44V h66C U(
+77 %88 %::$ 9<</ D
+<< ==F L
+== >> 
 
-@@) <
-@@A CHH? AKK= ?
-@@Y kBBC U
-CC %DD %FF$ 9P
-HH II OO PP #QQ  RR !SS !TT 
+BB) <
+BBA CJJ? AMM= ?
+BBY kDDC U
+EE %FF %HH$ 9P
+JJ KK QQ RR #SS  TT !UU !VV 
 
-YY) B(
-YY] j[[, 9[[C PeeG T
-__ !`` !bbj {
-bb* /cc eeV [
-ee ff ll  &
+[[) B(
+[[] j]], 9]]C PggG T
+aa !bb !ddj {
+dd* /ee ggV [
+gg hh nn  &
 
-uu) 8P
-uuS ^~~` k
-ÇÇE P
-áá, 7
-ááA L
-ãã; F
-ïï1 <
-	uut ÜwwC U(
-xx %yy %{{$ 9}}/ D
-}} 
-ããH N.
-~~ "
+ww) 8j
+wwS ^
+ÄÄ` k
+ÑÑE P
+ââ, 7
+ââA L
+êê 
+ìì 
+õõ; F
+••1 <
+	wwt ÜyyC U(
+zz %{{ %}}$ 9/ D
+ 
+õõH N0
+
 ÄÄ "
-ÑÑ 0
-ÖÖ) ;"
- 
-ÖÖ 
-ããP U$
+ÇÇ "
+ÜÜ 0
+áá) ;$
 
-ãã 
-åå 
-êê 
+ÅÅ 
+áá 
+õõP U$
 
-ôô) ;<
+éé 
+èè 
+íí !$
 
-ôôW c
-¢¢> J
-££, 8
-££B N
-©©= I
-ôôy ã
-õõC U0
+íí 
+ïï %
+ññ $
 
-úú %
-ùù %
-üü$ 9
-°°/ D
+õõ 
+úú 
+†† 
 
-°° 
-¢¢L R$
+©©) ;<
 
-¢¢ 
-ßß 
-´´ 
+©©W c
+≤≤> J
+≥≥, 8
+≥≥B N
+ππ= I
+©©y ã
+´´C U0
 
-¥¥) >0
+¨¨ %
+≠≠ %
+ØØ$ 9
+±±/ D
 
-¥¥C M
-∂∂` j
-ππE O
-øøK U$
+±± 
+≤≤L R$
 
-¥¥X _
-ªª, 3
-øøW ^$
+≤≤ 
+∑∑ 
+ªª 
 
-¥¥j r
-ªª5 =
-øø` h
+ƒƒ) >0
 
-∂∂ "
-∑∑ "
+ƒƒC M
+∆∆` j
+……E O
+œœK U$
 
-øø 
-¬¬ '‡
+ƒƒX _
+ÀÀ, 3
+œœW ^$
+
+ƒƒj r
+ÀÀ5 =
+œœ` h
+
+∆∆ "
+«« "
+
+œœ 
+““ '
+
+◊◊) E
+
+◊◊J T
+ŸŸL V<
+
+ŸŸ 
+⁄⁄ 
+‹‹ 
+‡‡ 
+··  ˘
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\BookingsRepository.cs
 
- #x
+ #Ñ
 % -  ! ! '11 ';; FF NN 'TT, 4aa ||# +
+àà &
 
  !
 . 5 
@@ -172,7 +200,34 @@ sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 ÄÄ7 >
 ÄÄU \
 ÅÅ7 >
-ÅÅT [ 
+ÅÅT [
+
+ÖÖ( I
+
+ÖÖN X
+ààW a<
+
+àà 
+éé 
+êê 
+ìì 
+îî "$
+
+àà6 =
+ààA H
+ààe l&
+ààå ì
+ãã $
+åå %
+
+çç 
+çç" &<
+
+íí 
+ìì 
+ññ 
+öö 
+úú  
 lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\DataContext.cs
 
  
@@ -183,7 +238,7 @@ lC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
  &
 
   /
-= I Á
+= I ˇ
 tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\IBookingsRepository.cs
 
 
@@ -225,7 +280,11 @@ tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 
 H O
 
-[ cŸ
+[ c
+
+ <
+
+A KŸ
 àC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Data\Migrations\20210512081254_InitialCreate.cs
 
  &
@@ -239,7 +298,16 @@ tC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 4 59 :
 
   $
-6 F ú
+6 F ì
+mC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\DateInterval.cs
+
+ 
+
+
+
+ 
+
+  ú
 nC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\GetBookingDto.cs
 
  
@@ -271,16 +339,14 @@ pC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 
 
 
-  °
+  ï
 oC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\PostBookingDTO.cs
 
  
 
  
 
- 
-
-		  ’
+		 ’
 sC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\DTOs\RoomDescriptionDTO.cs
 
  #
@@ -348,7 +414,7 @@ cC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 cC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Startup.cs
 
  
- 0$$" :== 0
+ 0$$" :>> 0
 
  
 & 3 )
@@ -363,10 +429,10 @@ cC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMic
 --# $// 
 
 44 P
-442 588 99 :: == ?? AA CC 
+442 599 :: ;; >> @@ BB DD 
 44K N66 
-::! "::& '
-CC &EE ≠
+;;! ";;& '
+DD &FF ≠
 gC:\Users\alexg\Documents\GitHub\Room-with-a-View\BookingMicroservice\BookingMicroservice\Utils\Error.cs
 
  

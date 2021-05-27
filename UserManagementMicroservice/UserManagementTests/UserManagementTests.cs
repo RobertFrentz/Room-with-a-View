@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using UserManagementMicroservice.Data;
+using UserManagementMicroservice.Repositories;
 using UserManagementMicroservice.Entities;
 using UserManagementMicroservice.Utils;
 using System.Threading.Tasks;

@@ -102,7 +102,7 @@
     <Property Name="sonaranalyzer-vbnet.pluginKey">vbnet</Property>
     <Property Name="sonar.updatecenter.url">https://update.sonarsource.org/update-center.properties</Property>
     <Property Name="sonar.core.id">BF41A1F2-AXllazL1Nu7lMPgCjwzT</Property>
-    <Property Name="sonar.core.startTime">26.05.2021 19:45:04</Property>
+    <Property Name="sonar.core.startTime">26.05.2021 21:54:24</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.cs.opencover.reportsPaths">C:\Users\alexg\Documents\GitHub\Room-with-a-View\RoomManagementMicroservice\RoomManagementTests\TestResults\*\coverage.opencover.xml</Property>

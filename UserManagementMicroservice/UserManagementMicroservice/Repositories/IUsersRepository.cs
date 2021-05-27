@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UserManagementMicroservice.DTOs;
 using UserManagementMicroservice.Entities;
 
-namespace UserManagementMicroservice.Data
+namespace UserManagementMicroservice.Repositories
 {
 
     public interface IUsersRepository

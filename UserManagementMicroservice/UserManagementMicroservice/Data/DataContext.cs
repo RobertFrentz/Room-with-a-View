@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using UserManagementMicroservice.Entities;
 
-namespace UserManagementMicroservice.Data
+namespace UserManagementMicroservice.Repositories
 {
     public class DataContext : DbContext
     {
