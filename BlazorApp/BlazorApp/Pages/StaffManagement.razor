@@ -19,9 +19,9 @@
                 <div class="col-sm-10 p-3">
                     <table class="table table-striped mb-0">
                         <tbody>
-                            <tr>
-                                <th scope="row">Staff Member:</th>
-                                <td>
+                            <tr class="row">
+                                <th class="col-3" scope="row">Staff Member:</th>
+                                <td class="col-9">
                                     <select class="form-control" @bind="_currentStaffMemberId">
                                         <option value="-1" selected>Choose Staff Member</option>
                                         @for (int i = 0; i < staffMembers.Count; i++)
@@ -33,9 +33,9 @@
                             </tr>
                             @if (assignments != null && currentStaffMemberId != -1)
                             {
-                                <tr>
-                                    <th scope="row">Tasks:</th>
-                                    <td class="d-inline-block" style="min-height: 150px;">
+                                <tr class="row">
+                                    <th class="col-3" scope="row">Tasks:</th>
+                                    <td class="col-9 d-inline-block" style="min-height: 150px;">
                                         <ul class="pl-4">
                                             @for (int i = 0; i < assignments.Count; i++)
                                             {
@@ -44,16 +44,16 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Current Task:</th>
+                                <tr class="row">
+                                    <th class="col-3" scope="row">Current Task:</th>
                                     @if (currentAssignmentIndex != -1)
                                     {
-                                        <td>Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type - Obs: @assignments[currentAssignmentIndex].Observations</td>
+                                        <td class="col-9">Room @assignments[currentAssignmentIndex].RoomNumber: @assignments[currentAssignmentIndex].Type - Obs: @assignments[currentAssignmentIndex].Observations</td>
                                     }
                                 </tr>
-                                <tr>
-                                    <th scope="row">Prioritize task:</th>
-                                    <td>
+                                <tr class="row">
+                                    <th class="col-3" scope="row">Prioritize task:</th>
+                                    <td class="col-9">
                                         <select class="form-control" @bind="_currentAssignmentId">
                                             <option value="-1" selected>Choose</option>
                                             @for (int i = 0; i < assignments.Count; i++)
@@ -63,9 +63,9 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Add task:</th>
-                                    <td>
+                                <tr class="row">
+                                    <th class="col-3" scope="row">Add task:</th>
+                                    <td class="col-9">
                                         <div class="form-row mb-3">
                                             <div class="col">
                                                 <select class="form-control" @bind="addAssignmentRoomNumber">
@@ -99,9 +99,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Remove task:</th>
-                                    <td>
+                                <tr class="row">
+                                    <th class="col-3" scope="row">Remove task:</th>
+                                    <td class="col-9">
                                         <div class="form-row mb-3">
                                             <div class="col">
                                                 <select class="form-control" @bind="removeAssignmentId">
@@ -146,7 +146,10 @@
         {
             currentStaffMemberId = value;
             Console.WriteLine($"currentStaffMemberId: {currentStaffMemberId}");
-            GetAssignmentsForCurrentStaffMember();
+            if (currentStaffMemberId != -1)
+            {
+                GetAssignmentsForCurrentStaffMember();
+            }
         }
     }
     public int currentAssignmentId = -1;
@@ -202,7 +205,7 @@
         var httpResponse = await HttpClient.SendAsync(getRequest);
         assignments = await httpResponse.Content.ReadFromJsonAsync<List<Assignment>>();
 
-        FindAndSetCurrentTask(); // find which assignment is currently prioritized
+        await FindAndSetCurrentTask(); // find which assignment is currently prioritized
         StateHasChanged(); // force display assignments
     }
 
