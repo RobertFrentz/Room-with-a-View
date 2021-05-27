@@ -203,8 +203,15 @@
         get { return checkInDate; }
         set
         {
-            checkInDate = value;
-            ComputeEstimations();
+            if (value < checkOutDate)
+            {
+                checkInDate = value;
+                ComputeEstimations();
+            }
+            else
+            {
+                Console.WriteLine("Invalid checkIn: checkInDate > checkOutDate");
+            }
         }
     }
     public DateTime _checkOutDate
@@ -212,8 +219,15 @@
         get { return checkOutDate; }
         set
         {
-            checkOutDate = value;
-            ComputeEstimations();
+            if (checkInDate < value)
+            {
+                checkOutDate = value;
+                ComputeEstimations();
+            }
+            else
+            {
+                Console.WriteLine("Invalid checkOut: checkInDate > checkOutDate");
+            }
         }
     }
     bool userIsLoggedIn = false;
