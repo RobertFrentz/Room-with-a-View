@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Primitives;
 using System;
+using System.Security.Cryptography;
 using UserManagementMicroservice.Entities;
 
 namespace UserManagementMicroservice.Utils
@@ -12,13 +14,13 @@ namespace UserManagementMicroservice.Utils
         private const string Key = "GigelSiMirelAuFostLaPescuit";
         public static User SecureUserData(User user)
         {
-            User userHashed = new(user.Username, HashString(user.Email), HashString(user.Password), user.Role);
+            User userHashed = new(user.Username, Encrypt(user.Email), HashString(user.Password), user.Role);
             return userHashed;
         }
 
         public static string HashString(string plaintext)
         {
-            if(plaintext == null)
+            if (plaintext == null)
             {
                 return null;
             }
@@ -39,7 +41,16 @@ namespace UserManagementMicroservice.Utils
         public static string Decrypt(string cipherText)
         {
             var protector = _dataProtectionProvider.CreateProtector(Key);
-            return protector.Unprotect(cipherText);
+            string plaintext = null;
+            try
+            {
+                plaintext = protector.Unprotect(cipherText);
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e);
+            }
+            return plaintext;
         }
     }
 }

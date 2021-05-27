@@ -20,16 +20,19 @@ namespace UserManagementMicroservice.Repositories
 
         public async Task<int> RegisterAsync(UserRegisterDto userRegister, int role)
         {
-            if(this.context.Users.Any(user => user.Username == userRegister.Username))
+            var users = await this.context.Users.ToListAsync();
+            foreach (User el in users)
             {
-                return -1;
+                if (Cryptography.Decrypt(el.Email) == userRegister.Email || el.Email == Cryptography.HashString(userRegister.Email))
+                {
+                    return -2;
+                }
+                if (el.Username == userRegister.Username)
+                {
+                    return -2;
+                }
             }
-
-            if(this.context.Users.Any(user => user.Email == Cryptography.HashString(userRegister.Email)))
-            {
-                return -2;
-            }
-            User registerUser= new (userRegister.Username, userRegister.Email, userRegister.Password, role);
+            User registerUser = new(userRegister.Username, userRegister.Email, userRegister.Password, role);
             var user = this.context.Add(Cryptography.SecureUserData(registerUser));
             await this.context.SaveChangesAsync();
             return user.Entity.Id;
@@ -37,11 +40,17 @@ namespace UserManagementMicroservice.Repositories
 
         public async Task<User> LoginAsync(UserCredentialsDto userCredentials)
         {
-            var user = await this.context.Users.Where(user => user.Email == Cryptography.HashString(userCredentials.Email) 
-                                          && user.Password == Cryptography.HashString(userCredentials.Password)).FirstOrDefaultAsync();
-            if (user == null)
+            var users = await this.context.Users.ToListAsync();
+            User user = null;
+            foreach (User el in users)
             {
-                return null;
+                if (Cryptography.Decrypt(el.Email) == userCredentials.Email || el.Email == Cryptography.HashString(userCredentials.Email))
+                {
+                    if (el.Password == Cryptography.HashString(userCredentials.Password))
+                    {
+                        user = el;
+                    }
+                }
             }
             return user;
 
@@ -49,16 +58,22 @@ namespace UserManagementMicroservice.Repositories
 
         public async Task<bool> UpdateAsync(UserRegisterDto user, int userId)
         {
-          var result = this.context.Users.Find(userId);
-          if(result==null)
+            var result = this.context.Users.Find(userId);
+            if (result == null)
             {
                 return false;
             }
-          result.Username = user.Username ?? result.Username;
-          result.Email = Cryptography.HashString(user.Email) ?? result.Email;
-          result.Password = Cryptography.HashString(user.Password) ?? result.Password;
-          await this.context.SaveChangesAsync();
-          return true;
+            result.Username = user.Username ?? result.Username;
+            if (user.Email != null)
+            {
+                result.Email = Cryptography.Encrypt(user.Email);
+            }
+            if (user.Password != null)
+            {
+                result.Password = Cryptography.HashString(user.Password);
+            }
+            await this.context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync(int userId)
@@ -78,7 +93,14 @@ namespace UserManagementMicroservice.Repositories
             {
                 return null;
             }
-            return user;
+            return new User()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = Cryptography.Decrypt(user.Email) ?? user.Email,
+                Password = user.Password,
+                Role = user.Role
+            };
         }
 
         public async Task DeleteByIdAsync(int userId)

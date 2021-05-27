@@ -161,7 +161,12 @@ namespace BookingMicroservice.Controllers
             {
                 return BadRequest(new Error("An existing booking interferes with given CheckIn/CheckOut."));
             }
-
+            var userContent = await client.GetStringAsync(usersManagementMicroserviceUri + userId);
+            if (userContent != null)
+            {
+                UserDescription? user = JsonConvert.DeserializeObject<UserDescription>(userContent);
+                MailSystem.SendAddedBookingMail(user.Email, user.Username, postBooking.RoomNumber, postBooking.CheckIn, postBooking.CheckOut);
+            }
             return CreatedAtAction("AddBooking", postBooking);
         }
 
@@ -187,6 +192,12 @@ namespace BookingMicroservice.Controllers
             if (result == -1)
             {
                 return BadRequest(new Error("An existing booking interferes with given CheckIn/CheckOut."));
+            }
+            var userContent = await client.GetStringAsync(usersManagementMicroserviceUri + userId);
+            if (userContent != null)
+            {
+                UserDescription? user = JsonConvert.DeserializeObject<UserDescription>(userContent);
+                MailSystem.SendUpdatedBookingMail(user.Email, user.Username, patchBooking.Id, patchBooking.CheckIn, patchBooking.CheckOut);
             }
             return NoContent();
         }
