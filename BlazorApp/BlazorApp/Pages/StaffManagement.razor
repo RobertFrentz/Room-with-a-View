@@ -219,8 +219,8 @@
                 currentAssignmentId = assignments[i].Id;
                 return;
             }
-            currentAssignmentIndex = -1;
         }
+        currentAssignmentIndex = -1;
     }
 
     public async Task UpdateStaffMemberCurrentAssignment()
@@ -230,7 +230,7 @@
         patchRequest.Headers.Add("authorizationToken", token);
         var httpResponse = await HttpClient.SendAsync(patchRequest);
 
-        GetAssignmentsForCurrentStaffMember();
+        await GetAssignmentsForCurrentStaffMember();
     }
 
     public async Task GetAllHotelRooms()
@@ -266,7 +266,7 @@
         Console.WriteLine($"SubmitNewStaffAssignment jsonString: {jsonString}");
 
         // redisplay staff assignments
-        GetAssignmentsForCurrentStaffMember();
+        await GetAssignmentsForCurrentStaffMember();
 
         // cleanup
         addAssignmentRoomNumber = -1;
@@ -281,11 +281,11 @@
         deleteRequest.Headers.Add("authorizationToken", token);
         var httpResponse = await HttpClient.SendAsync(deleteRequest);
 
-        // redisplay staff assignments
-        GetAssignmentsForCurrentStaffMember();
-
         // cleanup
         removeAssignmentId = -1;
+
+        // redisplay staff assignments
+        await GetAssignmentsForCurrentStaffMember();
     }
 
     public class StaffMember
